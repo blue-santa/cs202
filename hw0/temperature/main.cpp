@@ -12,6 +12,8 @@
 #include <string>
 #include <cstdlib>
 #include <stdexcept>
+#include <stdio.h>
+#include <stdlib.h>
 
 // #include "Environment.hpp"
 // #include "Agent.hpp"
@@ -32,35 +34,71 @@ using std::atoi;
 using std::stoi;
 using std::cerr;
 
+double cpp_ftoc(const char* str) {
+    // Check for the appropriate number of command prompts
+    string userInput = str;
+    double x;
+    try {
+        char* end;
+        x = strtod(str, &end);
+        if (*end != '\0') {
+            cerr << "Trailing characters after number: " << userInput << endl;
+            exit(EXIT_FAILURE);
+        }
+    } catch (std::invalid_argument const &ex) {
+        cerr << "Invalid number: " << userInput << endl;
+        exit(EXIT_FAILURE);
+    } catch (std::out_of_range const &ex) {
+        cerr << "Number out of range: " << userInput << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if (x < -273) {
+        cout << "Please provide a temperature value higher than absolute zero." << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    x = (x - 32.00) * 5/9;
+    return x; 
+}
+
+double c_ctof(const char* str) {
+    // Check for the appropriate number of command prompts
+    string userInput = str;
+    double x;
+    try {
+        char* end;
+        x = strtod(str, &end);
+        if (*end != '\0') {
+            cerr << "Trailing characters after number: " << userInput << endl;
+            exit(EXIT_FAILURE);
+        }
+    } catch (std::invalid_argument const &ex) {
+        cerr << "Invalid number: " << userInput << endl;
+        exit(EXIT_FAILURE);
+    } catch (std::out_of_range const &ex) {
+        cerr << "Number out of range: " << userInput << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if (x < -273) {
+        cout << "Please provide a temperature value higher than absolute zero." << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    x = (x - 32.00) * 5/9;
+    return x; 
+}
+
 int main(int argc, char** argv) { 
 
     // Inform user of the nature of the software 
     clearConsole(); 
     cout << "Welcome to the temperature conversion engine" << endl; 
 
-    // Check for the appropriate number of command prompts
-    string userInput = argv[1];
-    int x;
-    try {
-        size_t pos;
-        x = stoi(userInput, &pos);
-        if (pos < userInput.size()) {
-            cerr << "Trailing characters after number: " << userInput << endl;
-            return 0;
-        }
-    } catch (std::invalid_argument const &ex) {
-        cerr << "Invalid number: " << userInput << endl;
-        return 0;
-    } catch (std::out_of_range const &ex) {
-        cerr << "Number out of range: " << userInput << endl;
-        return 0;
-    }
+    double x = c_ctof(argv[1]);
 
-    if (x < -273) {
-        cout << "Please provide a temperature value higher than absolute zero." << endl;
-    }
-
-    cout << "Works: " << x << endl;
+    cout << "Works: " << std::setprecision(4) << x << endl;
 
     return 0;
 }
