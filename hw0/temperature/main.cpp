@@ -30,8 +30,7 @@ using std::istringstream;
 using std::setw;
 using std::left;
 using std::size_t;
-using std::atoi;
-using std::stoi;
+using std::stod;
 using std::cerr;
 
 double cpp_ftoc(const char* str) {
@@ -39,9 +38,9 @@ double cpp_ftoc(const char* str) {
     string userInput = str;
     double x;
     try {
-        char* end;
-        x = strtod(str, &end);
-        if (*end != '\0') {
+        size_t pos;
+        x = stod(userInput, &pos);
+        if (pos < userInput.size()) {
             cerr << "Trailing characters after number: " << userInput << endl;
             exit(EXIT_FAILURE);
         }
@@ -97,8 +96,10 @@ int main(int argc, char** argv) {
     cout << "Welcome to the temperature conversion engine" << endl; 
 
     double x = c_ctof(argv[1]);
+    double y = cpp_ftoc(argv[1]);
 
-    cout << "Works: " << std::setprecision(4) << x << endl;
+    cout << "Using C Function: " << std::setprecision(8) << x << endl;
+    cout << "Using CPP Function: " << std::setprecision(8) << y << endl;
 
     return 0;
 }
