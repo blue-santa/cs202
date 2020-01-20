@@ -1,9 +1,9 @@
 /*
  * main.cpp
- * CS 201
- * December 6, 2019
+ * CS 202
+ * January 19, 2020
  * Bryan Beus
- * Main file for themostat main project in hw8
+ * Main file for temperature main project in hw0
  */
 
 #include <iostream>

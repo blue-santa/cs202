@@ -12,7 +12,11 @@
 #include <stddef.h>
 
 int main(int argc, char *argv[]) { 
-    char letter = 'C';
+    if (argc < 3) {
+        printf("Please provide a character as an input");
+        return 0;
+    }
+    char letter = argv[1];
     char *pLetter = NULL;
 
     printf("Value of letter: %c\n", letter);
