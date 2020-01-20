@@ -1,5 +1,11 @@
 /*
+ * main.cpp
+ * CS 201
+ * December 6, 2019
+ * Bryan Beus
+ * Main file for themostat main project in hw8
  */
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
