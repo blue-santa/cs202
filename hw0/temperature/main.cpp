@@ -104,13 +104,12 @@ double c_ctof(const char* str) {
 int main(int argc, char** argv) { 
 
     // Check for the appropriate number of command prompts
-    if (argc < 3) {
+    if (argc < 2) {
         cout << "Please provide a farenheit temperature as a double" << endl;
         exit(EXIT_FAILURE);
     }
 
     // Inform user of the nature of the software 
-    clearConsole(); 
     cout << "Welcome to the temperature conversion engine" << endl; 
 
     // Iniate values and make calls to functions
