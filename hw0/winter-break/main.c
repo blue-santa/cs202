@@ -12,11 +12,12 @@
 #include <stddef.h>
 
 int main(int argc, char *argv[]) { 
-    if (argc < 3) {
-        printf("Please provide a character as an input");
+    if (argc < 2) {
+        printf("Please provide a character as an input\n");
         return 0;
     }
-    char letter = argv[1];
+    char* command = argv[1];
+    char letter = command[0];
     char *pLetter = NULL;
 
     printf("Value of letter: %c\n", letter);
