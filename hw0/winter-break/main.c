@@ -1,9 +1,9 @@
 /*
- * main.cpp
- * CS 201
- * December 6, 2019
+ * main.c
+ * CS 202
+ * January 19, 2020
  * Bryan Beus
- * Main file for themostat main project in hw8
+ * Main file for winter-break project in hw0
  */
 
 #include <stdio.h>
