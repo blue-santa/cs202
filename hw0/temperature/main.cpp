@@ -8,32 +8,27 @@
 
 #include <iostream>
 #include <iomanip>
-#include <vector>
 #include <string>
 #include <cstdlib>
 #include <stdexcept>
 #include <stdio.h>
 #include <stdlib.h>
 
-// #include "Environment.hpp"
-// #include "Agent.hpp"
-// #include "Simulator.hpp"
 #include "Miscellaneous.hpp"
 
-using std::vector;
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
 using std::getline;
-using std::istringstream;
-using std::setw;
 using std::left;
 using std::size_t;
 using std::stod;
 using std::cerr;
 
+// C++ Function to convert command line input from farenheit to celsius
 double cpp_ftoc(const char* str) {
+
     // Check for the appropriate number of command prompts
     string userInput = str;
     double x;
@@ -62,7 +57,6 @@ double cpp_ftoc(const char* str) {
 }
 
 double c_ctof(const char* str) {
-    // Check for the appropriate number of command prompts
     string userInput = str;
     double x;
     try {
@@ -90,6 +84,12 @@ double c_ctof(const char* str) {
 }
 
 int main(int argc, char** argv) { 
+
+    // Check for the appropriate number of command prompts
+    if (argc < 3) {
+        cout << "Please provide a farenheit temperature as a double" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     // Inform user of the nature of the software 
     clearConsole(); 
