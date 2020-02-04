@@ -38,12 +38,57 @@ MyClass::MyClass(const int &subX, const int &subY):
     _y(subY) 
 {}
 
-int MyClass::getX() {
+int MyClass::getX() const {
     return _x;
 }
 
-int MyClass::getY() {
+int MyClass::getY() const {
     return _y;
 }
 
+void MyClass::setX(int newX) {
+    _x = newX;
+}
+
+void MyClass::setY(int newY) {
+    _y = newY;
+}
+
 MyClass::~MyClass() {};
+
+void passByValue(MyClass obj) {
+
+    cout << "passByValue: " <<  obj.getX() << " " << obj.getY() << endl;
+}
+
+void passByReference(MyClass &obj) {
+
+    obj.setX(42);
+    obj.setY(53);
+
+    cout << "passByReference: " <<  obj.getX() << " " << obj.getY() << endl;
+
+}
+
+void passByRefToConst(const MyClass &obj) {
+
+    cout << "passByValue: " <<  obj.getX() << " " << obj.getY() << endl; 
+
+}
+
+MyClass returnNewObj() { 
+    MyClass obj;
+    return obj; 
+}
+
+vector<MyClass> myVec() {
+
+    MyClass obj;
+
+    vector<MyClass> myVec (5, obj);
+
+    return myVec;
+
+}
+
+

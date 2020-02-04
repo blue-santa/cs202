@@ -40,6 +40,22 @@ int main(int argc, char** argv) {
 
     cout << obj3.getX() << " " << obj.getY() << endl;
 
+    passByValue(obj3);
+    passByReference(obj3);
+    passByRefToConst(obj3);
+
+    MyClass obj4 = returnNewObj();
+
+    vector<MyClass> aVec = myVec();
+
+    cout << "Vector: " << endl;
+
+    for (auto i: aVec) {
+        cout << i.getX() << " " << i.getY() << endl;
+    }
+    
+    vector<MyClass> myVec(); 
+
     return 0;
 }
 

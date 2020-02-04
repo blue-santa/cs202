@@ -36,9 +36,21 @@ class MyClass {
 
         ~MyClass();
 
-        int getX();
-        int getY();
+        int getX() const;
+        int getY() const;
+
+        void setX(int newX);
+        void setY(int newY);
 
 };
 
+void passByValue(MyClass obj);
+void passByReference(MyClass &obj);
+void passByRefToConst(const MyClass &obj);
+
+MyClass returnNewObj();
+
+vector<MyClass> myVec();
+
 #endif
+
