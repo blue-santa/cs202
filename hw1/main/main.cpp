@@ -27,30 +27,40 @@ using std::round;
 class StopWatch {
 
     private:
-        std::time_t _start_time;
-        std::time_t _finish_time;
+        std::time_t _start_time = (time_t)(-1);
+        std::time_t _finish_time = (time_t)(-1);
+        int iter = 0;
 
     public:
 
         StopWatch() { 
-            startClock();
-            captureFinishTime();
+            this->startClock();
         };
 
         void startClock() {
-            auto s = std::chrono::system_clock::now(); 
-            _start_time = std::chrono::system_clock::to_time_t(s);
+            auto s = std::chrono::high_resolution_clock::now(); 
+            _start_time = std::chrono::high_resolution_clock::to_time_t(s);
         }
         
         void captureFinishTime() {
-            auto f = std::chrono::system_clock::now(); 
-            _finish_time = std::chrono::system_clock::to_time_t(f);
+            auto f = std::chrono::high_resolution_clock::now(); 
+            _finish_time = std::chrono::high_resolution_clock::to_time_t(f);
+            this->reportRawTimes();
         }
 
         double reportFinishTime() {
-            double _dur = difftime(_start_time, _finish_time);
-            return _dur;
+            this->reportRawTimes();
+            double _val = difftime(_finish_time, _start_time);
+            cout << "difftime: " << _val << endl;
+            this->reportRawTimes();
+            return _val;
         } 
+
+        void reportRawTimes() { 
+            cout << "_start_time: " << _start_time << " _finish_time: " << _finish_time << endl;
+            ++iter;
+            cout << "iter: " << iter << endl;
+        }
 };
 
 vector<int> calcObj(const int iteration_number, std::mt19937 &e1) {
@@ -67,7 +77,7 @@ vector<int> calcObj(const int iteration_number, std::mt19937 &e1) {
 
 }
 
-vector<StopWatch> calcTime(const vector<int> calcObj, const vector<int> seedObj) {
+vector<StopWatch> calcTime(const vector<int> calcObj, const vector<int> searchObj) {
 
     // Create vector to hold results
     vector<StopWatch> tests;
@@ -78,12 +88,13 @@ vector<StopWatch> calcTime(const vector<int> calcObj, const vector<int> seedObj)
     // Search method tests 
     for (int i = 0; i < 5; i++) {
         // Declare and initiate StopWatch variables for search method
-        vector<int>::iterator it; 
+        vector<int>::const_iterator it; 
         StopWatch test; 
         it = std::search(calcObj.begin(), calcObj.end(), searchObj.begin(), searchObj.end()); 
         test.captureFinishTime(); 
         tests.push_back(test); 
         cout << "Completed Search method test (" << i << ") with a final time of: " << test.reportFinishTime() << endl;
+        test.reportRawTimes();
     }
 
     return tests; 
