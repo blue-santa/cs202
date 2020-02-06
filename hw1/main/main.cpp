@@ -49,31 +49,34 @@ int main()
     vector<int> searchObj = calcObj(1, e1);
 
     // Perform each round
-    int i = 1;
-
-    while(i < num_lists + 1) {
+    for(int i = 1; i < num_lists + 1; i++) {
         
+        // Create an object of random numbers
         vector<int> objList = calcObj(pow(10, i), e1);
 
-        cout << "objList " << i << " created" << endl;
-        
+        // Create a StopWatch vector to hold current results
         vector<StopWatch> current_result = calcTime(objList, searchObj);
 
+        // Add current result to total list of results
         results.push_back(current_result);
-
-        i++;
 
     }
 
     clearConsole();
 
+    // Create marker to print and indicate the size of the object list that is associated with printed data
     double curr_counter = 10.0;
+
+    // Iterator through each of the result vectors
     for (auto i: results) {
 
+        // Within each result vector, call printNextFive() to print out individual data values
         for (int j = 0; j < 4; j++) {
             printNextFive(j, i, curr_counter);
         } 
         cout << endl;
+
+        // Increase marker value to next step in data-size list
         curr_counter *= 10;
 
     }
