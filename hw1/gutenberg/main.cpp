@@ -87,7 +87,6 @@ vector<StopWatch> calcTime(string &book, std::mt19937 &e1) {
         list_container.push_back(s);
 	}
     timer_for_list_load.captureFinishTime(); 
-    cout << "load: " << timer_for_list_load.reportFinishTime() << endl;
     tests.push_back(timer_for_list_load); 
 
     /****************************************
@@ -215,9 +214,9 @@ vector<StopWatch> calcTime(string &book, std::mt19937 &e1) {
     return tests; 
 }
 
-void printNextThree(int start_point, vector<StopWatch> obj, int curr_counter) { 
-    for (int i = 0; i < 9; ++i) {
-        cout << curr_counter << "," << std::fixed << std::setprecision(10) << obj[i + start_point].reportFinishTime() << "," << endl; 
+void printNextSet(vector<StopWatch> obj, int curr_counter) { 
+    for (unsigned long i = 0; i < obj.size(); ++i) {
+        cout << std::fixed << std::setprecision(10) << obj[i].reportFinishTime() << "," << endl; 
     }
     cout << endl << endl;
 }
@@ -264,16 +263,10 @@ int main()
 
     clearConsole();
 
-    double curr_counter = 0;
-    for (auto i: results) {
-        cout << book_names[curr_counter] << endl;
-        for (int j = 0; j < 5; j++) {
-            printNextThree(j, i, curr_counter);
-        } 
-        cout << endl;
-        curr_counter++;
-
-    }
+    for (unsigned long i = 0; i < results.size(); i++) {
+        cout << book_names[i] << endl;
+        printNextSet(results[i], i);
+        cout << endl; }
 
 	return 0;
 }
