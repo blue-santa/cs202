@@ -140,6 +140,12 @@ vector<StopWatch> calcTime(vector<int> calcObj, const vector<int> searchObj) {
     return tests; 
 }
 
+void printNextFive(int start_point, vector<StopWatch> obj, int curr_counter) { 
+    for (int i = 0; i < 5; ++i) {
+        cout << curr_counter << "," << std::fixed << std::setprecision(10) << obj[i + start_point].reportFinishTime() << "," << endl; 
+    }
+    cout << endl << endl;
+}
 int main()
 {
 	// Declare pseudo-random device for creating seeds
@@ -179,11 +185,15 @@ int main()
 
     clearConsole();
 
+    double curr_counter = 10.0;
     for (auto i: results) {
-        for (auto j: i) {
-            cout << std::fixed << std::setprecision(10) << j.reportFinishTime() << ",";
-        }
+
+        for (int j = 0; j < 4; j++) {
+            printNextFive(j, i, curr_counter);
+        } 
         cout << endl;
+        curr_counter *= 10;
+
     }
 
 	return 0;
