@@ -63,24 +63,40 @@ vector<int> calcObj(const int iteration_number, std::mt19937 &e1) {
     for (int i = 0; i < iteration_number; i++) {
         int val = normal_dist(e1);
         obj.push_back(val);
-    }
+    } 
 
     return obj;
 
 }
 
-vector<StopWatch> calcTime(const vector<int> calcObj, const vector<int> searchObj) {
+vector<StopWatch> calcTime(vector<int> calcObj, const vector<int> searchObj) {
 
     // Create vector to hold results
     vector<StopWatch> tests;
 
-    // Declare moment testing
+    /****************************************
+    * Begin Sort Method *********************
+    ****************************************/
+    cout << "Sort method test" << endl;
+
+    // Declare and initiate StopWatch variables for method
+    for (int i = 0; i < 5; i++) {
+        StopWatch test; 
+        std::sort(calcObj.begin(), calcObj.end()); 
+        test.captureFinishTime(); 
+        tests.push_back(test); 
+        cout << "Completed test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
+    }
+
+    /****************************************
+    * Begin Search Method *******************
+    ****************************************/
     cout << "Initiating Search method test\nSearchObj: " << searchObj[0] << endl;
 
     // Search method tests 
     for (int i = 0; i < 5; i++) {
         // Declare and initiate StopWatch variables for search method
-        vector<int>::const_iterator it; 
+        vector<int>::iterator it; 
         StopWatch test; 
         it = std::search(calcObj.begin(), calcObj.end(), searchObj.begin(), searchObj.end()); 
         test.captureFinishTime(); 
@@ -88,15 +104,33 @@ vector<StopWatch> calcTime(const vector<int> calcObj, const vector<int> searchOb
         cout << "Completed Search method test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
     }
 
-    // Declare moment testing
+    /****************************************
+    * Begin Binary Search Method ************
+    ****************************************/
     cout << "Binary Search method test" << endl;
 
     // Search method tests 
     for (int i = 0; i < 5; i++) {
-        // Declare and initiate StopWatch variables for search method
-        vector<int>::const_iterator it; 
+
+        // Declare and initiate StopWatch variables for method
         StopWatch test; 
-        it = std::search(calcObj.begin(), calcObj.end(), searchObj.begin(), searchObj.end()); 
+        std::binary_search(calcObj.begin(), calcObj.end(), searchObj[0]); 
+        test.captureFinishTime(); 
+        tests.push_back(test); 
+        cout << "Completed Binary Search method test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
+    }
+
+    /****************************************
+    * Begin Reverse Method ******************
+    ****************************************/
+    cout << "Reverse method test" << endl;
+
+    // Search method tests 
+    for (int i = 0; i < 5; i++) {
+
+        // Declare and initiate StopWatch variables for method
+        StopWatch test; 
+        std::reverse(calcObj.begin(), calcObj.end()); 
         test.captureFinishTime(); 
         tests.push_back(test); 
         cout << "Completed Search method test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
