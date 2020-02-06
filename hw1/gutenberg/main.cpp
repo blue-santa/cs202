@@ -16,7 +16,9 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
-#include <time.h>
+#include <fstream>
+#include <deque>
+#include <list>
 
 #include "Miscellaneous.hpp"
 
@@ -25,6 +27,9 @@ using std::cin;
 using std::endl;
 using std::vector;
 using std::round;
+using std::ofstream;
+using std::ifstream;
+using std::string;
 
 class StopWatch {
 
@@ -57,130 +62,199 @@ class StopWatch {
         }
 };
 
-vector<int> calcObj(const int iteration_number, std::mt19937 &e1) {
-
-    vector<int> obj;
-    std::normal_distribution<> normal_dist(1500, 500), min(1), max(9);
-
-    for (int i = 0; i < iteration_number; i++) {
-        int val = normal_dist(e1);
-        obj.push_back(val);
-    } 
-
-    return obj;
-
-}
-
-vector<StopWatch> calcTime(vector<int> calcObj, const vector<int> searchObj) {
+vector<StopWatch> calcTime(string &book, std::mt19937 &e1) {
 
     // Create vector to hold results
     vector<StopWatch> tests;
 
     /****************************************
-    * Begin Sort Method *********************
+    * Time with List Container  *************
     ****************************************/
-    cout << "Sort method test" << endl;
 
-    // Declare and initiate StopWatch variables for method
-    for (int i = 0; i < 5; i++) {
-        StopWatch test; 
-        std::sort(calcObj.begin(), calcObj.end()); 
-        test.captureFinishTime(); 
-        tests.push_back(test); 
-        cout << "Completed test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
-    }
+    // Create stream for list
+    ifstream book_container_for_list(book);
+
+	if (!book_container_for_list) {
+		cout << "Error opening file" << endl;
+		return tests;
+	}
+
+    std::list<string> list_container;
+    StopWatch timer_for_list_load; 
+	while (!book_container_for_list.eof()) {
+		string s;
+		getline(book_container_for_list, s);
+        list_container.push_back(s);
+	}
+    timer_for_list_load.captureFinishTime(); 
+    cout << "load: " << timer_for_list_load.reportFinishTime() << endl;
+    tests.push_back(timer_for_list_load); 
 
     /****************************************
-    * Begin Search Method *******************
+    * Save Random Book Location  ************
     ****************************************/
-    cout << "Initiating Search method test\nSearchObj: " << searchObj[0] << endl;
 
-    // Search method tests 
-    for (int i = 0; i < 5; i++) {
-        // Declare and initiate StopWatch variables for search method
-        vector<int>::iterator it; 
-        StopWatch test; 
-        it = std::search(calcObj.begin(), calcObj.end(), searchObj.begin(), searchObj.end()); 
-        test.captureFinishTime(); 
-        tests.push_back(test); 
-        cout << "Completed Search method test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
-    }
+    string random_str_from_list_load = "Corrected EDITIONS of our eBooks repl";
+
+    /***************************************************
+    * Find Random String in List Container  ************
+    ***************************************************/ 
+
+    StopWatch timer_for_find_random_str_in_list; 
+    std::list<std::string>::iterator it_list_container_string;
+    it_list_container_string = std::find(list_container.begin(), list_container.end(), random_str_from_list_load);
+    timer_for_find_random_str_in_list.captureFinishTime(); 
+    tests.push_back(timer_for_find_random_str_in_list); 
 
     /****************************************
-    * Begin Binary Search Method ************
-    ****************************************/
-    cout << "Binary Search method test" << endl;
+    * Sort List Container  ******************
+    ****************************************/ 
 
-    // Search method tests 
-    for (int i = 0; i < 5; i++) {
-
-        // Declare and initiate StopWatch variables for method
-        StopWatch test; 
-        std::binary_search(calcObj.begin(), calcObj.end(), searchObj[0]); 
-        test.captureFinishTime(); 
-        tests.push_back(test); 
-        cout << "Completed Binary Search method test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
-    }
+    StopWatch timer_for_sort_list; 
+    list_container.sort();
+    timer_for_sort_list.captureFinishTime(); 
+    tests.push_back(timer_for_sort_list); 
 
     /****************************************
-    * Begin Reverse Method ******************
+    * Time with Vector Container  *************
     ****************************************/
-    cout << "Reverse method test" << endl;
 
-    // Search method tests 
-    for (int i = 0; i < 5; i++) {
+    // Create stream for vector
+    ifstream book_container_for_vector(book);
 
-        // Declare and initiate StopWatch variables for method
-        StopWatch test; 
-        std::reverse(calcObj.begin(), calcObj.end()); 
-        test.captureFinishTime(); 
-        tests.push_back(test); 
-        cout << "Completed Search method test (" << i + 1 << ") with a final time of: " << test.reportFinishTime() << endl << endl;;
-    }
+	if (!book_container_for_vector) {
+		cout << "Error opening file" << endl;
+		return tests;
+	}
+
+    std::vector<string> vector_container;
+    StopWatch timer_for_vector_load; 
+	while (!book_container_for_vector.eof()) {
+		string s;
+		getline(book_container_for_vector, s);
+        vector_container.push_back(s);
+	}
+    timer_for_vector_load.captureFinishTime(); 
+    cout << "load: " << timer_for_vector_load.reportFinishTime() << endl;
+    tests.push_back(timer_for_vector_load); 
+
+    /****************************************
+    * Save Random Book Location  ************
+    ****************************************/
+
+    string random_str_from_vector_load = "Corrected EDITIONS of our eBooks repl";
+
+    /***************************************************
+    * Find Random String in Vector Container  ************
+    ***************************************************/ 
+
+    StopWatch timer_for_find_random_str_in_vector; 
+    std::vector<std::string>::iterator it_vector_container_string;
+    it_vector_container_string = std::find(vector_container.begin(), vector_container.end(), random_str_from_vector_load);
+    timer_for_find_random_str_in_vector.captureFinishTime(); 
+    tests.push_back(timer_for_find_random_str_in_vector); 
+
+    /****************************************
+    * Sort Vector Container  ******************
+    ****************************************/ 
+
+    StopWatch timer_for_sort_vector; 
+    std::sort(vector_container.begin(),vector_container.end());
+    timer_for_sort_vector.captureFinishTime(); 
+    tests.push_back(timer_for_sort_vector); 
+
+
+    /****************************************
+    * Time with Deque Container  *************
+    ****************************************/
+
+    // Create stream for deque
+    ifstream book_container_for_deque(book);
+
+	if (!book_container_for_deque) {
+		cout << "Error opening file" << endl;
+		return tests;
+	}
+
+    std::deque<string> deque_container;
+    StopWatch timer_for_deque_load; 
+	while (!book_container_for_deque.eof()) {
+		string s;
+		getline(book_container_for_deque, s);
+        deque_container.push_back(s);
+	}
+    timer_for_deque_load.captureFinishTime(); 
+    cout << "load: " << timer_for_deque_load.reportFinishTime() << endl;
+    tests.push_back(timer_for_deque_load); 
+
+    /****************************************
+    * Save Random Book Location  ************
+    ****************************************/
+
+    string random_str_from_deque_load = "Corrected EDITIONS of our eBooks repl";
+
+    /***************************************************
+    * Find Random String in Deque Container  ************
+    ***************************************************/ 
+
+    StopWatch timer_for_find_random_str_in_deque; 
+    std::deque<std::string>::iterator it_deque_container_string;
+    it_deque_container_string = std::find(deque_container.begin(), deque_container.end(), random_str_from_deque_load);
+    timer_for_find_random_str_in_deque.captureFinishTime(); 
+    tests.push_back(timer_for_find_random_str_in_deque); 
+
+    /****************************************
+    * Sort Deque Container  ******************
+    ****************************************/ 
+
+    StopWatch timer_for_sort_deque; 
+    std::sort(deque_container.begin(), deque_container.end());
+    timer_for_sort_deque.captureFinishTime(); 
+    tests.push_back(timer_for_sort_deque); 
+
     return tests; 
 }
 
-void printNextFive(int start_point, vector<StopWatch> obj, int curr_counter) { 
-    for (int i = 0; i < 5; ++i) {
+void printNextThree(int start_point, vector<StopWatch> obj, int curr_counter) { 
+    for (int i = 0; i < 9; ++i) {
         cout << curr_counter << "," << std::fixed << std::setprecision(10) << obj[i + start_point].reportFinishTime() << "," << endl; 
     }
     cout << endl << endl;
 }
+
 int main()
 {
-	// Declare pseudo-random device for creating seeds
+    /*****************************
+    *   Create a Random Device   *
+    *****************************/
 	std::random_device r;
-
-	// Create a seed sequence to feed to the generator
 	std::seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
-
-	// Declare random-number generator and provide with seedObj sequence
 	std::mt19937 e1(seedObj);
 
-    // Import each book
-    string legends_of_the_middle_ages = std::fin(legends-of-the-middle-ages.txt);
-
-    
-
-    // Declare number of times to multiply list size
-    int num_lists = 9;
+    /*********************************
+    *   Initiate Project Variables   *
+    *********************************/
 
     // Create list of results
     vector< vector<StopWatch>> results;
 
-    // Create random number that will serve as the search marker
-    vector<int> searchObj = calcObj(1, e1);
+    // Names of books
+    vector<string> book_names;
 
-    // Perform each round
-    int i = 1;
+    book_names.push_back("legends-of-the-middle-ages.txt");
+    book_names.push_back("myths-of-greece-and-rome.txt");
+    book_names.push_back("myths-of-the-norse-men.txt");
+    book_names.push_back("stories-of-the-wagner-opera.txt");
+    book_names.push_back("story-of-the-greeks.txt");
 
-    while(i < num_lists + 1) {
+    // To track number of books scanned
+    unsigned long i = 0;
+
+    while(i < book_names.size()) {
         
-        vector<int> objList = calcObj(pow(10, i), e1);
-
-        cout << "objList " << i << " created" << endl;
+        cout << "Proceeding to book:  " << book_names[i] << endl;
         
-        vector<StopWatch> current_result = calcTime(objList, searchObj);
+        vector<StopWatch> current_result = calcTime(book_names[i], e1);
 
         results.push_back(current_result);
 
@@ -190,62 +264,17 @@ int main()
 
     clearConsole();
 
-    double curr_counter = 10.0;
+    double curr_counter = 0;
     for (auto i: results) {
-
-        for (int j = 0; j < 4; j++) {
-            printNextFive(j, i, curr_counter);
+        cout << book_names[curr_counter] << endl;
+        for (int j = 0; j < 5; j++) {
+            printNextThree(j, i, curr_counter);
         } 
         cout << endl;
-        curr_counter *= 10;
+        curr_counter++;
 
     }
 
 	return 0;
 }
 
-
-/*
- * iostream.cpp
- * CS 201
- * Bryan Beus
- * November 8, 2019
- * Stream to a file
- *
-
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <iomanip>
-
-using std::vector;
-using std::pair;
-using std::string;
-using std::cout;
-using std::endl;
-using std::ofstream;
-
-int main() {
-
-	ofstream fout("file");
-	if (!fout) {
-		cout << "Error opening file" << endl;
-		return 0;
-	}
-
-	for (int i = 1; i <= 100; i++) {
-		fout << std::setw(3) << std::right;
-		if (i != 100)
-			fout << i;
-		else
-			fout << std::setw(1) << " " << std::setw(3) << i;
-		if (i % 10 == 0)
-			fout << endl;
-	}
-
-	return 0;
-}
-
-*/
