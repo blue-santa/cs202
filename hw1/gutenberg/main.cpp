@@ -68,7 +68,7 @@ vector<StopWatch> calcTime(string &book, std::mt19937 &e1) {
     vector<StopWatch> tests;
 
     /****************************************
-    * Time with List Container  *************
+    ******* Time with List Container  *******
     ****************************************/
 
     // Create stream for list
