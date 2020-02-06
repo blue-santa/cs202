@@ -18,6 +18,8 @@
 #include <algorithm>
 #include <time.h>
 
+#include "Miscellaneous.hpp"
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -173,6 +175,15 @@ int main()
 
         i++;
 
+    }
+
+    clearConsole();
+
+    for (auto i: results) {
+        for (auto j: i) {
+            cout << std::fixed << std::setprecision(10) << j.reportFinishTime() << ",";
+        }
+        cout << endl;
     }
 
 	return 0;
