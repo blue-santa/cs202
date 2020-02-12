@@ -42,6 +42,7 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
 
 Vector3f vecA;
 Vector3f vecB(1, 2, 3);
+Vector3f vecC(vecB);
 
 TEST_CASE( "Vector3f constructs properly", "[vector]" ) {
     REQUIRE( vecA.x == 0 );
@@ -50,5 +51,10 @@ TEST_CASE( "Vector3f constructs properly", "[vector]" ) {
     REQUIRE( vecB.x == 1 );
     REQUIRE( vecB.y == 2 );
     REQUIRE( vecB.z == 3 );
+    REQUIRE( vecC.x == 1 );
+    REQUIRE( vecC.y == 2 );
+    REQUIRE( vecC.z == 3 );
+    REQUIRE( vecB == vecC );
+    REQUIRE( vecB != vecA );
 }
 
