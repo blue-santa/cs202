@@ -1,9 +1,9 @@
 /*
  * main.cpp
  * CS 202
- * February 3, 2020
+ * February 11, 2020
  * Bryan Beus
- * Main file for lab 02
+ * Main file for lab Supplemental
  */
 
 #include <iostream>
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "Catch.hpp"
 #include "header.hpp"
 
 using std::string;
@@ -28,33 +29,7 @@ using std::cerr;
 
 int main(int argc, char** argv) { 
 
-    MyClass obj;
 
-    cout << obj.getX() << " " << obj.getY() << endl;
-
-    MyClass obj2(obj);
-
-    cout << obj2.getX() << " " << obj.getY() << endl;
-
-    MyClass obj3(10, 15);
-
-    cout << obj3.getX() << " " << obj.getY() << endl;
-
-    passByValue(obj3);
-    passByReference(obj3);
-    passByRefToConst(obj3);
-
-    MyClass obj4 = returnNewObj();
-
-    vector<MyClass> aVec = myVec();
-
-    cout << "Vector: " << endl;
-
-    for (auto i: aVec) {
-        cout << i.getX() << " " << i.getY() << endl;
-    }
-    
-    vector<MyClass> myVec(); 
 
     return 0;
 }
