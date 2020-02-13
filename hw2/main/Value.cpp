@@ -38,7 +38,7 @@ Value::Value(string& filename) {
 
 void Value::setTitle(string& filename) {
     title = filename;
-    total_count += 1;
+    total_change_count += 1;
 }
 
 unsigned int Value::countWords(string const& str) {
@@ -74,19 +74,21 @@ void Value::setCount(string& filename) {
 
 void Value::reportValue() {
 
-    cout << setw(24) << right << "Filename";
+    for (int i = 0; i < 35 + 4 * 12; i++) cout << "=";
+    cout << endl;
+    cout << setw(35) << right << "Filename";
     cout << setw(12) << right << "Paragraphs";
     cout << setw(12) << right << "Lines";
     cout << setw(12) << right << "Words";
     cout << setw(12) << right << "Characters" << endl;
 
-    cout << setw(24) << right << title;
+    cout << setw(35) << right << title;
     cout << setw(12) << right << par_count;
     cout << setw(12) << right << line_count;
     cout << setw(12) << right << word_count;
     cout << setw(12) << right << char_count << endl;
 } 
 
-int Value::total_count = 0;
+int Value::total_change_count = 0;
 
 

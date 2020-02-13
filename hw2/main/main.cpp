@@ -25,6 +25,7 @@ using std::endl;
 using std::vector;
 using std::string;
 using std::list;
+using std::right;
 
 void reportValues(list<Value>& mylist) {
 
@@ -53,23 +54,53 @@ int main(int argc, char* argv[])
     list<Value> mylist;
 
     cout << endl;
-    cout << "Push values to the back of list" << endl;
+    cout << setw(35 + 12 * 4) << right << "Push three values to the front of the list" << endl;
     for (unsigned int i = 0; i < 3; i++) {
         Value newValue(filenames[i]);
-        mylist.push_back(newValue);
-    }
-
-    cout << endl;
+        mylist.push_front(newValue);
+    } 
     reportValues(mylist);
     cout << endl;
 
 
-    cout << "Pop a value from the front of list" << endl;
+    cout << setw(35 + 12 * 4) << right <<  "Pop a value from the front of the list" << endl;
     mylist.pop_front(); 
-
-    cout << endl;
     reportValues(mylist);
     cout << endl;
+
+    cout << setw(35 + 12 * 4) << right <<  "Push three values to the back of the list" << endl;
+    for (unsigned int i = 2; i < 5; i++) {
+        Value newValue(filenames[i]);
+        mylist.push_back(newValue);
+    } 
+    reportValues(mylist);
+    cout << endl;
+
+
+    cout << setw(35 + 12 * 4) << right <<  "Pop a value from the back of the list" << endl;
+    mylist.pop_back(); 
+    reportValues(mylist);
+    cout << endl;
+
+    list<Value>::iterator it = mylist.begin();
+
+    cout << setw(35 + 12 * 4) << right <<  "Search for Solomon and Saturn" << endl;
+
+    while (it->title != "solomon-and-saturn.txt") it++;
+
+    it->reportValue();
+
+    cout << endl;
+    cout << setw(35 + 12 * 4) << right <<  "Insert sorted values behind Solomon and Saturn" << endl;
+    for (int i = 0; mylist.size() < filenames.size(); i++) {
+        Value newValue(filenames[(int)(mylist.size())]);
+        mylist.insert(it, newValue);
+        it++;
+    }
+    reportValues(mylist);
+
+    cout << endl;
+    cout << "Total number of file changes: " << Value::total_change_count << endl;
 
 	return 0;
 }
