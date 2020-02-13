@@ -43,7 +43,21 @@ class Cave {
         void saveRooms(std::ostream& os) const;
 
         // Read rooms from an input stream
-        void readRooms(std::istream& is);
+        void readRooms(std::istream& is) {
+            
+            nextRoom;
+
+            CaveNode roomX;
+        }
+
+        void createNewCaveNode(const string &str) {
+            string tempstr = "room name\nlong description\nshort description\n";
+            CaveNode nextRoom;
+
+            std::shared_ptr<CaveNode> nextRoomPtr = make_shared(nextRoom);
+
+            caveRooms.push_back(nextRoomPtr);
+        } 
 
     private:
         struct CaveNode {
@@ -56,6 +70,8 @@ class Cave {
         };
 
         using CaveNodePtr = std::shared_ptr<CaveNode>;
+
+        std::shared_ptr<type> item = make_shared(var);
 
         static constexpr int MaxAdjacentRooms = 3;
         std::vector<CaveNodePtr> caveRooms;
