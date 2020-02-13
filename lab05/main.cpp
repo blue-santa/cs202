@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    fin.seekg(0, std::ios_base::seekdir::end);
+    fin.seekg(0, std::ios_base::end);
 
     int sum = 0;
     int count = 0;
@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
     int read = 0;
     vector<int> holder;
 
-    fin.seekg(0, std::ios_base::seekdir::beg);
+    fin.seekg(0, std::ios_base::beg);
 
     for (int i = 0; i < count; i++) {
         fin.read(reinterpret_cast<char*>(&read), sizeof(read));

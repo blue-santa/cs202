@@ -6,9 +6,11 @@
  * Definition file for Cave class for spelunking in hw2
  */
 
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <stdlib.h>
+#include <memory>
 
 using std::string;
 
@@ -16,31 +18,50 @@ class Cave {
 
     public:
         // Return number of rooms in the cave
-        bool size() const;
+        bool size() const {
+            // return caveRooms.size();            
+        }
 
         // Return current room
-        int getCurrentRoom();
+        int getCurrentRoom() {
+            return currentRoom;
+        }
 
         // Go to room in the cave complex
-        void gotoRoom(int room);
+        void gotoRoom(int room) {
+            currentRoom = room;
+            caveRooms.at(room);
+        }
 
         // Which adjacent room? 0, 1, or 2?
-        void gotoAdjacentRoom(int room);
+        void gotoAdjacentRoom(int room) {
+
+        }
 
         // Connect two rooms together
-        void connect(int room1, int room2);
+        void connect(int room1, int room2) {
+
+        }
 
         // Print the short description of the room
-        void printShortDescription(int room) const;
+        void printShortDescription(int room) const {
+
+        }
 
         //Print the long description of the room
-        void printLongDesc(int room) const;
+        void printLongDesc(int room) const {
+
+        }
 
         // Save rooms to an output stream
-        void saveRooms(std::ostream& os) const;
+        void saveRooms(std::ostream& os) const {
+
+        }
 
         // Read rooms from an input stream
-        void readRooms(std::istream& is);
+        void readRooms(std::istream& is) {
+
+        }
 
     private:
         struct CaveNode {
@@ -49,7 +70,9 @@ class Cave {
             std::string longdesc; // A long description of this room
 
             // Constructor should initialize rooms to nullptr
-            CaveNode();
+            CaveNode() {
+
+            };
         };
 
         using CaveNodePtr = std::shared_ptr<CaveNode>;
