@@ -50,14 +50,7 @@ class Cave {
             CaveNode roomX;
         }
 
-        void createNewCaveNode(const string &str) {
-            string tempstr = "room name\nlong description\nshort description\n";
-            CaveNode nextRoom;
-
-            std::shared_ptr<CaveNode> nextRoomPtr = make_shared(nextRoom);
-
-            caveRooms.push_back(nextRoomPtr);
-        } 
+        void createNewCaveNode(const string &str);
 
     private:
         struct CaveNode {

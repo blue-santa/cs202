@@ -38,8 +38,30 @@ class Cave {
 
         }
 
+        // Need a vector that has each integer for each room number three times
+        // Jumble up the list at random
+        // Then, make each weak pointer point to the next item, and pop that item 
         // Connect two rooms together
         void connect(int room1, int room2) {
+
+            std::weak_ptr<CaveNode> room1_ptr;
+            std::weak_ptr<CaveNode> room2_ptr;
+
+            int i;
+            while (auto wpt = rooms[i].lock() && i < 3) {
+                i++;
+            }
+
+            room1_ptr = caveRooms.at(room1);
+            room2_ptr = caveRooms.at(room2); 
+
+            caveRooms.at(room1)[i] = room2_ptr;
+
+            while (auto wpt = rooms[i].lock() && i < 3) {
+                i++;
+            }
+
+            caveRooms.at(room2)[i] = room1_ptr;
 
         }
 
@@ -62,6 +84,15 @@ class Cave {
         void readRooms(std::istream& is) {
 
         }
+
+        void createNewCaveNode(const string &str, vector<int>& adjacentRoomCount) {
+            string tempstr = "long description\nshort description\n";
+            CaveNode nextRoom;
+
+            std::shared_ptr<CaveNode> nextRoomPtr = make_shared(nextRoom);
+            caveRooms.push_back(nextRoomPtr);
+        }
+
 
     private:
         struct CaveNode {
