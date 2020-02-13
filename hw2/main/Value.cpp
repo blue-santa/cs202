@@ -47,6 +47,7 @@ unsigned int Value::countWords(string const& str) {
 } 
 
 void Value::setCount(string& filename) {
+
     ifstream fin(filename);
 
     if (!fin) {

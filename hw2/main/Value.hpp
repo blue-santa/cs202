@@ -17,11 +17,11 @@ using std::string;
 
 struct Value {
 
-    string title;
-    int line_count;
-    int par_count;
-    int word_count;
-    int char_count; 
+    string title = "";
+    int line_count = 0;
+    int par_count = 0;
+    int word_count = 0;
+    int char_count = 0;
     static int total_count;
 
     Value(string& filename);
