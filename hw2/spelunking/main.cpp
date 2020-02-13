@@ -16,7 +16,7 @@
 #include <iterator>
 
 #include "Miscellaneous.hpp"
-#include "Value.hpp" 
+#include "Cave.hpp" 
 
 using std::cout;
 using std::cin;
