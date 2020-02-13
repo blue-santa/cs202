@@ -28,6 +28,7 @@ struct Value {
     void setTitle(string& filename);
     unsigned int countWords(string const& str);
     void setCount(string& filename);
+    void reportValue();
 };
 
 #endif

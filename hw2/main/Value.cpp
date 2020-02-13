@@ -70,17 +70,22 @@ void Value::setCount(string& filename) {
             par_count++;
         }
     }
+}
 
+void Value::reportValue() {
+
+    cout << setw(24) << right << "Filename";
     cout << setw(12) << right << "Paragraphs";
     cout << setw(12) << right << "Lines";
     cout << setw(12) << right << "Words";
     cout << setw(12) << right << "Characters" << endl;
 
+    cout << setw(24) << right << title;
     cout << setw(12) << right << par_count;
     cout << setw(12) << right << line_count;
     cout << setw(12) << right << word_count;
     cout << setw(12) << right << char_count << endl;
-}
+} 
 
 int Value::total_count = 0;
 
