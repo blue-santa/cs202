@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     
     cout << endl;
 
-    cout << count << " integers\nTotal: " << sum << "\nAverage: " << sum/count << endl;
+    cout << count << " integers\nTotal: " << sum << "\nAverage: " << (float)sum/((float)count) << endl;
     
     return 0;
 }
