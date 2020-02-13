@@ -1,4 +1,4 @@
-TARGET = time-it 
+TARGET = prog 
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)

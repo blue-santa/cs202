@@ -1,36 +1,33 @@
 /*
- * main.cpp
+ * Cave.cpp
  * CS 202
  * February 11, 2020
  * Bryan Beus
- * Main file for spelunking project hw2
+ * Cave member definition file for main in hw2
  */
-
-// #define CATCH_CONFIG_MAIN
 
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cstdlib>
+#include <stdlib.h>
 #include <vector>
-#include <list>
+#include <sstream>
+#include <fstream>
 #include <iterator>
 
 #include "Miscellaneous.hpp"
-#include "Value.hpp" 
+#include "Cave.hpp" 
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::getline;
 using std::string;
-using std::list;
+using std::endl;
+using std::ifstream;
+using std::stringstream;
+using std::istream_iterator;
 using std::right;
-
-int main(int argc, char* argv[])
-{
-
-
-	return 0;
-}
-
 
