@@ -9,76 +9,37 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <cstdlib>
-#include <random>
-#include <cmath>
-#include <stdlib.h>
-#include <chrono>
 #include <vector>
-#include <algorithm>
-#include <time.h>
+#include <list>
+#include <iterator>
 
 #include "Miscellaneous.hpp"
-#include "TimeItFunctions.hpp"
-#include "StopWatch.hpp" 
+#include "Value.hpp" 
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-using std::round;
+using std::string;
+using std::list;
 
 int main()
 {
-	// Declare pseudo-random device for creating seeds
-	std::random_device r;
 
-	// Create a seed sequence to feed to the generator
-	std::seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
+    vector<string> filenames;
+    filenames.push_back("the-wanderer.txt");
 
-	// Declare random-number generator and provide with seedObj sequence
-	std::mt19937 e1(seedObj);
+    list<Value> mylist;
 
-    // Declare number of times to multiply list size
-    int num_lists = 9;
-
-    // Create list of results
-    vector< vector<StopWatch>> results;
-
-    // Create random number that will serve as the search marker
-    vector<int> searchObj = calcObj(1, e1);
-
-    // Perform each round
-    for(int i = 1; i < num_lists + 1; i++) {
-        
-        // Create an object of random numbers
-        vector<int> objList = calcObj(pow(10, i), e1);
-
-        // Create a StopWatch vector to hold current results
-        vector<StopWatch> current_result = calcTime(objList, searchObj);
-
-        // Add current result to total list of results
-        results.push_back(current_result);
-
+    for (unsigned int i = 0; i < filenames.size(); i++) {
+        Value newValue(filenames[i]);
+        mylist.push_back(newValue);
     }
 
-    clearConsole();
-
-    // Create marker to print and indicate the size of the object list that is associated with printed data
-    double curr_counter = 10.0;
-
-    // Iterator through each of the result vectors
-    for (auto i: results) {
-
-        // Within each result vector, call printNextFive() to print out individual data values
-        for (int j = 0; j < 4; j++) {
-            printNextFive(j, i, curr_counter);
-        } 
-        cout << endl;
-
-        // Increase marker value to next step in data-size list
-        curr_counter *= 10;
-
+    list<Value>::iterator it = mylist.begin();
+    for (unsigned int i = 0; i < mylist.size(); i++) {
+        cout << it->title << endl;
+        it++;
     }
 
 	return 0;

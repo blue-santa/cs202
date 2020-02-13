@@ -1,40 +1,33 @@
 /*
- * StopWatch.hpp
+ * Value.hpp
  * CS 202
- * February 5, 2020
+ * February 11, 2020
  * Bryan Beus
- * Header file for StopWatch class for main in hw1
+ * Header file for Value class for main in hw2
  */
 
-#ifndef __STOPWATCH_HPP_
-#define __STOPWATCH_HPP_
+#ifndef __VALUE_HPP_
+#define __VALUE_HPP_
 
-#include <chrono>
+#include <string>
+#include <fstream>
+#include <stdlib.h>
 
-class StopWatch {
+using std::string;
 
-    // Private member values to track time points and duration
-    private:
-        std::chrono::high_resolution_clock::time_point _start_time;
-        std::chrono::high_resolution_clock::time_point _finish_time;
-        std::chrono::duration<double> _dur;
+struct Value {
 
-    public:
+    string title;
+    int line_count;
+    int par_count;
+    int word_count;
+    int char_count; 
+    static int total_count;
 
-        // The default constructor for StopWatch
-        StopWatch();
-
-        // Start the clock by setting _start_time
-        void startClock();       
-
-        // Indicate finish time by setting _finish_time
-        void captureFinishTime();
-
-        // Return a double value that represents total duration in miliseconds
-        double reportFinishTime();
-
-        // A coding tool that reports individual raw times
-        void reportRawTimes();
+    Value(string& filename);
+    void setTitle(string& filename);
+    unsigned int countWords(string const& str);
+    void setCount(string& filename);
 };
 
 #endif

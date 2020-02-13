@@ -1,58 +1,86 @@
 /*
- * StopWatch.cpp
+ * Value.cpp
  * CS 202
- * February 5, 2020
+ * February 11, 2020
  * Bryan Beus
- * StopWatch member definition file for main in hw1
+ * Value member definition file for main in hw2
  */
 
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <cstdlib>
-#include <random>
-#include <cmath>
 #include <stdlib.h>
-#include <chrono>
 #include <vector>
-#include <algorithm>
-#include <time.h>
+#include <sstream>
+#include <fstream>
+#include <iterator>
 
 #include "Miscellaneous.hpp"
-#include "TimeItFunctions.hpp"
-#include "StopWatch.hpp" 
+#include "Value.hpp" 
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-using std::round;
+using std::getline;
+using std::string;
+using std::endl;
+using std::ifstream;
+using std::stringstream;
+using std::istream_iterator;
+using std::right;
 
-// The default constructor
-StopWatch::StopWatch() { 
-    this->startClock();
-};
-
-// Start the clock by setting _start_time
-void StopWatch::startClock() {
-    _start_time = std::chrono::high_resolution_clock::now(); 
-}
-        
-// Indicate the finish time by setting _finish_time
-void StopWatch::captureFinishTime() {
-    _finish_time = std::chrono::high_resolution_clock::now(); 
+Value::Value(string& filename) {
+    setTitle(filename);
+    setCount(filename);
 }
 
-// Return a double value that represents the duration of the clock in miliseconds
-double StopWatch::reportFinishTime() {
-    _dur = std::chrono::duration_cast<std::chrono::duration<double>>(_finish_time - _start_time);
-    return (double)(_dur.count());
+void Value::setTitle(string& filename) {
+    title = filename;
+    total_count += 1;
+}
+
+unsigned int Value::countWords(string const& str) {
+    stringstream ss(str);
+    return distance(istream_iterator<string>(ss), istream_iterator<string>());
 } 
 
-// A coding tool to report raw start and finish times
-void StopWatch::reportRawTimes() { 
-    cout << "_start_time: " << _start_time.time_since_epoch().count() << " _finish_time: " << _finish_time.time_since_epoch().count() << endl;
+void Value::setCount(string& filename) {
+    ifstream fin(filename);
+
+    if (!fin) {
+        cout << "No file opened" << endl;
+        exit(0);
+    }
+
+    if (fin.eof()) {
+        cout << "End of file" << endl;
+        exit(0);
+    }
+
+    while (fin) {
+        string s;
+        getline(fin, s);
+        line_count++;
+        word_count += (int)(countWords(s));
+        char_count += (int)(s.length());
+        if (s == "") {
+            par_count++;
+        }
+    }
+
+    cout << setw(12) << right << "Paragraphs";
+    cout << setw(12) << right << "Lines";
+    cout << setw(12) << right << "Words";
+    cout << setw(12) << right << "Characters" << endl;
+
+    cout << setw(12) << right << par_count;
+    cout << setw(12) << right << line_count;
+    cout << setw(12) << right << word_count;
+    cout << setw(12) << right << char_count << endl;
 }
 
+int Value::total_count = 0;
 
 
