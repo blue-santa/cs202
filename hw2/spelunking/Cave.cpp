@@ -11,10 +11,12 @@
 #include <fstream>
 #include <stdlib.h>
 #include <memory>
+#include <vector>
 
 using std::istringstream;
 using std::string;
 using std::to_string;
+using std::vector;
 
 class Cave {
 
@@ -37,7 +39,13 @@ class Cave {
 
         // Which adjacent room? 0, 1, or 2?
         void gotoAdjacentRoom(int room) {
-            int destination = caveRooms.at(currentRoom)->rooms[room]->id;
+            int destination;
+            if (auto spt = caveRooms.at(currentRoom)->rooms[room].lock()) {
+                destination = spt->id;
+            } else {
+                cout << "Output fail in obtaining weak_ptr for room id" << endl;
+                exit(0);
+            }
             currentRoom = destination;
         }
 
@@ -103,6 +111,7 @@ class Cave {
             for (int i = 0; i < room_count; i++) {
                 CaveNode nextRoom;
 
+                nextRoom.visited = false;
                 is >> s; 
                 nextRoom.longdesc = s; 
                 is >> s; 
@@ -185,29 +194,25 @@ class Cave {
         }
 
     private:
+        static constexpr int MaxAdjacentRooms = 3;
         struct CaveNode {
             std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
-            std::string shortdesc; 
+            std::string shortdesc;
             std::string longdesc;
+            bool visited;
             int id;
 
             CaveNode() {
                 for (int i = 0; i < MaxAdjacentRooms; i++) {
                     rooms[i] = nullptr;
-                }
-
+                } 
             };
         };
 
         using CaveNodePtr = std::shared_ptr<CaveNode>;
 
-        static constexpr int MaxAdjacentRooms = 3;
-        std::vector<CaveNodePtr> caveRooms;
+        vector<CaveNodePtr> caveRooms;
         int currentRoom;
 
 
 };
-
-#endif
-
-

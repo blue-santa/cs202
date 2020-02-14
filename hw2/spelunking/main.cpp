@@ -31,18 +31,58 @@ using std::right;
 using std::ifstream;
 using std::ofstream;
 using std::istream;
+using std::getline;
+using std::istringstream;
 
 int main(int argc, char* argv[])
 {
-    Cave cave;
-
-    istream default_cave(cave.createDefaultCave());
-    cave.readRooms(istream);
-    
-
-
-
-
+//     Cave cave;
+// 
+//     istream default_cave(cave.createDefaultCave());
+//     cave.readRooms(istream);
+// 
+// 
+//     while (true) {
+//         cout << "Current Room: " << cave.currentRoom << endl;
+//         if (cave.caveRooms.at(currentRoom)->visited) {
+//             cout << cave.caveRooms.at(currentRoom)->shortdesc << endl;
+//         } else {
+//             cout << cave.caveRooms.at(currentRoom)->longdesc << endl;
+//         }
+//         cout << "Adjacent Rooms: " << endl;
+//         for (int i = 0; i < 3; i++) {
+//             cout << cave.caveRooms.at(cave.currentRoom)->rooms[i]->id << " ";
+//             cout << cave.caveRooms.at(cave.currentRoom)->rooms[i]->shortdesc << endl;
+//         }
+//         int userInput;
+//         capture_user_input(userInput);
+//         
+//         gotoAdjacentRoom(userInput);
+//     }
+// 
+//     ofstream fout("save_file.txt");
+// 
+//     if (!fout || fout.eof()) {
+//         cout << "File save failed" << endl;
+//         exit(0);
+//     }
+//     
+//     cave.saveRooms(fout);
+//     fout.close();
+// 
+//     Cave newCave;
+// 
+//     ifstream fin("save_file.txt");
+// 
+//     if (!fin) {
+//         cout << "Opening file failed" << endl;
+//         exit(0);
+//     }
+// 
+//     newCave.readRooms(fin);
+// 
+//     cout << "First cave room id: " << newCave.caveRooms.at(0)->id << endl;
+// 
 	return 0;
 }
 

@@ -48,8 +48,7 @@ void capture_user_input(int& userInput) {
 		// Receive user input as a string
 		string user_input_temp;
         cout << endl;
-		cout << "Please indicate the desired temperature (celsius)." << endl;
-        cout << " -- To stop the program, enter a value less than absolute zero (-274 or below))" << endl;
+		cout << "Choose which room to visit next (0, 1, or 2):" << endl;
 
 		getline(cin, user_input_temp);
 

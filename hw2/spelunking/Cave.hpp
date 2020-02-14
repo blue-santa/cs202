@@ -48,6 +48,7 @@ class Cave {
         string createDefaultCave();
 
     private:
+        static constexpr int MaxAdjacentRooms = 3;
         struct CaveNode {
             std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
             std::string shortdesc;
@@ -59,7 +60,6 @@ class Cave {
 
         using CaveNodePtr = std::shared_ptr<CaveNode>;
 
-        static constexpr int MaxAdjacentRooms = 3;
         std::vector<CaveNodePtr> caveRooms;
         int currentRoom;
 
