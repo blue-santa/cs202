@@ -14,6 +14,9 @@
 #include <vector>
 #include <list>
 #include <iterator>
+#include <ifstream>
+#include <fstream>
+#include <sstream>
 
 #include "Miscellaneous.hpp"
 #include "Cave.hpp" 
@@ -25,9 +28,19 @@ using std::vector;
 using std::string;
 using std::list;
 using std::right;
+using std::ifstream;
+using std::ofstream;
+using std::istream;
 
 int main(int argc, char* argv[])
 {
+    Cave cave;
+
+    istream default_cave(cave.createDefaultCave());
+    cave.readRooms(istream);
+    
+
+
 
 
 	return 0;

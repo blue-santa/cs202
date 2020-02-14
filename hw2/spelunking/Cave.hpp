@@ -43,28 +43,21 @@ class Cave {
         void saveRooms(std::ostream& os) const;
 
         // Read rooms from an input stream
-        void readRooms(std::istream& is) {
-            
-            nextRoom;
+        void readRooms(std::istream& is);
 
-            CaveNode roomX;
-        }
-
-        void createNewCaveNode(const string &str);
+        string createDefaultCave();
 
     private:
         struct CaveNode {
             std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
-            std::string shortdesc; // A short description of this room
-            std::string longdesc; // A long description of this room
+            std::string shortdesc;
+            std::string longdesc;
+            int id;
 
-            // Constructor should initialize rooms to nullptr
             CaveNode();
         };
 
         using CaveNodePtr = std::shared_ptr<CaveNode>;
-
-        std::shared_ptr<type> item = make_shared(var);
 
         static constexpr int MaxAdjacentRooms = 3;
         std::vector<CaveNodePtr> caveRooms;

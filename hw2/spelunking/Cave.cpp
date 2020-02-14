@@ -14,6 +14,7 @@
 
 using std::istringstream;
 using std::string;
+using std::to_string;
 
 class Cave {
 
@@ -53,11 +54,6 @@ class Cave {
             while (auto wpt = caveRooms.at(room1)->rooms[i].lock() && i < 3) {
                 i++;
             }
-
-            //if (testfail) {
-                //cout << "Room math incorrect" << endl;
-                //exit(0);
-            //}
 
             caveRooms.at(room1)[i] = room2_ptr;
 
@@ -141,20 +137,60 @@ class Cave {
                 }
             }
 
+            currentRoom = 0;
+
         }
 
-        void createDefaultCave(ostream& os) {
+        string createDefaultCave() {
+            int currRoom = 0;
+            string res;
 
+            for (int i = 0; i < 18; i++) {
+               res += "long description\n";
+               res += "short description\n";
+               res += to_string(currRoom);
+               res += "\n";
+
+               switch (i) {
+                   case 0:
+                       res += "1\n2\n3\n";
+                       break;
+                   case 1:
+                       res += "0\n2\n3\n";
+                       break;
+                   case 2:
+                       res += "1\n3\n4\n";
+                       break;
+                   case 15:
+                       res += "14\n16\n17\n";
+                       break;
+                   case 16:
+                       res += "14\n15\n17\n";
+                       break;
+                   case 17:
+                       res += "14\n15\n16\n";
+                       break;
+                   default:
+                       res += to_string(i - 1);
+                       res += "\n";
+                       res += to_string(i + 1);
+                       res += "\n";
+                       res += to_string(i + 2);
+                       res += "\n";
+                       break; 
+               } 
+            } 
+
+            return res;
         }
 
     private:
         struct CaveNode {
             std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
-            std::string shortdesc; // A short description of this room
-            std::string longdesc; // A long description of this room 
+            std::string shortdesc; 
+            std::string longdesc;
             int id;
 
-            // Constructor should initialize rooms to nullptr
             CaveNode() {
                 for (int i = 0; i < MaxAdjacentRooms; i++) {
                     rooms[i] = nullptr;
