@@ -12,8 +12,18 @@
 #include <string>
 #include <fstream>
 #include <stdlib.h>
+#include <memory>
+#include <vector>
+#include <sstream>
+#include <fstream>
 
 using std::string;
+using std::weak_ptr;
+using std::istringstream;
+using std::shared_ptr;
+using std::vector;
+using std::ostream;
+using std::istream;
 
 class Cave {
 
@@ -40,27 +50,27 @@ class Cave {
         void printLongDesc(int room) const;
 
         // Save rooms to an output stream
-        void saveRooms(std::ostream& os) const;
+        void saveRooms(ostream& os) const;
 
         // Read rooms from an input stream
-        void readRooms(std::istream& is);
+        void readRooms(istream& is);
 
         string createDefaultCave();
 
     private:
         static constexpr int MaxAdjacentRooms = 3;
         struct CaveNode {
-            std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
-            std::string shortdesc;
-            std::string longdesc;
+            weak_ptr<CaveNode> rooms[MaxAdjacentRooms]; 
+            string shortdesc;
+            string longdesc;
             int id;
 
             CaveNode();
         };
 
-        using CaveNodePtr = std::shared_ptr<CaveNode>;
+        using CaveNodePtr = shared_ptr<CaveNode>;
 
-        std::vector<CaveNodePtr> caveRooms;
+        vector<CaveNodePtr> caveRooms;
         int currentRoom;
 
 

@@ -14,7 +14,6 @@
 #include <vector>
 #include <list>
 #include <iterator>
-#include <ifstream>
 #include <fstream>
 #include <sstream>
 

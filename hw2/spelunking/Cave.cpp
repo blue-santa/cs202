@@ -17,6 +17,11 @@ using std::istringstream;
 using std::string;
 using std::to_string;
 using std::vector;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::shared_ptr;
+using std::make_shared;
 
 class Cave {
 
@@ -49,28 +54,25 @@ class Cave {
             currentRoom = destination;
         }
 
-        // Need a vector that has each integer for each room number three times
-        // Jumble up the list at random
-        // Then, make each weak pointer point to the next item, and pop that item 
         // Connect two rooms together
         void connect(int room1, int room2) {
 
             std::weak_ptr<CaveNode> room1_ptr = caveRooms.at(room1);
             std::weak_ptr<CaveNode> room2_ptr = caveRooms.at(room2);
 
-            int i;
-            while (auto wpt = caveRooms.at(room1)->rooms[i].lock() && i < 3) {
-                i++;
+            for (int i = 0; i < 3; i++) {
+                if (caveRooms.at(room1)->rooms[i].expired()) {
+                    caveRooms.at(room1)->rooms[i] = room2_ptr;
+                    break;
+                }
             }
 
-            caveRooms.at(room1)[i] = room2_ptr;
-
-            i = 0;
-            while (auto wpt = caveRooms.at(room2)->rooms[i].lock() && i < 3) {
-                i++;
+            for (int i = 0; i < 3; i++) {
+                if (caveRooms.at(room2)->rooms[i].expired()) {
+                    caveRooms.at(room2)->rooms[i] = room1_ptr;
+                    break;
+                }
             }
-
-            caveRooms.at(room2)[i] = room1_ptr;
         }
 
         // Print the short description of the room
@@ -85,12 +87,15 @@ class Cave {
 
         // Save rooms to an output stream
         void saveRooms(std::ostream& os) const {
-            for (int i = 0; i < caveRooms.size(); i++) {
+            for (unsigned int i = 0; i < caveRooms.size(); i++) {
                 os << caveRooms.at(i)->longdesc << "\n";
                 os << caveRooms.at(i)->shortdesc << "\n";
-                os << caveRooms.at(i)->rooms[0] << "\n";
-                os << caveRooms.at(i)->rooms[1] << "\n";
-                os << caveRooms.at(i)->rooms[2] << "\n";
+                for (int j = 0; j < 3; j++) {
+                    if (auto wp = caveRooms.at(i)->rooms[j].lock()) {
+                        os << wp->id << "\n";
+                        break;
+                    }
+                }
             }
 
         }
@@ -101,7 +106,7 @@ class Cave {
             int room_count = 0;
             string s = "";
             while(true) {
-                ss >> s;
+                is >> s;
                 room_count++;
             }
 
@@ -123,7 +128,7 @@ class Cave {
                 is >> s;
                 is >> s;
 
-                std::shared_ptr<CaveNode> nextRoomPtr = make_shared(nextRoom);
+                shared_ptr<CaveNode> nextRoomPtr = make_shared<CaveNode>(nextRoom);
                 caveRooms.push_back(nextRoomPtr); 
             }
 
@@ -136,14 +141,8 @@ class Cave {
                 is >> id;
                 for (int j = 0; j < 3; j++) {
                     is >> room_s;
-                    caveRooms.at(id)->rooms[j] = room_s;
+                    connect(i, room_s);
                 } 
-            }
-            
-            for (int i = 0; i < room_count; i++) {
-                for (int j = 0; i < 3; j++) {
-                    connect(i, caveRooms.at(i)->rooms[j]->id)
-                }
             }
 
             currentRoom = 0;
@@ -203,9 +202,7 @@ class Cave {
             int id;
 
             CaveNode() {
-                for (int i = 0; i < MaxAdjacentRooms; i++) {
-                    rooms[i] = nullptr;
-                } 
+
             };
         };
 
