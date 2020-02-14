@@ -35,12 +35,13 @@ using std::istringstream;
 
 int main(int argc, char* argv[])
 {
-//     Cave cave;
-// 
-//     istream default_cave(cave.createDefaultCave());
-//     cave.readRooms(istream);
-// 
-// 
+     Cave cave;
+     string def_cave = cave.createDefaultCave();
+ 
+     istream default_cave(def_cave);
+     cave.readRooms(default_cave);
+ 
+ 
 //     while (true) {
 //         cout << "Current Room: " << cave.currentRoom << endl;
 //         if (cave.caveRooms.at(currentRoom)->visited) {
