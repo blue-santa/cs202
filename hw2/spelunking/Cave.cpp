@@ -143,6 +143,10 @@ class Cave {
 
         }
 
+        void createDefaultCave(ostream& os) {
+
+        }
+
     private:
         struct CaveNode {
             std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
