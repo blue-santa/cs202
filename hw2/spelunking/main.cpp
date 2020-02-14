@@ -6,8 +6,6 @@
  * Main file for spelunking project hw2
  */
 
-// #define CATCH_CONFIG_MAIN
-
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -37,18 +35,20 @@ int main(int argc, char* argv[])
 {
      Cave cave;
      string def_cave = cave.createDefaultCave();
+
+     cout << def_cave << endl;
  
-     istream default_cave(def_cave);
+     istringstream default_cave(def_cave);
      cave.readRooms(default_cave);
  
  
-//     while (true) {
-//         cout << "Current Room: " << cave.currentRoom << endl;
-//         if (cave.caveRooms.at(currentRoom)->visited) {
-//             cout << cave.caveRooms.at(currentRoom)->shortdesc << endl;
-//         } else {
-//             cout << cave.caveRooms.at(currentRoom)->longdesc << endl;
-//         }
+    while (true) {
+        cout << "Current Room: " << cave.getCurrentRoom() << endl;
+        // if (cave.caveRooms.at(currentRoom)->visited) {
+            // cout << cave.caveRooms.at(currentRoom)->shortdesc << endl;
+        // } else {
+            // cout << cave.caveRooms.at(currentRoom)->longdesc << endl;
+        // }
 //         cout << "Adjacent Rooms: " << endl;
 //         for (int i = 0; i < 3; i++) {
 //             cout << cave.caveRooms.at(cave.currentRoom)->rooms[i]->id << " ";
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 //         capture_user_input(userInput);
 //         
 //         gotoAdjacentRoom(userInput);
-//     }
+    }
 // 
 //     ofstream fout("save_file.txt");
 // 

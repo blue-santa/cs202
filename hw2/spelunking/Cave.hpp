@@ -64,6 +64,7 @@ class Cave {
             string shortdesc;
             string longdesc;
             int id;
+            bool visited;
 
             CaveNode();
         };
@@ -76,5 +77,4 @@ class Cave {
 
 };
 
-#endif
-
+#endif 

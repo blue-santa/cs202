@@ -13,6 +13,8 @@
 #include <memory>
 #include <vector>
 
+#include "Cave.hpp"
+
 using std::istringstream;
 using std::string;
 using std::to_string;
@@ -23,193 +25,168 @@ using std::endl;
 using std::shared_ptr;
 using std::make_shared;
 
-class Cave {
+// Return number of rooms in the cave
+bool Cave::size() const {
+    unsigned int s = caveRooms.size();            
+    return (bool)s;
+}
 
-    public:
-        // Return number of rooms in the cave
-        bool size() const {
-            unsigned int s = caveRooms.size();            
-            return (bool)s;
+// Return current room
+int Cave::getCurrentRoom() {
+    return currentRoom;
+}
+
+// Go to room in the cave complex
+void Cave::gotoRoom(int room) {
+    currentRoom = room;
+}
+
+// Which adjacent room? 0, 1, or 2?
+void Cave::gotoAdjacentRoom(int room) {
+    int destination;
+    if (auto spt = caveRooms.at(currentRoom)->rooms[room].lock()) {
+        destination = spt->id;
+    } else {
+        cout << "Output fail in obtaining weak_ptr for room id" << endl;
+        exit(0);
+    }
+    currentRoom = destination;
+}
+
+// Connect two rooms together
+void Cave::connect(int room1, int room2) {
+
+    std::weak_ptr<CaveNode> room1_ptr = caveRooms.at(room1);
+    std::weak_ptr<CaveNode> room2_ptr = caveRooms.at(room2);
+
+    for (int i = 0; i < 3; i++) {
+        if (caveRooms.at(room1)->rooms[i].expired()) {
+            caveRooms.at(room1)->rooms[i] = room2_ptr;
+            break;
         }
+    }
 
-        // Return current room
-        int getCurrentRoom() {
-            return currentRoom;
+    for (int i = 0; i < 3; i++) {
+        if (caveRooms.at(room2)->rooms[i].expired()) {
+            caveRooms.at(room2)->rooms[i] = room1_ptr;
+            break;
         }
+    }
+}
 
-        // Go to room in the cave complex
-        void gotoRoom(int room) {
-            currentRoom = room;
-        }
+// Print the short description of the room
+void Cave::printShortDescription(int room) const {
+    cout << caveRooms.at(room)->shortdesc << endl;
+}
 
-        // Which adjacent room? 0, 1, or 2?
-        void gotoAdjacentRoom(int room) {
-            int destination;
-            if (auto spt = caveRooms.at(currentRoom)->rooms[room].lock()) {
-                destination = spt->id;
-            } else {
-                cout << "Output fail in obtaining weak_ptr for room id" << endl;
-                exit(0);
+//Print the long description of the room
+void Cave::printLongDesc(int room) const {
+    cout << caveRooms.at(room)->longdesc << endl; 
+}
+
+// Save rooms to an output stream
+void Cave::saveRooms(std::ostream& os) const {
+    for (unsigned int i = 0; i < caveRooms.size(); i++) {
+        os << caveRooms.at(i)->longdesc << "\n";
+        os << caveRooms.at(i)->shortdesc << "\n";
+        for (int j = 0; j < 3; j++) {
+            if (auto wp = caveRooms.at(i)->rooms[j].lock()) {
+                os << wp->id << "\n";
+                break;
             }
-            currentRoom = destination;
         }
+    }
 
-        // Connect two rooms together
-        void connect(int room1, int room2) {
+}
 
-            std::weak_ptr<CaveNode> room1_ptr = caveRooms.at(room1);
-            std::weak_ptr<CaveNode> room2_ptr = caveRooms.at(room2);
+// Read rooms from an input stream
+void Cave::readRooms(std::istream& is) { 
 
-            for (int i = 0; i < 3; i++) {
-                if (caveRooms.at(room1)->rooms[i].expired()) {
-                    caveRooms.at(room1)->rooms[i] = room2_ptr;
-                    break;
-                }
-            }
+    int room_count = 0;
+    string s = "";
+    while(true) {
+        is >> s;
+        room_count++;
+    }
 
-            for (int i = 0; i < 3; i++) {
-                if (caveRooms.at(room2)->rooms[i].expired()) {
-                    caveRooms.at(room2)->rooms[i] = room1_ptr;
-                    break;
-                }
-            }
-        }
+    is.seekg(0); 
 
-        // Print the short description of the room
-        void printShortDescription(int room) const {
-            cout << caveRooms.at(room)->shortdesc << endl;
-        }
+    int id;
+    for (int i = 0; i < room_count; i++) {
+        CaveNode nextRoom;
 
-        //Print the long description of the room
-        void printLongDesc(int room) const {
-            cout << caveRooms.at(room)->longdesc << endl; 
-        }
+        nextRoom.visited = false;
+        is >> s; 
+        nextRoom.longdesc = s; 
+        is >> s; 
+        nextRoom.shortdesc = s;
 
-        // Save rooms to an output stream
-        void saveRooms(std::ostream& os) const {
-            for (unsigned int i = 0; i < caveRooms.size(); i++) {
-                os << caveRooms.at(i)->longdesc << "\n";
-                os << caveRooms.at(i)->shortdesc << "\n";
-                for (int j = 0; j < 3; j++) {
-                    if (auto wp = caveRooms.at(i)->rooms[j].lock()) {
-                        os << wp->id << "\n";
-                        break;
-                    }
-                }
-            }
+        is >> id; 
+        nextRoom.id = id;
 
-        }
+        is >> s;
+        is >> s;
 
-        // Read rooms from an input stream
-        void readRooms(std::istream& is) { 
+        shared_ptr<CaveNode> nextRoomPtr = make_shared<CaveNode>(nextRoom);
+        caveRooms.push_back(nextRoomPtr); 
+    }
 
-            int room_count = 0;
-            string s = "";
-            while(true) {
-                is >> s;
-                room_count++;
-            }
+    is.seekg(0);
 
-            is.seekg(0); 
+    int room_s;
+    for (int i = 0; i < room_count; i++) {
+        is >> s;
+        is >> s;
+        is >> id;
+        for (int j = 0; j < 3; j++) {
+            is >> room_s;
+            connect(i, room_s);
+        } 
+    }
 
-            int id;
-            for (int i = 0; i < room_count; i++) {
-                CaveNode nextRoom;
+    currentRoom = 0;
 
-                nextRoom.visited = false;
-                is >> s; 
-                nextRoom.longdesc = s; 
-                is >> s; 
-                nextRoom.shortdesc = s;
+}
 
-                is >> id; 
-                nextRoom.id = id;
+string Cave::createDefaultCave() {
+    int currRoom = 0;
+    string res = "";
 
-                is >> s;
-                is >> s;
+    for (int i = 0; i < 18; i++) {
+       res += "long description\n";
+       res += "short description\n";
+       res += to_string(currRoom);
+       res += "\n";
 
-                shared_ptr<CaveNode> nextRoomPtr = make_shared<CaveNode>(nextRoom);
-                caveRooms.push_back(nextRoomPtr); 
-            }
-
-            is.seekg(0);
-
-            int room_s;
-            for (int i = 0; i < room_count; i++) {
-                is >> s;
-                is >> s;
-                is >> id;
-                for (int j = 0; j < 3; j++) {
-                    is >> room_s;
-                    connect(i, room_s);
-                } 
-            }
-
-            currentRoom = 0;
-
-        }
-
-        string createDefaultCave() {
-            int currRoom = 0;
-            string res;
-
-            for (int i = 0; i < 18; i++) {
-               res += "long description\n";
-               res += "short description\n";
-               res += to_string(currRoom);
+       switch (i) {
+           case 0:
+               res += "1\n2\n3\n";
+               break;
+           case 1:
+               res += "0\n2\n3\n";
+               break;
+           case 2:
+               res += "1\n3\n4\n";
+               break;
+           case 15:
+               res += "14\n16\n17\n";
+               break;
+           case 16:
+               res += "14\n15\n17\n";
+               break;
+           case 17:
+               res += "14\n15\n16\n";
+               break;
+           default:
+               res += to_string(i - 1);
                res += "\n";
+               res += to_string(i + 1);
+               res += "\n";
+               res += to_string(i + 2);
+               res += "\n";
+               break; 
+       } 
+    } 
 
-               switch (i) {
-                   case 0:
-                       res += "1\n2\n3\n";
-                       break;
-                   case 1:
-                       res += "0\n2\n3\n";
-                       break;
-                   case 2:
-                       res += "1\n3\n4\n";
-                       break;
-                   case 15:
-                       res += "14\n16\n17\n";
-                       break;
-                   case 16:
-                       res += "14\n15\n17\n";
-                       break;
-                   case 17:
-                       res += "14\n15\n16\n";
-                       break;
-                   default:
-                       res += to_string(i - 1);
-                       res += "\n";
-                       res += to_string(i + 1);
-                       res += "\n";
-                       res += to_string(i + 2);
-                       res += "\n";
-                       break; 
-               } 
-            } 
-
-            return res;
-        }
-
-    private:
-        static constexpr int MaxAdjacentRooms = 3;
-        struct CaveNode {
-            std::weak_ptr<CaveNode> rooms[MaxAdjacentRooms];
-            std::string shortdesc;
-            std::string longdesc;
-            bool visited;
-            int id;
-
-            CaveNode() {
-
-            };
-        };
-
-        using CaveNodePtr = std::shared_ptr<CaveNode>;
-
-        vector<CaveNodePtr> caveRooms;
-        int currentRoom;
-
-
-};
+    return res;
+}
