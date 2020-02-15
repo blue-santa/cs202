@@ -70,13 +70,15 @@ TEST_CASE( "Linked List/Stack tests", "[list]" ) {
     reportValues(mylist);
     cout << endl;
 
-    // cout << setw(35 + 12 * 4) << right <<  "Push three values to the back of the list" << endl;
-    // for (unsigned int i = 2; i < 5; i++) {
-        // Value newValue(filenames[i]);
-        // mylist.push_back(newValue);
-    // } 
-    // reportValues(mylist);
-    // cout << endl;
+    REQUIRE( it_test1->title == "dream-of-the-rood.txt" ); 
+
+    cout << setw(35 + 12 * 4) << right <<  "Push three values to the back of the list" << endl;
+    for (unsigned int i = 2; i < 5; i++) {
+        Value newValue(filenames[i]);
+        mylist.push_back(newValue);
+    } 
+    reportValues(mylist);
+    cout << endl;
 
 
     // cout << setw(35 + 12 * 4) << right <<  "Pop a value from the back of the list" << endl;
