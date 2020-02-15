@@ -1,9 +1,9 @@
 /*
  * main.cpp
  * CS 202
- * January 19, 2020
+ * February 14, 2020
  * Bryan Beus
- * Main file for temperature main project in hw0
+ * Main file for main project in hw2
  */
 
 #define CATCH_CONFIG_MAIN
