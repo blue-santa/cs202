@@ -48,7 +48,7 @@ void capture_user_input(int& userInput) {
 		// Receive user input as a string
 		string user_input_temp;
         cout << endl;
-		cout << "Choose which room to visit next (0, 1, or 2):" << endl;
+		cout << "Make a choice (0, 1, or 2) of the next room to visit. (Enter 3) to perform a save demonstration and quit." << endl;
 
 		getline(cin, user_input_temp);
 
@@ -83,7 +83,7 @@ bool testUserInput(string& user_input_temp, int& userInput) {
         res = false;
     }    
 
-    if (userInput > 2 || userInput < 0) {
+    if (userInput > 3 || userInput < 0) {
         res = false;
     }
 

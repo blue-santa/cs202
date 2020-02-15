@@ -86,10 +86,14 @@ void Cave::saveRooms(std::ostream& os) const {
     for (unsigned int i = 0; i < caveRooms.size(); i++) {
         os << caveRooms.at(i)->longdesc << "\n";
         os << caveRooms.at(i)->shortdesc << "\n";
+        os << caveRooms.at(i)->id << "\n";
         for (int j = 0; j < 3; j++) {
             if (auto wp = caveRooms.at(i)->rooms[j].lock()) {
-                os << wp->id << "\n";
-                break;
+                int tempAdjRoomId = wp->id;
+                os << tempAdjRoomId << "\n";
+            } else {
+                cout << "File save failed" << endl;
+                exit(0);
             }
         }
     }
