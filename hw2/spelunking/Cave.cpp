@@ -148,7 +148,6 @@ void Cave::readRooms(std::istream& is) {
     int counter = 0;
     for (int i = 0; i < room_count; i++) {
         for (int j = 0; j < 3; j++) {
-            cout << "Connecting room: " << i << " with room: " << room_connections.at(counter) << endl;
             connect(i, room_connections.at(counter));
             counter++;
         }
