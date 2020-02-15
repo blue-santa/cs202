@@ -58,12 +58,17 @@ class Cave {
         // Read rooms from an input stream
         void readRooms(istream& is);
 
+        // Discover adjacent rooms
         vector<int> getAdjacentRooms(int &current_room);
 
+        // Create a default cave
         string createDefaultCave();
 
     private:
+        // Setting for maximum number of adjacent rooms
         static constexpr int MaxAdjacentRooms = 3;
+
+        // A node in the cave
         struct CaveNode {
             weak_ptr<CaveNode> rooms[MaxAdjacentRooms]; 
             string shortdesc;
@@ -71,15 +76,14 @@ class Cave {
             int id;
             bool visited;
 
+            // Proper constructor for cave node
             CaveNode(bool& visited_given, string& long_desc, string& short_desc, int& id_given);
         };
 
         using CaveNodePtr = shared_ptr<CaveNode>;
 
         vector<CaveNodePtr> caveRooms;
-        int currentRoom;
-
-
+        int currentRoom; 
 };
 
 #endif 

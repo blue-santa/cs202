@@ -54,6 +54,8 @@ void Cave::gotoRoom(int room) {
 // Which adjacent room? 0, 1, or 2?
 void Cave::gotoAdjacentRoom(int room) {
     int destination = room;
+
+    // Set current room to indicate that was visited
     caveRooms.at(currentRoom)->visited = true;
     gotoRoom(destination);
 }
@@ -61,8 +63,12 @@ void Cave::gotoAdjacentRoom(int room) {
 // Connect two rooms together
 void Cave::connect(int room1, int room2) {
 
+    // Capture weak_ptr for room2
     std::weak_ptr<CaveNode> room2_ptr = caveRooms.at(room2);
 
+    // Iterate through array of weak_ptrs in room1
+    // For the first istance of an array item that is not set
+    // Set the value to the room2_ptr, and brea
     for (int i = 0; i < 3; i++) {
         if (caveRooms.at(room1)->rooms[i].expired()) {
             caveRooms.at(room1)->rooms[i] = room2_ptr;
@@ -83,6 +89,8 @@ void Cave::printLongDesc(int room) const {
 
 // Save rooms to an output stream
 void Cave::saveRooms(std::ostream& os) const {
+
+    // For each cave room, iterate through the designated values and save each to the output stream as a new line
     for (unsigned int i = 0; i < caveRooms.size(); i++) {
         os << caveRooms.at(i)->longdesc << "\n";
         os << caveRooms.at(i)->shortdesc << "\n";
@@ -107,6 +115,9 @@ void Cave::readRooms(std::istream& is) {
     vector<int> room_connections;
 
     for (int i = 0; i < room_count; i++) {
+
+        // Read in the values in the input stream
+        // Set each value to the proper name for this room
         bool visited = false;
         string long_desc;
         string short_desc;
@@ -116,6 +127,8 @@ void Cave::readRooms(std::istream& is) {
         string tempId;
         getline(is, tempId);
         id = stoi(tempId);
+
+        // For each room, there are three adjacent rooms 
         for (int j = 0; j < 3; j++) {
             int tempR = 0;
             getline(is, tempId);
@@ -123,13 +136,15 @@ void Cave::readRooms(std::istream& is) {
             room_connections.push_back(tempR);
         }
 
-        Cave::CaveNode nextRoom(visited, long_desc, short_desc, id);
-
+        // Create a new cave node (it is not yet complete, the rooms still must be connected)
+        Cave::CaveNode nextRoom(visited, long_desc, short_desc, id); 
         shared_ptr<CaveNode> nextRoomPtr = make_shared<CaveNode>(nextRoom);
+
+        // Add the shared_ptr of the new room to the caveRooms array
         caveRooms.push_back(nextRoomPtr); 
     }
 
-    // Something happening to room connections in here
+    // Iterate through the room connections array to connect each room to its partners
     int counter = 0;
     for (int i = 0; i < room_count; i++) {
         for (int j = 0; j < 3; j++) {
@@ -138,9 +153,12 @@ void Cave::readRooms(std::istream& is) {
             counter++;
         }
     }
+
+    // Start the cave at room 0
     currentRoom = 0; 
 }
 
+// Discover the rooms adjacent to the current room
 vector<int> Cave::getAdjacentRooms(int &current_room) { 
     vector<int> res;
     for (int i = 0; i < 3; i++) {
@@ -152,6 +170,7 @@ vector<int> Cave::getAdjacentRooms(int &current_room) {
 }
 
 
+// Create a default cave
 string Cave::createDefaultCave() {
     string res = "";
 
@@ -161,6 +180,7 @@ string Cave::createDefaultCave() {
        res += to_string(i);
        res += "\n";
 
+       // For each room, use the proper shared-room pattern
        switch (i) {
            case 0:
                res += "1\n2\n3\n";
@@ -194,6 +214,7 @@ string Cave::createDefaultCave() {
     return res;
 }
 
+// Proper constructor for the cavenode struct
 Cave::CaveNode::CaveNode(bool& visited_given, string& long_desc, string& short_desc, int& id_given) {
     visited = visited_given;
     longdesc = long_desc;

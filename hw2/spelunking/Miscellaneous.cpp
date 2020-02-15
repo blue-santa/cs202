@@ -83,6 +83,7 @@ bool testUserInput(string& user_input_temp, int& userInput) {
         res = false;
     }    
 
+    // User input limits
     if (userInput > 3 || userInput < 0) {
         res = false;
     }
