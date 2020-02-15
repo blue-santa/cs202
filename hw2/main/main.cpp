@@ -6,7 +6,7 @@
  * Main file for temperature main project in hw0
  */
 
-// #define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_MAIN
 
 #include <iostream>
 #include <iomanip>
@@ -38,8 +38,7 @@ void reportValues(list<Value>& mylist) {
 
 }
 
-int main(int argc, char* argv[])
-{
+TEST_CASE( "Linked List/Stack tests", "[list]" ) {
 
     vector<string> filenames;
     filenames.push_back("the-wanderer.txt");
@@ -62,47 +61,49 @@ int main(int argc, char* argv[])
     reportValues(mylist);
     cout << endl;
 
+    list<Value>::iterator it_test1 = mylist.begin();
+
+    REQUIRE( it_test1->title == "solomon-and-saturn.txt" ); 
 
     cout << setw(35 + 12 * 4) << right <<  "Pop a value from the front of the list" << endl;
     mylist.pop_front(); 
     reportValues(mylist);
     cout << endl;
 
-    cout << setw(35 + 12 * 4) << right <<  "Push three values to the back of the list" << endl;
-    for (unsigned int i = 2; i < 5; i++) {
-        Value newValue(filenames[i]);
-        mylist.push_back(newValue);
-    } 
-    reportValues(mylist);
-    cout << endl;
+    // cout << setw(35 + 12 * 4) << right <<  "Push three values to the back of the list" << endl;
+    // for (unsigned int i = 2; i < 5; i++) {
+        // Value newValue(filenames[i]);
+        // mylist.push_back(newValue);
+    // } 
+    // reportValues(mylist);
+    // cout << endl;
 
 
-    cout << setw(35 + 12 * 4) << right <<  "Pop a value from the back of the list" << endl;
-    mylist.pop_back(); 
-    reportValues(mylist);
-    cout << endl;
+    // cout << setw(35 + 12 * 4) << right <<  "Pop a value from the back of the list" << endl;
+    // mylist.pop_back(); 
+    // reportValues(mylist);
+    // cout << endl;
 
-    list<Value>::iterator it = mylist.begin();
+    // list<Value>::iterator it = mylist.begin();
 
-    cout << setw(35 + 12 * 4) << right <<  "Search for Solomon and Saturn" << endl;
+    // cout << setw(35 + 12 * 4) << right <<  "Search for Solomon and Saturn" << endl;
 
-    while (it->title != "solomon-and-saturn.txt") it++;
+    // while (it->title != "solomon-and-saturn.txt") it++;
 
-    it->reportValue();
+    // it->reportValue();
 
-    cout << endl;
-    cout << setw(35 + 12 * 4) << right <<  "Insert sorted values behind Solomon and Saturn" << endl;
-    for (int i = 0; mylist.size() < filenames.size(); i++) {
-        Value newValue(filenames[(int)(mylist.size())]);
-        mylist.insert(it, newValue);
-        it++;
-    }
-    reportValues(mylist);
+    // cout << endl;
+    // cout << setw(35 + 12 * 4) << right <<  "Insert sorted values behind Solomon and Saturn" << endl;
+    // for (int i = 0; mylist.size() < filenames.size(); i++) {
+        // Value newValue(filenames[(int)(mylist.size())]);
+        // mylist.insert(it, newValue);
+        // it++;
+    // }
+    // reportValues(mylist);
 
-    cout << endl;
-    cout << "Total number of file changes: " << Value::total_change_count << endl;
-
-	return 0;
+    // cout << endl;
+    // cout << "Total number of file changes: " << Value::total_change_count << endl;
 }
+
 
 
