@@ -17,6 +17,7 @@ using std::string;
 
 struct Value {
 
+    // Base values for a Value instance
     string title = "";
     int line_count = 0;
     int par_count = 0;
@@ -24,10 +25,19 @@ struct Value {
     int char_count = 0;
     static int total_change_count;
 
+    // Main constructor
     Value(string& filename);
+
+    // Set the title of a Value instance
     void setTitle(string& filename);
+
+    // Count the words in a provided string
     unsigned int countWords(string const& str);
+
+    // Set the counts for values in Value instance
     void setCount(string& filename);
+
+    // Report the values of the counts in this instance of Value
     void reportValue();
 };
 

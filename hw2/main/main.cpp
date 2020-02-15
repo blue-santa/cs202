@@ -27,6 +27,7 @@ using std::string;
 using std::list;
 using std::right;
 
+// Report the values for each list item in mylist
 void reportValues(list<Value>& mylist) {
 
     list<Value>::iterator it = mylist.begin();
@@ -38,8 +39,10 @@ void reportValues(list<Value>& mylist) {
 
 }
 
+// Provides main() using Catch2.hpp
 TEST_CASE( "Linked List/Stack tests", "[list]" ) {
 
+    // Create vector to hold each filename
     vector<string> filenames;
     filenames.push_back("the-wanderer.txt");
     filenames.push_back("dream-of-the-rood.txt");
@@ -52,6 +55,7 @@ TEST_CASE( "Linked List/Stack tests", "[list]" ) {
 
     list<Value> mylist;
 
+    // Demonstration of mylist.push_front() for three values
     cout << endl;
     cout << setw(35 + 12 * 4) << right << "Push three values to the front of the list" << endl;
     for (unsigned int i = 0; i < 3; i++) {
@@ -61,17 +65,13 @@ TEST_CASE( "Linked List/Stack tests", "[list]" ) {
     reportValues(mylist);
     cout << endl;
 
-    list<Value>::iterator it_test1 = mylist.begin();
-
-    REQUIRE( it_test1->title == "solomon-and-saturn.txt" ); 
-
+    // Demonstration for popping a value from mylist
     cout << setw(35 + 12 * 4) << right <<  "Pop a value from the front of the list" << endl;
     mylist.pop_front(); 
     reportValues(mylist);
     cout << endl;
 
-    REQUIRE( it_test1->title == "dream-of-the-rood.txt" ); 
-
+    // Demonstration of pushing to the back of the lsit
     cout << setw(35 + 12 * 4) << right <<  "Push three values to the back of the list" << endl;
     for (unsigned int i = 2; i < 5; i++) {
         Value newValue(filenames[i]);
@@ -80,32 +80,54 @@ TEST_CASE( "Linked List/Stack tests", "[list]" ) {
     reportValues(mylist);
     cout << endl;
 
+    // Demonstration of popping from the back of the list
+    cout << setw(35 + 12 * 4) << right <<  "Pop a value from the back of the list" << endl;
+    mylist.pop_back(); 
+    reportValues(mylist);
+    cout << endl;
 
-    // cout << setw(35 + 12 * 4) << right <<  "Pop a value from the back of the list" << endl;
-    // mylist.pop_back(); 
-    // reportValues(mylist);
-    // cout << endl;
+    // Demonstration of sorting the list
+    list<Value>::iterator it = mylist.begin(); 
+    cout << setw(35 + 12 * 4) << right <<  "Search for Solomon and Saturn" << endl; 
+    while (it->title != "solomon-and-saturn.txt") it++; 
+    it->reportValue();
 
-    // list<Value>::iterator it = mylist.begin();
+    // Demonstration of inserting sorted values into the list
+    cout << endl;
+    cout << setw(35 + 12 * 4) << right <<  "Insert sorted values behind Solomon and Saturn" << endl;
+    for (int i = 0; mylist.size() < filenames.size(); i++) {
+        Value newValue(filenames[(int)(mylist.size())]);
+        mylist.insert(it, newValue);
+        it++;
+    }
+    reportValues(mylist);
 
-    // cout << setw(35 + 12 * 4) << right <<  "Search for Solomon and Saturn" << endl;
+    // If each action performed properly, tests should be positive
+    list<Value>::iterator it_test = mylist.begin();
+    REQUIRE( it_test->title == "the-fate-of-the-apostles.txt" ); 
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "dream-of-the-rood.txt" ); 
 
-    // while (it->title != "solomon-and-saturn.txt") it++;
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "the-wanderer.txt" ); 
 
-    // it->reportValue();
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "wulf-and-eadwacer.txt" ); 
 
-    // cout << endl;
-    // cout << setw(35 + 12 * 4) << right <<  "Insert sorted values behind Solomon and Saturn" << endl;
-    // for (int i = 0; mylist.size() < filenames.size(); i++) {
-        // Value newValue(filenames[(int)(mylist.size())]);
-        // mylist.insert(it, newValue);
-        // it++;
-    // }
-    // reportValues(mylist);
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "solomon-and-saturn.txt" ); 
 
-    // cout << endl;
-    // cout << "Total number of file changes: " << Value::total_change_count << endl;
-}
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "the-menologium.txt" ); 
 
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "the-phoenix.txt" ); 
 
+    std::advance(it_test, 1);
+    REQUIRE( it_test->title == "the-order-of-the-world.txt" ); 
+
+    cout << endl;
+    cout << "Total number of file changes: " << Value::total_change_count << endl;
+
+} 
 
