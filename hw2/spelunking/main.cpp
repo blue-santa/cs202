@@ -78,11 +78,13 @@ int main(int argc, char* argv[])
 
         // Quit if user has indicated
         if (userInput == 3) {
+            cave.printLongDesc(currentRoom);
+        } else if (userInput == 4) {
             break;
-        }
-        
+        } else { 
         // Proceed to adjacent room
         cave.gotoAdjacentRoom(adjacent_rooms.at(userInput));
+        }
     }
 
     // Save default cave to file (for proof-of-concept)
