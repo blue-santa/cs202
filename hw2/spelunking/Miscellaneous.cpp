@@ -83,6 +83,10 @@ bool testUserInput(string& user_input_temp, int& userInput) {
         res = false;
     }    
 
+    if (userInput > 2 || userInput < 0) {
+        res = false;
+    }
+
     // Return the result
     return res;
 }

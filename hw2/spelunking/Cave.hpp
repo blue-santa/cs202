@@ -34,6 +34,9 @@ class Cave {
         // Return current room
         int getCurrentRoom();
 
+        // Get visited state
+        bool getVisited(const int &currRoom);
+
         // Go to room in the cave complex
         void gotoRoom(int room);
 
@@ -55,6 +58,8 @@ class Cave {
         // Read rooms from an input stream
         void readRooms(istream& is);
 
+        vector<int> getAdjacentRooms(int &current_room);
+
         string createDefaultCave();
 
     private:
@@ -66,7 +71,7 @@ class Cave {
             int id;
             bool visited;
 
-            CaveNode();
+            CaveNode(bool& visited_given, string& long_desc, string& short_desc, int& id_given);
         };
 
         using CaveNodePtr = shared_ptr<CaveNode>;
