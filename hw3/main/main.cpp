@@ -94,6 +94,7 @@ int main(int argv, char** argc) {
         exit(0);
     }
 
+    // Initiate variables
     vector<string> tokens;
     vector<pair<int, int>> linecols;
     linecols.push_back(make_pair(1, 1));
@@ -101,10 +102,15 @@ int main(int argv, char** argc) {
     // There are two tests:
     // 1 for processing
     // 1 for both processing and outputting 
+    // (The second test must start, but if the user has indicated
+    // --line-only, it will be ignored later)
     StopWatch processing_only; 
     StopWatch and_outputting; 
 
+    // Read the lines from the file
     bool linesRead = ReadLine(fin, tokens, linecols);
+
+    // Stop the first StopWatch
     processing_only.captureFinishTime(); 
 
     if (!linesRead) {
@@ -112,22 +118,26 @@ int main(int argv, char** argc) {
         exit(0);
     }
 
+    // If the user has not indicated --line-only, create the report
     if (!isLineOnly) {
         PrintTokens(fout, tokens, linecols);
     }
 
+    // Stop the second StopWatch
     and_outputting.captureFinishTime();
 
     fin.close();
 
+    // Discover input file size
     ifstream f_size(fileToRead, std::ifstream::ate | std::ifstream::binary);
-    int byte_size = (int)(f_size.tellg());
-    
-
+    int byte_size = (int)(f_size.tellg()); 
     float MB_size = (float)(byte_size) / (float)1048576;
+
+    // Discover speed of processing for first StopWatch
     float MB_sec_process_only = (float)MB_size / (float)(processing_only.reportFinishTime());
 
 
+    // Print information to console
     cout << setw(25) << "File size is: " << MB_size << " Mbs." << endl;
     cout << setw(25) << "Processing only time: " << processing_only.reportFinishTime() << endl;
     cout << setw(25) << "Speed is: " << MB_sec_process_only << " Mbs/sec." << endl;
@@ -139,6 +149,7 @@ int main(int argv, char** argc) {
         cout << setw(25) << "Speed diff is: " << (MB_sec_process_only - MB_sec_with_proc) << " Mbs/sec." << endl;
     }
 
+    // Delete the temporary report file, if needed
     if (isLineOnly) {
         remove("temporary_report_file.txt");
     }
