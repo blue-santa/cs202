@@ -101,13 +101,10 @@ int main(int argv, char** argc) {
         exit(0);
     }
 
-    cout << setw(25) << "Processing only: " << processing_only.reportFinishTime() << endl;
-
-    if (isLineOnly) {
-        return 0;
+    if (!isLineOnly) {
+        PrintTokens(fout, tokens, linecols);
     }
 
-    PrintTokens(fout, tokens, linecols);
     and_outputting.captureFinishTime();
 
     fin.close();
@@ -117,13 +114,19 @@ int main(int argv, char** argc) {
     
 
     float MB_size = (float)(byte_size) / (float)1048576;
-    float MB_sec_size = MB_size / (and_outputting.reportFinishTime() - processing_only.reportFinishTime());
+    float MB_sec_process_only = (float)MB_size / (float)(processing_only.reportFinishTime());
 
 
-    cout << setw(25) << "With output: " << and_outputting.reportFinishTime() << endl;
-    cout << setw(25) << "Time difference: " << (and_outputting.reportFinishTime() - processing_only.reportFinishTime()) << endl;
     cout << setw(25) << "File size is: " << MB_size << " Mbs." << endl;
-    cout << setw(25) << "Speed is: " << MB_sec_size << " Mbs/sec." << endl;
+    cout << setw(25) << "Processing only time: " << processing_only.reportFinishTime() << endl;
+    cout << setw(25) << "Speed is: " << MB_sec_process_only << " Mbs/sec." << endl;
+
+    if (!isLineOnly) { float MB_sec_with_proc = (float)MB_size / (float)(and_outputting.reportFinishTime()); cout << endl;
+        cout << setw(25) << "With report output time: " << and_outputting.reportFinishTime() << endl;
+        cout << setw(25) << "Time difference: " << (and_outputting.reportFinishTime() - processing_only.reportFinishTime()) << endl; 
+        cout << setw(25) << "Speed is: " << MB_sec_with_proc << " Mbs/sec." << endl;
+        cout << setw(25) << "Speed diff is: " << (MB_sec_process_only - MB_sec_with_proc) << " Mbs/sec." << endl;
+    }
 
     return 0; 
 } 
