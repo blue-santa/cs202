@@ -12,12 +12,10 @@
 #include <iomanip>
 #include <string>
 #include <vector>
-// #include <list>
-// #include <iterator>
-// #include <sstream>
 #include <fstream>
 #include <utility>
 #include <bits/stdc++.h>
+#include <stdio.h>
 
 #include "Miscellaneous.hpp"
 #include "Value.hpp" 
@@ -30,11 +28,11 @@ using std::endl;
 using std::vector;
 using std::string;
 using std::pair;
-// using std::right;
 using std::ifstream;
 using std::ofstream;
 using std::make_pair;
 
+// Check whether the user has indicated to only do the processing and not the report
 bool getLineInput(int &argv, char** argc) {
 
     bool res = false;
@@ -58,25 +56,38 @@ bool getLineInput(int &argv, char** argc) {
 
 }
 
-// Provides main() using Catch2.hpp
 int main(int argv, char** argc) {
 
-    if (argv < 2) {
+    // Check user has input the correct number of arguments
+    if (argv < 2 || argv > 3) {
         cout << "Input error" << endl;
         exit(0);
     }
 
+    // Discover whether user desires to skip the report creation
     bool isLineOnly = getLineInput(argv, argc);
-    string fileToRead(argc[1]);
 
+    // Declare file to read
+    string fileToRead(argc[1]); 
     ifstream fin(fileToRead);
 
+    // Check that the file is valid
     if (!fin) {
         cout << "Error reading input file." << endl;
         exit(0);
     }
 
-    ofstream fout("report.txt");
+    // Create a report file name
+    // Be sure to not overwrite an existing report if the user indicated --line-only
+    string outputname; 
+    if (!isLineOnly) {
+        outputname = "report.txt";
+    } else {
+        outputname = "temporary_report_file.txt";
+    }
+
+    // Create an output stream for the report
+    ofstream fout(outputname);
 
     if (!fout) {
         cout << "Error creating report." << endl;
@@ -126,6 +137,10 @@ int main(int argv, char** argc) {
         cout << setw(25) << "Time difference: " << (and_outputting.reportFinishTime() - processing_only.reportFinishTime()) << endl; 
         cout << setw(25) << "Speed is: " << MB_sec_with_proc << " Mbs/sec." << endl;
         cout << setw(25) << "Speed diff is: " << (MB_sec_process_only - MB_sec_with_proc) << " Mbs/sec." << endl;
+    }
+
+    if (isLineOnly) {
+        remove("temporary_report_file.txt");
     }
 
     return 0; 
