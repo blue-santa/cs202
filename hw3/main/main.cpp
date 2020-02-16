@@ -33,6 +33,7 @@ using std::pair;
 // using std::right;
 using std::ifstream;
 using std::ofstream;
+using std::make_pair;
 
 bool getLineInput(int &argv, char** argc) {
 
@@ -84,6 +85,7 @@ int main(int argv, char** argc) {
 
     vector<string> tokens;
     vector<pair<int, int>> linecols;
+    linecols.push_back(make_pair(1, 1));
 
     // There are two tests:
     // 1 for processing

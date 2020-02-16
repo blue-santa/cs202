@@ -31,6 +31,7 @@ using std::vector;
 using std::getline;
 using std::string;
 using std::make_pair;
+using std::pair;
 using std::to_string;
 using std::left;
 using std::right;
@@ -60,6 +61,8 @@ bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
 // Read lines
 bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<std::pair<int, int>>& linecols) {
 
+    bool lineColsSet = false;
+
     while (true) {
         string line;
         vector<string> temp_tokens;
@@ -72,9 +75,19 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
 
         bool lineNotBlank = LineToTokens(line, temp_tokens); 
 
-        int col_index = 1;
-        int current_line = linecols.end().first;
+        vector<pair<int, int>>::iterator current_line_it = linecols.end();
+        vector<pair<int, int>>::iterator col_index_it = linecols.end();
 
+        current_line_it--;
+        col_index_it--;
+
+        int current_line = current_line_it->first;
+        int col_index = col_index_it->second;
+
+        if (lineColsSet == false) {
+            linecols.erase(linecols.begin());
+            lineColsSet = true;
+        }
 
         if (!lineNotBlank) { 
             linecols.push_back(make_pair(current_line, col_index));
@@ -101,17 +114,22 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
 // Print tokens
 void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const std::vector<std::pair<int, int>>& linecols) {
 
+    if (linecols.size() == 0) {
+        cout << "No lines and columns to print." << endl;
+        exit(0);
+    }
+
     int line_size_int = linecols.end()->first; 
     string line_size_str = to_string(line_size_int);
     int line_col_length = line_size_str.length();
 
-    int col_size_int = linecols.end().second;
+    int col_size_int = linecols.end()->second;
     string col_size_str = to_string(col_size_int);
     int col_col_length = col_size_str.length();
 
     for (unsigned int i = 0; i < tokens.size(); i++) {
 
-        os << "Line" << right << setw(line_col_length + 1) << linecols.at(i)->first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";
+        os << "Line" << right << setw(line_col_length + 1) << linecols.at(i).first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";
         if (tokens.at(i) == "=blank line") {
             os << "blank line" << endl;
             continue;
