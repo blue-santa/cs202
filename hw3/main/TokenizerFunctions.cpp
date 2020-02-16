@@ -106,6 +106,9 @@ bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
 // Read lines
 bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<std::pair<int, int>>& linecols) {
 
+    // The linecols variable comes with a dummy pair for processing
+    // and needs to be set
+    // Initiate bool variable to track when linecols is fixed
     bool lineColsSet = false;
 
     while (true) {
@@ -122,30 +125,33 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
             return false;
         }
 
+        // Trim the line first to get rid of extra white spaces
         trim(line);
 
+        // Process the line and check whether it is blank 
         bool lineNotBlank = LineToTokens(line, temp_tokens); 
 
-        vector<pair<int, int>>::iterator linecols_it = linecols.end();
-
-        linecols_it--;
-
+        // Capture current line and column index values
+        vector<pair<int, int>>::iterator linecols_it = linecols.end(); 
+        linecols_it--; 
         int current_line = linecols_it->first;
         int col_index = linecols_it->second;
 
+        // Erase the dummy pair from linecols, if necesary
         if (lineColsSet == false) {
             linecols.erase(linecols.begin());
             lineColsSet = true;
         }
 
+        // Create a blank line token for processing
         if (!lineNotBlank) { 
             linecols.push_back(make_pair(current_line, col_index));
             tokens.push_back("=blank line=");
             continue;
         }
 
+        // Process tokens and linecols values
         for (unsigned int i = 0; i < temp_tokens.size(); i++) {
-
             linecols.push_back(make_pair(current_line, col_index));
             col_index += temp_tokens.at(i).size();
             current_line++;
@@ -157,11 +163,13 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
 // Print tokens
 void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const std::vector<std::pair<int, int>>& linecols) {
 
+    // To prevent segfault, check that linecols has values
     if (linecols.size() == 0) {
         cout << "No lines and columns to print." << endl;
         exit(0);
     }
 
+    // For print processing, capture string length of max column and line values
     std::vector<std::pair<int, int>>::const_iterator linecols_it = linecols.end();
     linecols_it--;
 
@@ -173,6 +181,7 @@ void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const
     string col_size_str = to_string(col_size_int);
     int col_col_length = col_size_str.length();
 
+    // Print report to output stream
     for (unsigned int i = 0; i < tokens.size(); i++) {
 
         os << "Line" << right << setw(line_col_length + 1) << linecols.at(i).first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";

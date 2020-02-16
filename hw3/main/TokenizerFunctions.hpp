@@ -15,14 +15,18 @@
 #include "StopWatch.hpp"
 
 using std::vector;
+using std::string;
+using std::istream;
+using std::pair;
+using std::ostream;
 
 // Convert lines to tokens
-bool LineToTokens(const std::string& line, std::vector<std::string>& tokens);
+bool LineToTokens(const string& line, vector<string>& tokens);
 
 // Read lines
-bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<std::pair<int, int>>& linecols);
+bool ReadLine(istream& is, vector<string>& tokens, vector<pair<int, int>>& linecols);
 
 // Print tokens
-void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const std::vector<std::pair<int, int>>& linecols);
+void PrintTokens(ostream& os, const vector<string>& tokens, const vector<pair<int, int>>& linecols);
 
 #endif
