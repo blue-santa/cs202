@@ -39,6 +39,8 @@ using std::count;
 using std::find_if;
 using std::isspace;
 
+// (The three commands below were copied nearly verbatim from Stackoverflow) 
+
 // Trim from the left 
 static inline void ltrim(string &line) {
     line.erase(line.begin(), find_if(line.begin(), line.end(), [](int ch) {
@@ -62,24 +64,39 @@ static inline void trim(string &line) {
 // Convert lines to tokens
 bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
 
+    // Declare initial variables
     string delimiter = " ";
     size_t pos = 0;
     size_t prev_pos = 0;
-    int count_del = count(line.begin(), line.end(), ' ');
     string token;
 
+    // Count white spaces
+    int count_del = count(line.begin(), line.end(), ' ');
+
+    // If the line is blank, return false
     if (line.size() == 0 || (line.find_first_not_of(' ') == std::string::npos)) {
         return false;
     }
 
+    // Process line to individual tokens
     for (int i = 0; i < count_del + 1; i++) {
+        
+        // Move pos to next whitespace
         pos = line.find(delimiter, prev_pos);
-            if (pos - prev_pos == 0) {
-                prev_pos = pos + delimiter.length();
-                continue;
-            }
+
+        // If there's no distance between the previous position and the next pos
+        // That indicates that there are two whitespaces together
+        // Move prev_pos forward one notch and restart loop
+        if (pos - prev_pos == 0) {
+            prev_pos = pos + delimiter.length();
+            continue;
+        }
+
+        // Process line to token to tokens
         token = line.substr(prev_pos, pos - prev_pos);
         tokens.push_back(token);
+
+        // Move prev_pos forward one notch
         prev_pos = pos + delimiter.length();
     } 
 
