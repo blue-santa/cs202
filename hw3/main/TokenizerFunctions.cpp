@@ -113,7 +113,7 @@ void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const
 
     for (unsigned int i = 0; i < tokens.size(); i++) {
 
-        os << "Line" << right << setw(line_col_length + 1) << linecols.at(i)->first << ", Column " << right << setw(col_col_length + 1) << lineNotBlank.at(i)->second << ": ";
+        os << "Line" << right << setw(line_col_length + 1) << linecols.at(i).first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";
         if (tokens.at(i) == "=blank line") {
             os << "blank line" << endl;
             continue;

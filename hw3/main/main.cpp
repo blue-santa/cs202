@@ -41,7 +41,7 @@ bool getLineInput(int &argv, char** argc) {
         return res;
     }
     
-    string isLineOnly = s(argc[2]);
+    string isLineOnly(argc[2]);
 
     if (isLineOnly == "--line-only") {
         res = true;
@@ -57,8 +57,8 @@ bool getLineInput(int &argv, char** argc) {
 // Provides main() using Catch2.hpp
 int main(int argv, char** argc) {
 
-    bool isLineOnly = checkInput(argv, argc);
-    string fileToRead = s(argc[2]);
+    bool isLineOnly = getLineInput(argv, argc);
+    string fileToRead(argc[2]);
 
     ifstream fin(fileToRead);
 
@@ -97,7 +97,7 @@ int main(int argv, char** argc) {
         return 0;
     }
 
-    printTokens(fout, tokens, linecols);
+    PrintTokens(fout, tokens, linecols);
     and_outputting.captureFinishTime();
 
     cout << setw(25) << "With output: " << and_outputting.reportFinishTime() << endl;
