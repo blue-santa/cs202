@@ -110,8 +110,20 @@ int main(int argv, char** argc) {
     PrintTokens(fout, tokens, linecols);
     and_outputting.captureFinishTime();
 
+    fin.close();
+
+    ifstream f_size(fileToRead, std::ifstream::ate | std::ifstream::binary);
+    int byte_size = (int)(f_size.tellg());
+    
+
+    float MB_size = (float)(byte_size) / (float)1048576;
+    float MB_sec_size = MB_size / (and_outputting.reportFinishTime() - processing_only.reportFinishTime());
+
+
     cout << setw(25) << "With output: " << and_outputting.reportFinishTime() << endl;
     cout << setw(25) << "Time difference: " << (and_outputting.reportFinishTime() - processing_only.reportFinishTime()) << endl;
+    cout << setw(25) << "File size is: " << MB_size << " Mbs." << endl;
+    cout << setw(25) << "Speed is: " << MB_sec_size << " Mbs/sec." << endl;
 
     return 0; 
 } 
