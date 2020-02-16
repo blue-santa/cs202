@@ -9,15 +9,14 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-// #include <cstdlib>
 // #include <random>
-// #include <cmath>
-// #include <stdlib.h>
+#include <stdlib.h>
 // #include <chrono>
 #include <vector>
 #include <utility>
 #include <iterator>
-// #include <algorithm>
+#include <algorithm>
+#include <bits/stdc++.h>
 // #include <time.h>
 
 #include "Miscellaneous.hpp"
@@ -37,6 +36,7 @@ using std::left;
 using std::right;
 using std::setw;
 using std::advance;
+using std::count;
 
 // Convert lines to tokens
 bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
@@ -44,14 +44,12 @@ bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
     string delimiter = " ";
     size_t pos = 0;
     size_t prev_pos = 0;
+    int count_del = count(line.begin(), line.end(), ' ');
     string token;
 
-    if (line.size() == 0) {
-        return false;
-    }
-
-    while ((pos = line.find(delimiter, prev_pos)) != std::string::npos) {
-        token = line.substr(prev_pos, pos);
+    for (int i = 0; i < count_del + 1; i++) {
+        pos = line.find(delimiter, prev_pos);
+        token = line.substr(prev_pos, pos - prev_pos);
         tokens.push_back(token);
         prev_pos = pos + delimiter.length();
     } 
@@ -75,7 +73,7 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
         bool lineNotBlank = LineToTokens(line, temp_tokens); 
 
         int col_index = 1;
-        int current_line = linecols.end()->first;
+        int current_line = linecols.end().first;
 
 
         if (!lineNotBlank) { 
@@ -107,13 +105,13 @@ void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const
     string line_size_str = to_string(line_size_int);
     int line_col_length = line_size_str.length();
 
-    int col_size_int = linecols.end()->second;
+    int col_size_int = linecols.end().second;
     string col_size_str = to_string(col_size_int);
     int col_col_length = col_size_str.length();
 
     for (unsigned int i = 0; i < tokens.size(); i++) {
 
-        os << "Line" << right << setw(line_col_length + 1) << linecols.at(i).first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";
+        os << "Line" << right << setw(line_col_length + 1) << linecols.at(i)->first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";
         if (tokens.at(i) == "=blank line") {
             os << "blank line" << endl;
             continue;

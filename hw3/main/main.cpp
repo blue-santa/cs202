@@ -17,6 +17,7 @@
 // #include <sstream>
 #include <fstream>
 #include <utility>
+#include <bits/stdc++.h>
 
 #include "Miscellaneous.hpp"
 #include "Value.hpp" 
@@ -37,11 +38,13 @@ bool getLineInput(int &argv, char** argc) {
 
     bool res = false;
 
-    if (argv < 2) {
+    if (argv < 3) {
         return res;
     }
-    
+
     string isLineOnly(argc[2]);
+
+    cout << endl;
 
     if (isLineOnly == "--line-only") {
         res = true;
@@ -57,8 +60,13 @@ bool getLineInput(int &argv, char** argc) {
 // Provides main() using Catch2.hpp
 int main(int argv, char** argc) {
 
+    if (argv < 2) {
+        cout << "Input error" << endl;
+        exit(0);
+    }
+
     bool isLineOnly = getLineInput(argv, argc);
-    string fileToRead(argc[2]);
+    string fileToRead(argc[1]);
 
     ifstream fin(fileToRead);
 
