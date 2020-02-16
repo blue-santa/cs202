@@ -9,15 +9,14 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-// #include <random>
 #include <stdlib.h>
-// #include <chrono>
 #include <vector>
 #include <utility>
 #include <iterator>
 #include <algorithm>
 #include <bits/stdc++.h>
-// #include <time.h>
+#include <cctype>
+#include <locale>
 
 #include "Miscellaneous.hpp"
 #include "TokenizerFunctions.hpp"
@@ -27,7 +26,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
-// using std::round;
 using std::getline;
 using std::string;
 using std::make_pair;
@@ -38,6 +36,28 @@ using std::right;
 using std::setw;
 using std::advance;
 using std::count;
+using std::find_if;
+using std::isspace;
+
+// Trim from the left 
+static inline void ltrim(string &line) {
+    line.erase(line.begin(), find_if(line.begin(), line.end(), [](int ch) {
+        return !isspace(ch);
+    }));
+}
+
+// Trim from the right
+static inline void rtrim(string &line) {
+    line.erase(find_if(line.rbegin(), line.rend(), [](int ch) {
+        return !isspace(ch);
+    }).base(), line.end());
+}
+
+// Trim both ends
+static inline void trim(string &line) {
+    ltrim(line);
+    rtrim(line);
+}
 
 // Convert lines to tokens
 bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
@@ -54,6 +74,10 @@ bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
 
     for (int i = 0; i < count_del + 1; i++) {
         pos = line.find(delimiter, prev_pos);
+            if (pos - prev_pos == 0) {
+                prev_pos = pos + delimiter.length();
+                continue;
+            }
         token = line.substr(prev_pos, pos - prev_pos);
         tokens.push_back(token);
         prev_pos = pos + delimiter.length();
@@ -80,6 +104,8 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
             cout << "Stream failed to load" << endl;
             return false;
         }
+
+        trim(line);
 
         bool lineNotBlank = LineToTokens(line, temp_tokens); 
 
