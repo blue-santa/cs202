@@ -1,4 +1,4 @@
-TARGET = prog 
+TARGET = tokenizer 
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
