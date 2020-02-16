@@ -72,21 +72,23 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
         vector<string> temp_tokens;
         getline(is, line);
 
+        if (is.eof()) {
+            return true;
+        }
+
         if (!is) {
-            cout << "stream failed to load" << endl;
+            cout << "Stream failed to load" << endl;
             return false;
         }
 
         bool lineNotBlank = LineToTokens(line, temp_tokens); 
 
-        vector<pair<int, int>>::iterator current_line_it = linecols.end();
-        vector<pair<int, int>>::iterator col_index_it = linecols.end();
+        vector<pair<int, int>>::iterator linecols_it = linecols.end();
 
-        current_line_it--;
-        col_index_it--;
+        linecols_it--;
 
-        int current_line = current_line_it->first;
-        int col_index = col_index_it->second;
+        int current_line = linecols_it->first;
+        int col_index = linecols_it->second;
 
         if (lineColsSet == false) {
             linecols.erase(linecols.begin());
@@ -103,16 +105,10 @@ bool ReadLine(std::istream& is, std::vector<std::string>& tokens, std::vector<st
 
             linecols.push_back(make_pair(current_line, col_index));
             col_index += temp_tokens.at(i).size();
+            current_line++;
             tokens.push_back(temp_tokens.at(i));
         } 
-
-        if (is.eof()) {
-            break;
-        }
-    }
-
-    return true;
-
+    } 
 }
 
 // Print tokens
@@ -123,23 +119,26 @@ void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const
         exit(0);
     }
 
-    int line_size_int = linecols.end()->first; 
+    std::vector<std::pair<int, int>>::const_iterator linecols_it = linecols.end();
+    linecols_it--;
+
+    int line_size_int = linecols_it->first; 
     string line_size_str = to_string(line_size_int);
     int line_col_length = line_size_str.length();
 
-    int col_size_int = linecols.end()->second;
+    int col_size_int = linecols_it->second;
     string col_size_str = to_string(col_size_int);
     int col_col_length = col_size_str.length();
 
     for (unsigned int i = 0; i < tokens.size(); i++) {
 
         os << "Line" << right << setw(line_col_length + 1) << linecols.at(i).first << ", Column " << right << setw(col_col_length + 1) << linecols.at(i).second << ": ";
-        if (tokens.at(i) == "=blank line") {
+        if (tokens.at(i) == "=blank line=") {
             os << "blank line" << endl;
             continue;
         }
 
-        os << tokens.at(i) << "\"" << endl;
+        os << "\"" << tokens.at(i) << "\"" << endl;
     } 
 }
 
