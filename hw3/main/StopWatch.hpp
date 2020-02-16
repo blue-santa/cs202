@@ -35,7 +35,8 @@ class StopWatch {
 
         // A coding tool that reports individual raw times
         void reportRawTimes();
-};
+
+}; 
 
 #endif
 

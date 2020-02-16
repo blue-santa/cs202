@@ -19,7 +19,7 @@
 #include <time.h>
 
 #include "Miscellaneous.hpp"
-#include "TimeItFunctions.hpp"
+#include "TokenizerFunctions.hpp"
 #include "StopWatch.hpp" 
 
 using std::cout;
@@ -52,7 +52,4 @@ double StopWatch::reportFinishTime() {
 // A coding tool to report raw start and finish times
 void StopWatch::reportRawTimes() { 
     cout << "_start_time: " << _start_time.time_since_epoch().count() << " _finish_time: " << _finish_time.time_since_epoch().count() << endl;
-}
-
-
-
+} 
