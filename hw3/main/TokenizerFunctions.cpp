@@ -48,6 +48,10 @@ bool LineToTokens(const std::string& line, std::vector<std::string>& tokens) {
     int count_del = count(line.begin(), line.end(), ' ');
     string token;
 
+    if (line.size() == 0 || (line.find_first_not_of(' ') == std::string::npos)) {
+        return false;
+    }
+
     for (int i = 0; i < count_del + 1; i++) {
         pos = line.find(delimiter, prev_pos);
         token = line.substr(prev_pos, pos - prev_pos);
