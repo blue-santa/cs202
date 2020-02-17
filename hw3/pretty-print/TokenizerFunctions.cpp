@@ -201,17 +201,17 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
 
     // Capture titles for Stories of the Wagner Opera
     vector<string> titles;
-    titles.push_back("RIENZI, THE LAST OF THE TRIBUNES");
-    titles.push_back("THE FLYING DUTCHMAN");
-    titles.push_back("TANNHÄUSER");
-    titles.push_back("LOHENGRIN");
-    titles.push_back("TRISTAN AND YSOLDE");
-    titles.push_back("THE MASTER-SINGERS OF NUREMBERG");
-    titles.push_back("THE NIBELUNG'S RING.--RHEINGOLD");
-    titles.push_back("THE WALKYRIE");
-    titles.push_back("SIEGFRIED");
-    titles.push_back("DUSK OF THE GODS");
-    titles.push_back("PARSIFAL");
+    titles.push_back("RIENZI, THE LAST OF THE TRIBUNES.");
+    titles.push_back("THE FLYING DUTCHMAN.");
+    titles.push_back("TANNHÄUSER.");
+    titles.push_back("LOHENGRIN.");
+    titles.push_back("TRISTAN AND YSOLDE.");
+    titles.push_back("THE MASTER-SINGERS OF NUREMBERG.");
+    titles.push_back("THE NIBELUNG'S RING.--RHEINGOLD.");
+    titles.push_back("THE WALKYRIE.");
+    titles.push_back("SIEGFRIED.");
+    titles.push_back("DUSK OF THE GODS.");
+    titles.push_back("PARSIFAL.");
 
     vector<string>::const_iterator tokens_it_next = tokens.begin();
     vector<string>::const_iterator tokens_it_prev = tokens_it_next;
@@ -231,19 +231,19 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
 
         if (dist_prev_next == 1) {
             tokens_it_prev = tokens_it_next;
+            tokens_it_prev++;
+            tokens_it_current = tokens_it_prev;
             continue;
         } else if (dist_prev_next == 0) {
-            cout << "Error assembling tokens." << endl;
-            exit(0);
+            tokens_it_prev++;
+            tokens_it_current = tokens_it_prev;
+            continue;
         }
-
-        // Move the tokens_it_prev iterator to the first non-blank space tokens
-        tokens_it_current++;
 
         string res = *tokens_it_current;
 
         // Compile all tokens between iterators into one unit
-        for (int i = 0; i < dist_prev_next - 2; i++) {
+        for (int i = 0; i < dist_prev_next - 1; i++) {
             res += " ";
             tokens_it_current++;
             res += *tokens_it_current;
@@ -263,7 +263,8 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
         }
 
         tokens_it_prev = tokens_it_next;
-        tokens_it_current = tokens_it_next;
+        tokens_it_prev++;
+        tokens_it_current = tokens_it_prev;
 
         os << res << endl;
 
