@@ -195,8 +195,10 @@ void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const
     } 
 }
 
+// Pretty print the provided tokens
 void PrettyPrint(ostream& os, const vector<string>& tokens) {
 
+    // Variable to skip
     string blank = "=blank line=";
 
     // Capture titles for Stories of the Wagner Opera
@@ -213,22 +215,26 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
     titles.push_back("DUSK OF THE GODS.");
     titles.push_back("PARSIFAL.");
 
+    // Iterators for while loop progresiong
     vector<string>::const_iterator tokens_it_next = tokens.begin();
     vector<string>::const_iterator tokens_it_prev = tokens_it_next;
     vector<string>::const_iterator tokens_it_current = tokens_it_next;
 
+    // Check that there are actual tokens in variable
     if (tokens_it_next == tokens.end()) {
         cout << "Empty tokens" << endl;
         exit(0);
     }
 
-    int counter = 0;
+    while (true) { 
 
-    while (true) {
-
+        // Search for next blank line
         tokens_it_next = find(tokens_it_prev, tokens.end(), blank);
+
+        // Measure distance between previous spot and next blank line
         int dist_prev_next = (int)(distance(tokens_it_prev, tokens_it_next));
 
+        // Account for adjacent blank lines
         if (dist_prev_next == 1) {
             tokens_it_prev = tokens_it_next;
             tokens_it_prev++;
@@ -240,9 +246,10 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
             continue;
         }
 
-        string res = *tokens_it_current;
 
         // Compile all tokens between iterators into one unit
+        // The first one does not need a space before it
+        string res = *tokens_it_current; 
         for (int i = 0; i < dist_prev_next - 1; i++) {
             res += " ";
             tokens_it_current++;
@@ -250,24 +257,26 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
         } 
 
 
-        vector<string>::const_iterator search_titles_it = find(titles.begin(), titles.end(), res);
-
+        // Check to see if the current paragraph is actually a title
+        // If it is, surround it in <h1> headings instead of <p>
+        vector<string>::const_iterator search_titles_it = find(titles.begin(), titles.end(), res); 
         if (search_titles_it != titles.end()) {
             res = "<h1>" + res + "</h1>\n";
         } else {
             res = "<p>" + res + "</p>\n";
         }
 
+        // Check to see if the end of the file is reached
         if (tokens_it_next == tokens.end()) {
             break;
         }
 
+        // Reset iterators
         tokens_it_prev = tokens_it_next;
         tokens_it_prev++;
         tokens_it_current = tokens_it_prev;
 
-        os << res << endl;
-
-        counter++;
+        // Send all content from this loop to the output stream
+        os << res << endl; 
     } 
 }

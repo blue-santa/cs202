@@ -172,6 +172,7 @@ int main(int argv, char** argc) {
         exit(0);
     } 
 
+    // Pretty print the files
     PrettyPrint(fout, tokens);
 
     fout.close(); 
