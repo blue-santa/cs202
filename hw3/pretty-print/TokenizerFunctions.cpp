@@ -215,57 +215,58 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
 
     vector<string>::const_iterator tokens_it_next = tokens.begin();
     vector<string>::const_iterator tokens_it_prev = tokens_it_next;
+    vector<string>::const_iterator tokens_it_current = tokens_it_next;
 
-    os << "test2" << endl;
+    if (tokens_it_next == tokens.end()) {
+        cout << "Empty tokens" << endl;
+        exit(0);
+    }
 
-    // if (tokens_it_next == tokens.end()) {
-        // cout << "Empty tokens" << endl;
-        // exit(0);
-    // }
+    int counter = 0;
 
-    // int counter = 0;
+    while (true) {
 
-    // while (true) {
+        tokens_it_next = find(tokens_it_prev, tokens.end(), blank);
+        int dist_prev_next = (int)(distance(tokens_it_prev, tokens_it_next));
 
-        // tokens_it_next = find(tokens_it_prev, tokens.end(), blank);
-        // int dist_prev_next = (int)(distance(tokens_it_prev, tokens_it_next));
+        if (dist_prev_next == 1) {
+            tokens_it_prev = tokens_it_next;
+            continue;
+        } else if (dist_prev_next == 0) {
+            cout << "Error assembling tokens." << endl;
+            exit(0);
+        }
 
-        // if (dist_prev_next == 1) {
-            // tokens_it_prev = tokens_it_next;
-            // continue;
-        // } else if (dist_prev_next == 0) {
-            // cout << "Error assembling tokens." << endl;
-            // exit(0);
-        // }
+        // Move the tokens_it_prev iterator to the first non-blank space tokens
+        tokens_it_current++;
 
-        // // Move the tokens_it_prev iterator to the first non-blank space tokens
-        // tokens_it_prev++;
+        string res = *tokens_it_current;
 
-        // string res = *tokens_it_prev;
+        // Compile all tokens between iterators into one unit
+        for (int i = 0; i < dist_prev_next - 2; i++) {
+            res += " ";
+            tokens_it_current++;
+            res += *tokens_it_current;
+        } 
 
-        // // Compile all tokens between iterators into one unit
-        // for (int i = 0; i < dist_prev_next - 2; i++) {
-            // res += " ";
-            // tokens_it_prev++;
-            // res += *tokens_it_prev;
-        // }
 
-        // advance(tokens_it_prev, 2);
+        vector<string>::const_iterator search_titles_it = find(titles.begin(), titles.end(), res);
 
-        // vector<string>::const_iterator search_titles_it = find(titles.begin(), titles.end(), res);
+        if (search_titles_it != titles.end()) {
+            res = "<h1>" + res + "</h1>\n";
+        } else {
+            res = "<p>" + res + "</p>\n";
+        }
 
-        // if (search_titles_it != titles.end()) {
-            // res = "<h1>" + res + "</h1>\n";
-        // } else {
-            // res = "<p>" + res + "</p>\n";
-        // }
+        if (tokens_it_next == tokens.end()) {
+            break;
+        }
 
-        // if (tokens_it_prev == tokens.end()) {
-            // break;
-        // }
+        tokens_it_prev = tokens_it_next;
+        tokens_it_current = tokens_it_next;
 
-        // os << res;
+        os << res << endl;
 
-        // counter++;
-    // } 
+        counter++;
+    } 
 }
