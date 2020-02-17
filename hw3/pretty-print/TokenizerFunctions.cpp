@@ -285,17 +285,19 @@ void PrettyPrint(ostream& os, const vector<string>& tokens, bool& isHtml, int& w
 
         } else { 
 
-            // Compile all tokens between iterators into one unit
-            // The first one does not need a space before it 
-
+            // Start res variable with first token
+            // Check length
             string res = *tokens_it_current; 
             int current_line_length = res.length();
 
+            // Error checking
             if (current_line_length > wrapCount) {
                 cout << "Wrap count cannot accomodate length of the word " << *tokens_it_current << " in the text file.\nPlease try a larger wrap count." << endl;
                 exit(0);
             }
 
+            // Iterate through current content and 
+            // add new lines where appropriate
             for (int i = 0; i < dist_prev_next - 1; i++) {
                 tokens_it_current++;
                 string tempStr = *tokens_it_current;
@@ -309,6 +311,7 @@ void PrettyPrint(ostream& os, const vector<string>& tokens, bool& isHtml, int& w
                 res += *tokens_it_current;
             } 
 
+            // As per assignment, add content to paragraphs vector
             paragraphs.push_back(res); 
             res += "\n";
 

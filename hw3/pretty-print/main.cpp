@@ -31,15 +31,29 @@ using std::pair;
 using std::ifstream;
 using std::ofstream;
 using std::make_pair;
+using std::isdigit;
+
+// Check if the provided input is a digit
+// (Content influenced by Stackoverlflow
+bool isDigit(const string &tempStr) {
+
+    string::const_iterator it = tempStr.begin(); 
+    while (it != tempStr.end() && isdigit(*it)) ++it;
+    return !tempStr.empty() && it == tempStr.end();
+}
 
 // Check whether the user has indicated to only do the processing and not the report
 void getLineInput(int &argv, char** argc, bool &isHtml, int &wrapCount) {
 
+    // Discover whether the second input param is an int
     string tempStr(argc[2]); 
+    bool isInt = isDigit(tempStr); 
+    if (isInt) {
+        wrapCount = stoi(tempStr);
+    } 
 
-    istringstream is(tempStr);
-    wrapCount = stoi(tempStr);
-
+    // Check if isHtml should be true
+    // Check to make sure any int value is appropriate
     if (tempStr == "--html") {
         isHtml = true;
     } else if (wrapCount != 0 && wrapCount < 30) {
@@ -48,7 +62,7 @@ void getLineInput(int &argv, char** argc, bool &isHtml, int &wrapCount) {
     } else if (wrapCount != 0) {
         isHtml = false;
     } else { 
-        cout << "The value provided {" << isHtml << "} is not a valid input." << endl;
+        cout << "The value provided {" << tempStr << "} is not a valid input." << endl;
         exit(0);
     }
 
@@ -62,10 +76,9 @@ int main(int argv, char** argc) {
         exit(0);
     }
 
-    int wrapCount = 0;
-    bool isHtml;
-
     // Discover whether user desires to skip the report creation
+    int wrapCount = 0;
+    bool isHtml; 
     getLineInput(argv, argc, isHtml, wrapCount);
 
     // Declare file to read
