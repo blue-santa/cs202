@@ -6,8 +6,6 @@
  * Main file for Pretty Print project in hw3
  */
 
-#define CATCH_CONFIG_MAIN
-
 #include <iostream>
 #include <iomanip>
 #include <string>

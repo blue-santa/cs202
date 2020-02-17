@@ -6,8 +6,6 @@
  * Main file for main project
  */
 
-#define CATCH_CONFIG_MAIN
-
 #include <iostream>
 #include <iomanip>
 #include <string>
