@@ -1,5 +1,5 @@
 /*
- * TimeItFunctions.hpp
+ * TokenizerFunctions.hpp
  * CS 202
  * February 15, 2020
  * Bryan Beus

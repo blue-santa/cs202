@@ -3,7 +3,7 @@
  * CS 202
  * February 11, 2020
  * Bryan Beus
- * Header file for Value class for main in hw2
+ * Header file for Value class
  */
 
 #ifndef __VALUE_HPP_

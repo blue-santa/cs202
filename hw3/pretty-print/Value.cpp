@@ -3,7 +3,7 @@
  * CS 202
  * February 11, 2020
  * Bryan Beus
- * Value member definition file for main in hw2
+ * Value member definition file
  */
 
 #include <iostream>

@@ -3,7 +3,7 @@
  * CS 202
  * February 14, 2020
  * Bryan Beus
- * Main file for main project in hw2
+ * Main file for main project
  */
 
 #define CATCH_CONFIG_MAIN

@@ -1,9 +1,9 @@
 /*
- * TimeItFunctions.cpp
+ * TokenizerFunctions.cpp
  * CS 202
  * February 5, 2020
  * Bryan Beus
- * 
+ * Tokenizer function definition file
  */
 
 #include <iostream>
