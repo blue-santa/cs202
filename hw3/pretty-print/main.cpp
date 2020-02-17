@@ -168,7 +168,7 @@ int main(int argv, char** argc) {
         exit(0);
     }
 
-    tout << "test";
+    // tout << "test";
 
     PrettyPrint(tout, tokens);
 
