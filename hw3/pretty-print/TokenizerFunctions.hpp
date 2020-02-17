@@ -30,6 +30,6 @@ bool ReadLine(istream& is, vector<string>& tokens, vector<pair<int, int>>& linec
 void PrintTokens(ostream& os, const vector<string>& tokens, const vector<pair<int, int>>& linecols);
 
 // Pretty print tokens
-void PrettyPrint(ostream& os, const vector<string>& tokens);
+void PrettyPrint(ostream& os, const vector<string>& tokens, bool& isHtml, int& wrapCount);
 
 #endif

@@ -196,10 +196,13 @@ void PrintTokens(std::ostream& os, const std::vector<std::string>& tokens, const
 }
 
 // Pretty print the provided tokens
-void PrettyPrint(ostream& os, const vector<string>& tokens) {
+void PrettyPrint(ostream& os, const vector<string>& tokens, bool& isHtml, int& wrapCount) {
 
     // Variable to skip
     string blank = "=blank line=";
+
+    // Create vector of string, as per assignment
+    vector<string> paragraphs;
 
     // Capture titles for Stories of the Wagner Opera
     vector<string> titles;
@@ -246,37 +249,82 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
             continue;
         }
 
+        if (isHtml) {
 
-        // Compile all tokens between iterators into one unit
-        // The first one does not need a space before it
-        string res = *tokens_it_current; 
-        for (int i = 0; i < dist_prev_next - 1; i++) {
-            res += " ";
-            tokens_it_current++;
-            res += *tokens_it_current;
-        } 
+            // Compile all tokens between iterators into one unit
+            // The first one does not need a space before it
+            string res = *tokens_it_current; 
+            for (int i = 0; i < dist_prev_next - 1; i++) {
+                res += " ";
+                tokens_it_current++;
+                res += *tokens_it_current;
+            } 
+            paragraphs.push_back(res); 
 
+            // Check to see if the current paragraph is actually a title
+            // If it is, surround it in <h1> headings instead of <p>
+            vector<string>::const_iterator search_titles_it = find(titles.begin(), titles.end(), res); 
+            if (search_titles_it != titles.end()) {
+                res = "<h1>" + res + "</h1>\n";
+            } else {
+                res = "<p>" + res + "</p>\n";
+            }
 
-        // Check to see if the current paragraph is actually a title
-        // If it is, surround it in <h1> headings instead of <p>
-        vector<string>::const_iterator search_titles_it = find(titles.begin(), titles.end(), res); 
-        if (search_titles_it != titles.end()) {
-            res = "<h1>" + res + "</h1>\n";
-        } else {
-            res = "<p>" + res + "</p>\n";
+            // Check to see if the end of the file is reached
+            if (tokens_it_next == tokens.end()) {
+                break;
+            }
+
+            // Reset iterators
+            tokens_it_prev = tokens_it_next;
+            tokens_it_prev++;
+            tokens_it_current = tokens_it_prev;
+
+            // Send all content from this loop to the output stream
+            os << res << endl; 
+
+        } else { 
+
+            // Compile all tokens between iterators into one unit
+            // The first one does not need a space before it 
+
+            string res = *tokens_it_current; 
+            int current_line_length = res.length();
+
+            if (current_line_length > wrapCount) {
+                cout << "Wrap count cannot accomodate length of the word " << *tokens_it_current << " in the text file.\nPlease try a larger wrap count." << endl;
+                exit(0);
+            }
+
+            for (int i = 0; i < dist_prev_next - 1; i++) {
+                tokens_it_current++;
+                string tempStr = *tokens_it_current;
+                if ((current_line_length + (int)(tempStr.length()) + 1) >= wrapCount) {
+                    current_line_length = tempStr.length();
+                    res += "\n";
+                } else { 
+                    res += " ";
+                    current_line_length += tempStr.length() + 1;
+                }
+                res += *tokens_it_current;
+            } 
+
+            paragraphs.push_back(res); 
+            res += "\n";
+
+            // Reset iterators
+            tokens_it_prev = tokens_it_next;
+            tokens_it_prev++;
+            tokens_it_current = tokens_it_prev;
+
+            // Send all content from this loop to the output stream
+            os << res << endl; 
+
+            // Check to see if the end of the file is reached
+            if (tokens_it_next == tokens.end()) {
+                break;
+            }
+
         }
-
-        // Check to see if the end of the file is reached
-        if (tokens_it_next == tokens.end()) {
-            break;
-        }
-
-        // Reset iterators
-        tokens_it_prev = tokens_it_next;
-        tokens_it_prev++;
-        tokens_it_current = tokens_it_prev;
-
-        // Send all content from this loop to the output stream
-        os << res << endl; 
     } 
 }
