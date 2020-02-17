@@ -216,7 +216,7 @@ void PrettyPrint(ostream& os, const vector<string>& tokens) {
     vector<string>::const_iterator tokens_it_next = tokens.begin();
     vector<string>::const_iterator tokens_it_prev = tokens_it_next;
 
-    os << "test";
+    os << "test2" << endl;
 
     // if (tokens_it_next == tokens.end()) {
         // cout << "Empty tokens" << endl;

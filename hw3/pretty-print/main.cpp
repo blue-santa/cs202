@@ -139,16 +139,18 @@ int main(int argv, char** argc) {
 
 
     // Print information to console
-    cout << setw(25) << "File size is: " << MB_size << " Mbs." << endl;
-    cout << setw(25) << "Processing only time: " << processing_only.reportFinishTime() << endl;
-    cout << setw(25) << "Speed is: " << MB_sec_process_only << " Mbs/sec." << endl;
+    cout << setw(30) << "File size is: " << MB_size << " Mbs." << endl;
+    cout << setw(30) << "Processing only time: " << processing_only.reportFinishTime() << endl;
+    cout << setw(30) << "Speed is: " << MB_sec_process_only << " Mbs/sec." << endl;
 
     if (!isLineOnly) { float MB_sec_with_proc = (float)MB_size / (float)(and_outputting.reportFinishTime()); cout << endl;
-        cout << setw(25) << "With report output time: " << and_outputting.reportFinishTime() << endl;
-        cout << setw(25) << "Time difference: " << (and_outputting.reportFinishTime() - processing_only.reportFinishTime()) << endl; 
-        cout << setw(25) << "Speed is: " << MB_sec_with_proc << " Mbs/sec." << endl;
-        cout << setw(25) << "Speed diff is: " << (MB_sec_process_only - MB_sec_with_proc) << " Mbs/sec." << endl;
+        cout << setw(30) << "With report output time: " << and_outputting.reportFinishTime() << endl;
+        cout << setw(30) << "Time difference: " << (and_outputting.reportFinishTime() - processing_only.reportFinishTime()) << endl; 
+        cout << setw(30) << "Speed is: " << MB_sec_with_proc << " Mbs/sec." << endl;
+        cout << setw(30) << "Speed diff is: " << (MB_sec_process_only - MB_sec_with_proc) << " Mbs/sec." << endl;
     }
+
+    cout << endl;
 
     fout.close();
 
@@ -161,18 +163,18 @@ int main(int argv, char** argc) {
 
     // Create new ostream 
     string prettyFilename = "pretty-print.txt"; 
-    ofstream tout(prettyFilename);
+    fout.clear();
+    fout.flush();
+    fout.open(prettyFilename);
 
-    if (!tout) {
+    if (!(fout.is_open())) {
         cout << "Error creating pretty output file" << endl;
         exit(0);
-    }
+    } 
 
-    // tout << "test";
+    PrettyPrint(fout, tokens);
 
-    PrettyPrint(tout, tokens);
-
-    tout.close();
+    fout.close(); 
 
     return 0; 
 } 
