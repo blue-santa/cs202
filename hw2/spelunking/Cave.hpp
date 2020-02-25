@@ -34,6 +34,9 @@ class Cave {
         // Return current room
         int getCurrentRoom();
 
+        // Get visited state
+        bool getVisited(const int &currRoom);
+
         // Go to room in the cave complex
         void gotoRoom(int room);
 
@@ -55,26 +58,32 @@ class Cave {
         // Read rooms from an input stream
         void readRooms(istream& is);
 
+        // Discover adjacent rooms
+        vector<int> getAdjacentRooms(int &current_room);
+
+        // Create a default cave
         string createDefaultCave();
 
     private:
+        // Setting for maximum number of adjacent rooms
         static constexpr int MaxAdjacentRooms = 3;
+
+        // A node in the cave
         struct CaveNode {
             weak_ptr<CaveNode> rooms[MaxAdjacentRooms]; 
             string shortdesc;
             string longdesc;
             int id;
+            bool visited;
 
-            CaveNode();
+            // Proper constructor for cave node
+            CaveNode(bool& visited_given, string& long_desc, string& short_desc, int& id_given);
         };
 
         using CaveNodePtr = shared_ptr<CaveNode>;
 
         vector<CaveNodePtr> caveRooms;
-        int currentRoom;
-
-
+        int currentRoom; 
 };
 
-#endif
-
+#endif 

@@ -31,21 +31,25 @@ using std::stringstream;
 using std::istream_iterator;
 using std::right;
 
+// Create a new instance of the Value class
 Value::Value(string& filename) {
     setTitle(filename);
     setCount(filename);
 }
 
+// Set the title of a Value instance
 void Value::setTitle(string& filename) {
     title = filename;
     total_change_count += 1;
 }
 
+// Count the words the provided string
 unsigned int Value::countWords(string const& str) {
     stringstream ss(str);
     return distance(istream_iterator<string>(ss), istream_iterator<string>());
 } 
 
+// Set the counts for the provided filename
 void Value::setCount(string& filename) {
 
     ifstream fin(filename);
@@ -72,6 +76,7 @@ void Value::setCount(string& filename) {
     }
 }
 
+// Report the values held in the Value instance
 void Value::reportValue() {
 
     for (int i = 0; i < 35 + 4 * 12; i++) cout << "=";
