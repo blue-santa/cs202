@@ -10,6 +10,8 @@
 #include <vector>
 #include <fstream>
 
+#include "LabStaticLibrary.hpp"
+
 using std::string;
 using std::cout;
 using std::cin;
@@ -18,6 +20,12 @@ using std::ifstream;
 using std::vector;
 
 int main(int argc, char** argv) { 
+
+    MyClass a;
+
+    cout << a.returnX() << endl;
+    a.updateX(2);
+    cout << a.returnX() << endl;
 
     return 0;
 }

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/LabExample.dir/main.cpp.o  -o LabExample -lLabStaticLibrary 

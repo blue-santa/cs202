@@ -11,7 +11,7 @@
 #include <vector>
 #include <string>
 
-#include "header.hpp"
+#include "LabStaticLibrary.hpp"
 
 using std::vector;
 using std::string;
@@ -22,4 +22,16 @@ using std::getline;
 using std::istringstream;
 using std::setw;
 using std::left;
+
+MyClass::MyClass() {
+    _x = 1;
+}
+
+int MyClass::returnX() {
+    return _x;
+}
+
+void MyClass::updateX(const int newX) {
+    _x = newX;
+}
 

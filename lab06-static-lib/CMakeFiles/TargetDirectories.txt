@@ -1,0 +1,4 @@
+/home/cryptotrapper/Desktop/Delete-Later/cs202/lab06-static-lib/CMakeFiles/rebuild_cache.dir
+/home/cryptotrapper/Desktop/Delete-Later/cs202/lab06-static-lib/CMakeFiles/edit_cache.dir
+/home/cryptotrapper/Desktop/Delete-Later/cs202/lab06-static-lib/CMakeFiles/STATIC.dir
+/home/cryptotrapper/Desktop/Delete-Later/cs202/lab06-static-lib/CMakeFiles/LabExample.dir

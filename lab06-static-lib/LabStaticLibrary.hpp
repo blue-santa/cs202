@@ -24,6 +24,15 @@ using std::istringstream;
 using std::setw;
 using std::left;
 
+class MyClass {
+    private:
+        int _x;
+
+    public:
+        MyClass();
+        int returnX();
+        void updateX(int const newX);
+};
 
 #endif
 
