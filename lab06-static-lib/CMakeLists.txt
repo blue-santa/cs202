@@ -15,7 +15,9 @@ add_library(${PROJECT_NAME} STATIC
 # Useful for when there are larger projects with multiple directories
 project(LabExample)
 
+# Compile main.cpp into LabExample
 add_executable(LabExample
     main.cpp)
 
+# Link LabStaticLibrary (generated above) to LabExample executable
 target_link_libraries(LabExample LabStaticLibrary)
