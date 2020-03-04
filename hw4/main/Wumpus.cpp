@@ -44,7 +44,7 @@ Wumpus::Wumpus(mt19937& e1, const int max_room):
 };
 
 // Get Current Room
-int Wumpus::getCurrentRoom() {
+int Wumpus::getRoom() {
     return _currentRoom;
 };
 

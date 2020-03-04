@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
         // If so, move the wumpus and set him to go back to sleep
 
         // Check for the wumpus
-        if (currentRoom == wumpus.getCurrentRoom()) {
+        if (currentRoom == wumpus.getRoom()) {
             cout << "GARMPHHH" << endl;
             cout << "Tasty..." << endl;
             break;
@@ -101,6 +101,7 @@ int main(int argc, char* argv[])
         } else if (currentRoom == bats.getRoom()) {
             // Check for bats
             cout << "Wheeeeee!" << endl;
+            waitForContinue();
             mt19937 *_e1 = nullptr;
             _e1 = &e1;
             int randomRoom = chooseRandomRoom(_e1, 0, max_room);
@@ -114,7 +115,7 @@ int main(int argc, char* argv[])
         // Discover potential dangers
         vector<string> warnings;
         for (int i = 0; i < 3; i++) {
-            if (adjacent_rooms.at(i) == wumpus.getCurrentRoom()) {
+            if (adjacent_rooms.at(i) == wumpus.getRoom()) {
                 warnings.push_back("I smell a wumpus");
             }
 

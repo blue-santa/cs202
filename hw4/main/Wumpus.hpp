@@ -39,7 +39,7 @@ class Wumpus {
         Wumpus(mt19937& e1, const int max_room);
 
         // Get Current Room
-        int getCurrentRoom();
+        int getRoom();
 
         // Change to an adjacent room
         void moveToRoom(const int room);
