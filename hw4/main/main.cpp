@@ -65,6 +65,9 @@ int main(int argc, char* argv[])
     Pit pit(e1, max_room);
     Bats bats(e1,max_room);
 
+    // Arm user
+    int arrows = 5;
+
     // Create initial environment
     clearConsole();
     Cave cave; 
@@ -83,12 +86,9 @@ int main(int argc, char* argv[])
 
         // Discover current room
         int currentRoom = cave.getCurrentRoom();
-        cout << "Current Room: " << currentRoom << endl;
 
-        // TODO: Check if the wumpus is awake
-        // If so, move the wumpus and set him to go back to sleep
-
-        if (wumpus.getStatus()) {
+        // If so, move the wumpus and set him to go back to sleep 
+        if (!wumpus.getStatus()) {
             wumpus.moveToAdjacentRoom(pit, max_room, e1);
             wumpus.switchStatus(); 
         }
@@ -113,6 +113,8 @@ int main(int argc, char* argv[])
             cave.gotoRoom(randomRoom);
             continue;
         }
+
+        cout << "Current Room: " << currentRoom + 1 << endl;
 
         // Discover adjacent rooms
         vector<int> adjacent_rooms = cave.getAdjacentRooms(currentRoom);
@@ -173,22 +175,35 @@ int main(int argc, char* argv[])
 
         // If indicated, shoot arrows or quit
         if (userInput == 3) {
-            for (size_t i = 0; i < adjacent_rooms.size(); i++) {
+
+            // Check that the user has arrows remaining
+            if (arrows > 0) {
+                arrows--; 
+            } else {
+                cout << "Out of arrows" << endl;
+                break;
+            }
+
+            cout << "Arrows away!" << endl;
+            cout << endl;
+
+            waitForContinue();
+
+            for (size_t i = 0; i < warnings.size(); i++) {
                 if (warnings.at(i) == "I feel a breeze") {
                     bats.removeBats();
-                } else if (warnings.at(i) == "I smell a wumpus") {
+                } 
+                
+                if (warnings.at(i) == "I smell a wumpus") {
                     cout << "Kapow!" << endl;
                     cout << "Dang it. And I wanted to destroy you." << endl;
                     cout << "Care to... try again?" << endl;
                     exit(0);
-                } else {
-                    wumpus.switchStatus();
-                }
+                } 
+
             }
 
-            // Check if the wumpus is in an adjacent room also
-            // and if he is, kill him and end the game
-            // Otherwise, set the wumpus to move
+            wumpus.switchStatus();
         } else if (userInput == 4) {
             cout << "Weakling" << endl;
             break;

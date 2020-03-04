@@ -77,7 +77,7 @@ void Cave::connect(int room1, int room2) {
 
 // Print the short description of the room
 void Cave::printShortDescription(int room) const {
-    cout << caveRooms.at(room)->id << endl;
+    cout << caveRooms.at(room)->id + 1 << endl;
 }
 
 //Print the long description of the room
