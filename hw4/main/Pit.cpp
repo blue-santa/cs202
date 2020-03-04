@@ -17,6 +17,9 @@
 #include <cmath>
 #include <stdlib.h>
 
+#include "Pit.hpp"
+#include "Miscellaneous.hpp"
+
 using std::string;
 using std::weak_ptr;
 using std::istringstream;
@@ -34,7 +37,7 @@ Pit::Pit(mt19937& e1, const int max_room) {
     mt19937 *_e1 = nullptr;
     _e1 = &e1;
 
-    _room = chooseRandomRoom(_e1, max_room / 2 - 2, max_room / 2 + 2) 
+    _room = chooseRandomRoom(_e1, max_room / 2 - 2, max_room / 2 + 2); 
 
 };
 

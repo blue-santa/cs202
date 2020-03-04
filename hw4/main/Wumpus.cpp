@@ -37,7 +37,7 @@ using std::mt19937;
 Wumpus::Wumpus(mt19937& e1, const int max_room):
     _asleep(true) {
 
-    _e1 = nullptr;
+    mt19937 *_e1 = nullptr;
     _e1 = &e1;
 
     _currentRoom = chooseRandomRoom(_e1, max_room - 3, max_room); 
@@ -57,11 +57,3 @@ void Wumpus::moveToRoom(const int room) {
 void Wumpus::switchStatus() {
     _asleep = !_asleep;
 };
-
-private:
-// Whether the Wumpus is asleep
-// If false, the Wumpus moves on the next turn
-bool _asleep;
-};
-
-#endif 

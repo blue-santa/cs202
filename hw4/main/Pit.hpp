@@ -20,6 +20,9 @@
 #include <cmath>
 #include <stdlib.h>
 
+#include "Miscellaneous.hpp"
+#include "Pit.hpp"
+
 using std::string;
 using std::weak_ptr;
 using std::istringstream;

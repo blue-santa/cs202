@@ -20,6 +20,8 @@
 #include <cmath>
 #include <stdlib.h>
 
+#include "Miscellaneous.hpp"
+
 using std::string;
 using std::weak_ptr;
 using std::istringstream;
@@ -34,7 +36,7 @@ using std::mt19937;
 class Wumpus {
 
     public:
-        Wumpus(mt19937& firstRoom);
+        Wumpus(mt19937& e1, const int max_room);
 
         // Get Current Room
         int getCurrentRoom();

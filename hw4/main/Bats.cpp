@@ -16,6 +16,10 @@
 #include <algorithm>
 #include <cmath>
 #include <stdlib.h>
+#include <random>
+
+#include "Bats.hpp"
+#include "Miscellaneous.hpp"
 
 using std::string;
 using std::weak_ptr;
@@ -29,7 +33,7 @@ using std::random_device;
 using std::seed_seq;
 
 // Default Constructor
-Bats::Bats(mt19937& e1, const int room) {
+Bats::Bats(mt19937& e1, const int max_room) {
     mt19937 *_e1 = nullptr;
 
     _e1 = &e1;

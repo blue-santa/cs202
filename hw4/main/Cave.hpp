@@ -56,7 +56,7 @@ class Cave {
         void saveRooms(ostream& os) const;
 
         // Read rooms from an input stream
-        void readRooms(istream& is);
+        void readRooms(istream& is, const int max_room);
 
         // Discover adjacent rooms
         vector<int> getAdjacentRooms(int &current_room);

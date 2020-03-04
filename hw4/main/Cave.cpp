@@ -107,12 +107,11 @@ void Cave::saveRooms(std::ostream& os) const {
 }
 
 // Read rooms from an input stream
-void Cave::readRooms(std::istream& is) {
+void Cave::readRooms(std::istream& is, const int max_room) {
 
-    int room_count = DEFAULT_CAVE_ROOM_SIZE;
     vector<int> room_connections;
 
-    for (int i = 0; i < room_count; i++) {
+    for (int i = 0; i < max_room; i++) {
 
         // Read in the values in the input stream
         // Set each value to the proper name for this room
@@ -144,7 +143,7 @@ void Cave::readRooms(std::istream& is) {
 
     // Iterate through the room connections array to connect each room to its partners
     int counter = 0;
-    for (int i = 0; i < room_count; i++) {
+    for (int i = 0; i < max_room; i++) {
         for (int j = 0; j < 3; j++) {
             connect(i, room_connections.at(counter));
             counter++;

@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
     // Declare creature objects
     Wumpus wumpus(e1, max_room);
     Pit pit(e1, max_room);
-    Bats bats(e1);
+    Bats bats(e1,max_room);
 
     // Create initial environment
     clearConsole();
@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 
     // Read in the default cave
     istringstream default_cave(def_cave);
-    cave.readRooms(default_cave);
+    cave.readRooms(default_cave, max_room);
 
  
     // Initiate user input while loop
@@ -93,22 +93,22 @@ int main(int argc, char* argv[])
         // Discover potential dangers
         vector<string> warnings;
         for (int i = 0; i < 3; i++) {
-            if (adjacent_rooms.at(i) == Wumpus.getCurrentRoom()) {
+            if (adjacent_rooms.at(i) == wumpus.getCurrentRoom()) {
                 warnings.push_back("I smell a wumpus");
             }
 
-            if (adjacent_rooms.at(i) == Bats.getRoom()) {
+            if (adjacent_rooms.at(i) == bats.getRoom()) {
                 warnings.push_back("I hear a bat");
             }
 
-            if (adjacent_rooms.at(i) == Pit.getRoom()) {
+            if (adjacent_rooms.at(i) == pit.getRoom()) {
                 warnings.push_back("I feel a breeze");
             }
         }
 
-        // TODO: Scramble warnings
+        // Scramble warnings
         random_shuffle(warnings.begin(), warnings.end());
-        for (int i = 0; i < 3; i++) {
+        for (size_t i = 0; i < warnings.size(); i++) {
             cout << warnings.at(i) << endl;
         }
 
@@ -118,7 +118,24 @@ int main(int argc, char* argv[])
 
         // Present user with description of adjacent rooms and choices
         for (int i = 0; i < 3; i++) {
-            cout << "Choice " << i << ") ";
+            cout << "Choice ";
+           
+            switch (i) {
+                case 0: 
+                    cout << "A";
+                    break;
+                case 1:
+                    cout << "B";
+                    break;
+                case 2:
+                    cout << "C";
+                    break;
+                default:
+                    cout << "X";
+                    break;
+            }
+           
+            cout << ") ";
             cave.printShortDescription(adjacent_rooms.at(i));
             cout << endl;
         }
