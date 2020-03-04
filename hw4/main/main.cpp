@@ -120,6 +120,7 @@ int main(int argc, char* argv[])
         for (int i = 0; i < 3; i++) {
             cout << "Choice ";
            
+            // TODO: Create option to shoot
             switch (i) {
                 case 0: 
                     cout << "A";
