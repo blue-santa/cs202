@@ -40,6 +40,9 @@ class Bats {
         // Get Room
         int getRoom();
 
+        // Remove bats
+        void removeBats();
+
     private:
         // Room
         int _room;

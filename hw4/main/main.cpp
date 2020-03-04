@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
             waitForContinue();
             mt19937 *_e1 = nullptr;
             _e1 = &e1;
-            int randomRoom = chooseRandomRoom(_e1, 0, max_room);
+            int randomRoom = chooseRandomRoom(_e1, 0, max_room - 1);
             cave.gotoRoom(randomRoom);
             continue;
         }
@@ -142,7 +142,6 @@ int main(int argc, char* argv[])
         for (int i = 0; i < 3; i++) {
             cout << "Choice ";
            
-            // TODO: Create option to shoot
             switch (i) {
                 case 0: 
                     cout << "A";

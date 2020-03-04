@@ -46,3 +46,8 @@ Bats::Bats(mt19937& e1, const int max_room) {
 int Bats::getRoom() {
     return _room;
 };
+
+// Remove Bats
+void Bats::removeBats() {
+    _room = -1;
+}

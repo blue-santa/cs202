@@ -40,7 +40,7 @@ Wumpus::Wumpus(mt19937& e1, const int max_room):
     mt19937 *_e1 = nullptr;
     _e1 = &e1;
 
-    _currentRoom = chooseRandomRoom(_e1, max_room - 3, max_room); 
+    _currentRoom = chooseRandomRoom(_e1, max_room - 3, max_room - 1); 
 };
 
 // Get Current Room
