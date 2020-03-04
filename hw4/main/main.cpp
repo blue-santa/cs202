@@ -88,6 +88,11 @@ int main(int argc, char* argv[])
         // TODO: Check if the wumpus is awake
         // If so, move the wumpus and set him to go back to sleep
 
+        if (wumpus.getStatus()) {
+            wumpus.moveToAdjacentRoom(pit, max_room, e1);
+            wumpus.switchStatus(); 
+        }
+
         // Check for the wumpus
         if (currentRoom == wumpus.getRoom()) {
             cout << "GARMPHHH" << endl;
@@ -168,9 +173,22 @@ int main(int argc, char* argv[])
 
         // If indicated, shoot arrows or quit
         if (userInput == 3) {
-            // TODO: check if bats are in an adjacent room
-            // If they are, then remove them
-            // And set the wumpus to move
+            for (size_t i = 0; i < adjacent_rooms.size(); i++) {
+                if (warnings.at(i) == "I feel a breeze") {
+                    bats.removeBats();
+                } else if (warnings.at(i) == "I smell a wumpus") {
+                    cout << "Kapow!" << endl;
+                    cout << "Dang it. And I wanted to destroy you." << endl;
+                    cout << "Care to... try again?" << endl;
+                    exit(0);
+                } else {
+                    wumpus.switchStatus();
+                }
+            }
+
+            // Check if the wumpus is in an adjacent room also
+            // and if he is, kill him and end the game
+            // Otherwise, set the wumpus to move
         } else if (userInput == 4) {
             cout << "Weakling" << endl;
             break;

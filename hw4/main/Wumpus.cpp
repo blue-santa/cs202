@@ -49,11 +49,33 @@ int Wumpus::getRoom() {
 };
 
 // Change to an adjacent room
-void Wumpus::moveToRoom(const int room) {
-    _currentRoom = room;
+void Wumpus::moveToAdjacentRoom(Pit& pit, const int max_room, mt19937& e1) {
+    int upper_limit;
+    if (_currentRoom == max_room) {
+        upper_limit = max_room;
+    } else {
+        upper_limit = _currentRoom + 1;
+    }
+
+    int lower_limit;
+    if (pit.getRoom() == _currentRoom - 1 || pit.getRoom() == _currentRoom - 2 ) {
+        lower_limit = pit.getRoom() + 1;
+    } else {
+        lower_limit = _currentRoom - 2;
+    }
+
+    mt19937 *_e1 = nullptr;
+    _e1 = &e1;
+
+    _currentRoom = chooseRandomRoom(_e1, lower_limit, upper_limit);
+
 };
 
 // Switch asleep status
 void Wumpus::switchStatus() {
     _asleep = !_asleep;
 };
+
+bool Wumpus::getStatus() {
+    return _asleep;
+}

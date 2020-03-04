@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include "Miscellaneous.hpp"
+#include "Pit.hpp"
 
 using std::string;
 using std::weak_ptr;
@@ -41,8 +42,11 @@ class Wumpus {
         // Get Current Room
         int getRoom();
 
+        // Get Status
+        bool getStatus();
+
         // Change to an adjacent room
-        void moveToRoom(const int room);
+        void moveToAdjacentRoom(Pit& pit, const int max_room, mt19937& _e1);
 
         // Switch asleep status
         void switchStatus();
