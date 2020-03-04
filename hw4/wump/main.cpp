@@ -98,23 +98,6 @@ int main(int argc, char* argv[])
     cave.saveRooms(fout);
     fout.close();
 
-    // Read in the saved file, to demonstrate proof of concept
-    Cave newCave;
-
-    ifstream fin("save_file.txt");
-
-    if (!fin) {
-        cout << "Opening file failed" << endl;
-        exit(0);
-    }
-
-    newCave.readRooms(fin);
-
-    // Pring short descriptions to prove functionality
-    for (int i = 0; i < 18; i++) {
-        cave.printShortDescription(i);
-    }
-
     return 0;
 }
 
