@@ -16,6 +16,9 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <random>
+#include <cmath>
+#include <stdlib.h>
 
 using std::string;
 using std::weak_ptr;
@@ -24,13 +27,14 @@ using std::shared_ptr;
 using std::vector;
 using std::ostream;
 using std::istream;
+using std::random_device;
+using std::seed_seq;
+using std::mt19937;
 
 class Wumpus {
 
     public:
-        Wumpus(const int firstRoom):
-            _asleep(true),
-            _currentRoom(firstRoom);
+        Wumpus(mt19937& firstRoom);
 
         // Get Current Room
         int getCurrentRoom();

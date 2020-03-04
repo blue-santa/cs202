@@ -22,6 +22,9 @@ using std::getline;
 using std::istringstream;
 using std::setw;
 using std::left;
+using std::random_device;
+using std::seed_seq;
+using std::mt19937;
 
 // Clear the console
 void clearConsole() {
@@ -90,5 +93,15 @@ bool testUserInput(string& user_input_temp, int& userInput) {
 
     // Return the result
     return res;
+}
+
+// Choose a random room
+int chooseRandomRoom(mt19937 *_e1, const int lower_limit, const int upper_limit) {
+
+    std::uniform_int_distribution<int> uniform_dist(lower_limit, upper_limit);
+	int val = uniform_dist(*_e1);
+
+	return val;
+
 }
 

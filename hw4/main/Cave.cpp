@@ -17,8 +17,6 @@
 #include "Cave.hpp"
 #include "Miscellaneous.hpp"
 
-#define DEFAULT_CAVE_ROOM_SIZE 18
-
 using std::istringstream;
 using std::string;
 using std::to_string;
@@ -79,7 +77,7 @@ void Cave::connect(int room1, int room2) {
 
 // Print the short description of the room
 void Cave::printShortDescription(int room) const {
-    cout << caveRooms.at(room)->shortdesc << " for room id " << caveRooms.at(room)->id << endl;
+    cout << caveRooms.at(room)->id << endl;
 }
 
 //Print the long description of the room
@@ -170,10 +168,10 @@ vector<int> Cave::getAdjacentRooms(int &current_room) {
 
 
 // Create a default cave
-string Cave::createDefaultCave() {
+string Cave::createDefaultCave(const int max_room) {
     string res = "";
 
-    for (int i = 0; i < DEFAULT_CAVE_ROOM_SIZE; i++) {
+    for (int i = 0; i < max_room; i++) {
        res += "long description\n";
        res += "short description\n";
        res += to_string(i);

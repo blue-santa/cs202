@@ -13,6 +13,15 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <random>
+#include <cmath>
+#include <stdlib.h> 
+
+#include "Miscellaneous.hpp"
+#include "Cave.hpp"
+#include "Wumpus.hpp"
+#include "Bats.hpp"
+#include "Pit.hpp"
 
 using std::string;
 using std::weak_ptr;
@@ -21,10 +30,18 @@ using std::shared_ptr;
 using std::vector;
 using std::ostream;
 using std::istream;
+using std::random_device;
+using std::seed_seq;
+using std::mt19937;
 
-Wumpus::Wumpus(const int firstRoom):
-    _asleep(true),
-    _currentRoom(firstRoom) {};
+Wumpus::Wumpus(mt19937& e1, const int max_room):
+    _asleep(true) {
+
+    _e1 = nullptr;
+    _e1 = &e1;
+
+    _currentRoom = chooseRandomRoom(_e1, max_room - 3, max_room); 
+};
 
 // Get Current Room
 int Wumpus::getCurrentRoom() {

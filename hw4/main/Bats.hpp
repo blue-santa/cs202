@@ -16,6 +16,9 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <random>
+#include <cmath>
+#include <stdlib.h>
 
 using std::string;
 using std::weak_ptr;
@@ -24,13 +27,15 @@ using std::shared_ptr;
 using std::vector;
 using std::ostream;
 using std::istream;
+using std::random_device;
+using std::seed_seq;
+using std::mt19937;
 
 class Bats {
 
     public:
         // Default Constructor
-        Bats(const int room):
-            _room(room);
+        Bats(mt19937& e1, const int max_room);
 
         // Get Room
         int getRoom();

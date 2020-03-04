@@ -62,7 +62,7 @@ class Cave {
         vector<int> getAdjacentRooms(int &current_room);
 
         // Create a default cave
-        string createDefaultCave();
+        string createDefaultCave(const int max_room);
 
     private:
         // Setting for maximum number of adjacent rooms

@@ -15,9 +15,16 @@
 #include <memory>
 #include <fstream>
 #include <sstream>
+#include <random>
+#include <cmath>
+#include <stdlib.h>
+#include <algorithm>
 
 #include "Miscellaneous.hpp"
 #include "Cave.hpp" 
+#include "Wumpus.hpp"
+#include "Bats.hpp"
+#include "Pit.hpp"
 
 using std::cout;
 using std::cin;
@@ -31,15 +38,39 @@ using std::ofstream;
 using std::istream;
 using std::getline;
 using std::istringstream;
+using std::random_device;
+using std::seed_seq;
+using std::mt19937;
+using std::random_shuffle;
 
 int main(int argc, char* argv[])
 {
+    // Inform user of the nature of the software
+    clearConsole();
+    cout << "Welcome to Hunt the Wumpus" << endl;
+    cout << "\nInitiate User Destruction" << endl;
 
-    // Declare new cave
-    Cave cave;
+    waitForContinue();
+
+	// Create pseudo-random device
+	random_device r;
+	seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
+	mt19937 e1(seedObj);
+
+    // Max room; should be higher than at least 10
+    int max_room = 18;
+
+    // Declare creature objects
+    Wumpus wumpus(e1, max_room);
+    Pit pit(e1, max_room);
+    Bats bats(e1);
+
+    // Create initial environment
+    clearConsole();
+    Cave cave; 
 
     // Create a string that holds a default cave
-    string def_cave = cave.createDefaultCave();
+    string def_cave = cave.createDefaultCave(max_room);
 
     // Read in the default cave
     istringstream default_cave(def_cave);
@@ -54,15 +85,35 @@ int main(int argc, char* argv[])
         int currentRoom = cave.getCurrentRoom();
         cout << "Current Room: " << currentRoom << endl;
 
-        // Print the long or short description of the current cave
-        if (cave.getVisited(currentRoom)) {
-            cave.printShortDescription(currentRoom);
-        } else {
-            cave.printLongDesc(currentRoom);
-        }
+        // TODO Check if user is in trouble
 
         // Discover adjacent rooms
         vector<int> adjacent_rooms = cave.getAdjacentRooms(currentRoom);
+
+        // Discover potential dangers
+        vector<string> warnings;
+        for (int i = 0; i < 3; i++) {
+            if (adjacent_rooms.at(i) == Wumpus.getCurrentRoom()) {
+                warnings.push_back("I smell a wumpus");
+            }
+
+            if (adjacent_rooms.at(i) == Bats.getRoom()) {
+                warnings.push_back("I hear a bat");
+            }
+
+            if (adjacent_rooms.at(i) == Pit.getRoom()) {
+                warnings.push_back("I feel a breeze");
+            }
+        }
+
+        // TODO: Scramble warnings
+        random_shuffle(warnings.begin(), warnings.end());
+        for (int i = 0; i < 3; i++) {
+            cout << warnings.at(i) << endl;
+        }
+
+        cout << endl;
+
         cout << "Adjacent Rooms: " << endl;
 
         // Present user with description of adjacent rooms and choices
@@ -72,7 +123,7 @@ int main(int argc, char* argv[])
             cout << endl;
         }
 
-        // Caputre user input
+        // Capture user input
         int userInput;
         capture_user_input(userInput);
 
@@ -86,17 +137,6 @@ int main(int argc, char* argv[])
         cave.gotoAdjacentRoom(adjacent_rooms.at(userInput));
         }
     }
-
-    // Save default cave to file (for proof-of-concept)
-    ofstream fout("save_file.txt");
-
-    if (!fout) {
-        cout << "File save failed" << endl;
-        exit(0);
-    }
-    
-    cave.saveRooms(fout);
-    fout.close();
 
     return 0;
 }

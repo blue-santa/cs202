@@ -13,6 +13,9 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <random>
+#include <cmath>
+#include <stdlib.h>
 
 using std::vector;
 using std::string;
@@ -23,6 +26,7 @@ using std::getline;
 using std::istringstream;
 using std::setw;
 using std::left;
+using std::mt19937;
 
 // Clear the console
 void clearConsole();
@@ -35,5 +39,8 @@ void capture_user_input(int& userInput);
 
 // Test whether the user's integer input is a valid response
 bool testUserInput(string& user_input_temp, int& userInput);
+
+// Choose a random room
+int chooseRandomRoom(mt19937 *e1, const int lower_limit, const int upper_limit);
 
 #endif
