@@ -85,7 +85,28 @@ int main(int argc, char* argv[])
         int currentRoom = cave.getCurrentRoom();
         cout << "Current Room: " << currentRoom << endl;
 
-        // TODO Check if user is in trouble
+        // TODO: Check if the wumpus is awake
+        // If so, move the wumpus and set him to go back to sleep
+
+        // Check for the wumpus
+        if (currentRoom == wumpus.getCurrentRoom()) {
+            cout << "GARMPHHH" << endl;
+            cout << "Tasty..." << endl;
+            break;
+        } else if (currentRoom == pit.getRoom()) {
+            // Check for the pit
+            cout << "AAARRRGHGGHHHHHhhhhhhhhrrrmmm..........." << endl;
+            cout << "... *splat*" << endl;
+            break;
+        } else if (currentRoom == bats.getRoom()) {
+            // Check for bats
+            cout << "Wheeeeee!" << endl;
+            mt19937 *_e1 = nullptr;
+            _e1 = &e1;
+            int randomRoom = chooseRandomRoom(_e1, 0, max_room);
+            cave.gotoRoom(randomRoom);
+            continue;
+        }
 
         // Discover adjacent rooms
         vector<int> adjacent_rooms = cave.getAdjacentRooms(currentRoom);
@@ -145,12 +166,16 @@ int main(int argc, char* argv[])
         int userInput;
         capture_user_input(userInput);
 
-        // Quit if user has indicated
+        // If indicated, shoot arrows or quit
         if (userInput == 3) {
-            cave.printLongDesc(currentRoom);
+            // TODO: check if bats are in an adjacent room
+            // If they are, then remove them
+            // And set the wumpus to move
         } else if (userInput == 4) {
+            cout << "Weakling" << endl;
             break;
         } else { 
+
         // Proceed to adjacent room
         cave.gotoAdjacentRoom(adjacent_rooms.at(userInput));
         }
