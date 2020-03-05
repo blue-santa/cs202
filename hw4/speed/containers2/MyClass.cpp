@@ -23,7 +23,15 @@ void MyClass::addData(const string& myStr) {
 string MyClass::getLast() {
     int len = (int)_mydata.size();
 
-    return _mydata[len - 1];
+    if (len < 1) { 
+        cout << "Map is empty" << endl;
+        exit(0); 
+    }
+
+    auto it = _mydata.end();
+    it--;
+
+    return it->second;
 }
 
 int MyClass::searchData(const string& myStr) {
@@ -33,16 +41,13 @@ int MyClass::searchData(const string& myStr) {
 
         if (it->second == myStr) {
 
-            cout << "Found it" << endl;
+            cout << "found it" << endl;
             return it->first;
 
         }
 
-        it++;
-
     }
 
     return -1;
-
 }
 
