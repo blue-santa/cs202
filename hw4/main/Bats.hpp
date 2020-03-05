@@ -31,6 +31,7 @@ using std::random_device;
 using std::seed_seq;
 using std::mt19937;
 
+// Bats class 
 class Bats {
 
     public:

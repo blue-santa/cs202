@@ -1,9 +1,9 @@
 /*
  * main.cpp
  * CS 202
- * February 11, 2020
+ * March 3, 2020
  * Bryan Beus
- * Main file for spelunking project hw2
+ * Main file for Hunt the Wumpus project
  */
 
 #include <iostream>
@@ -56,19 +56,18 @@ int main(int argc, char* argv[])
 	seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
 	mt19937 e1(seedObj);
 
-    // Max room; should be higher than at least 10
+    // Max room
     int max_room = 18;
 
-    // Declare creature objects
+    // Initiate creature objects
     Wumpus wumpus(e1, max_room);
     Pit pit(e1, max_room);
     Bats bats(e1,max_room);
 
-    // Arm user
+    // Arm user with arrows
     int arrows = 5;
 
     // Create initial environment
-    clearConsole();
     Cave cave; 
 
     // Create a string that holds a default cave
@@ -79,37 +78,44 @@ int main(int argc, char* argv[])
     cave.readRooms(default_cave, max_room);
 
  
-    // Initiate user input while loop
+    // Initiate user input while loop 
     while (true) {
         clearConsole();
 
         // Discover current room
         int currentRoom = cave.getCurrentRoom();
 
-        // If so, move the wumpus and set him to go back to sleep 
+        // If the wumpus is awake, move him to the next room and set him to go back to sleep 
         if (!wumpus.getStatus()) {
             wumpus.moveToAdjacentRoom(pit, max_room, e1);
             wumpus.switchStatus(); 
         }
 
-        // Check for the wumpus
+        // Check for player and enemy/obstacle collisions
         if (currentRoom == wumpus.getRoom()) {
             cout << "GARMPHHH" << endl;
             cout << "Tasty..." << endl;
             break;
+
+        // Check for the pit
         } else if (currentRoom == pit.getRoom()) {
-            // Check for the pit
             cout << "AAARRRGHGGHHHHHhhhhhhhhrrrmmm..........." << endl;
             cout << "... *splat*" << endl;
             break;
+
+        // Check for bats
         } else if (currentRoom == bats.getRoom()) {
-            // Check for bats
+
             cout << "Wheeeeee!" << endl;
             waitForContinue();
+
+            // Move to a random room
             mt19937 *_e1 = nullptr;
             _e1 = &e1;
             int randomRoom = chooseRandomRoom(_e1, 0, max_room - 1);
             cave.gotoRoom(randomRoom);
+
+            // Restart loop
             continue;
         }
 
@@ -188,6 +194,7 @@ int main(int argc, char* argv[])
 
             waitForContinue();
 
+            // Check to see if the arrows struck any obstacle
             for (size_t i = 0; i < warnings.size(); i++) {
                 if (warnings.at(i) == "I feel a breeze") {
                     bats.removeBats();
@@ -195,6 +202,7 @@ int main(int argc, char* argv[])
                 
                 if (warnings.at(i) == "I smell a wumpus") {
                     cout << "Kapow!" << endl;
+                    cout << "The wumpus is dead." << endl;
                     cout << "Dang it. And I wanted to destroy you." << endl;
                     cout << "Care to... try again?" << endl;
                     exit(0);
@@ -202,7 +210,10 @@ int main(int argc, char* argv[])
 
             }
 
+            // If the wumpus is still alive, he is awake after hearing the arrows
             wumpus.switchStatus();
+
+        // User quit option
         } else if (userInput == 4) {
             cout << "Weakling" << endl;
             break;

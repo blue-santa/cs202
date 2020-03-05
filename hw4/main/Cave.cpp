@@ -1,9 +1,9 @@
 /*
  * Cave.cpp
  * CS 202
- * February 11, 2020
+ * March 3, 2020
  * Bryan Beus
- * Definition file for Cave class for spelunking in hw2
+ * Definition file for Cave class
  */
 
 #include <iostream>

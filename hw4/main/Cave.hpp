@@ -25,6 +25,7 @@ using std::vector;
 using std::ostream;
 using std::istream;
 
+// Cave class
 class Cave {
 
     public:

@@ -34,10 +34,12 @@ using std::seed_seq;
 
 // Default Constructor
 Bats::Bats(mt19937& e1, const int max_room) {
-    mt19937 *_e1 = nullptr;
 
+    // Pass the mt19937 object as a pointer
+    mt19937 *_e1 = nullptr; 
     _e1 = &e1;
 
+    // Set room to a random room between the indicated cave rooms
     _room = chooseRandomRoom(_e1, max_room / 2 + 3, max_room / 2 + 5);
 
 };
