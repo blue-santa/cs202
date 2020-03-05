@@ -8,26 +8,27 @@
 
 #include <iostream>
 #include <iomanip>
-#include <sstream>
-#include <fstream>
+#include <memory>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
 using std::map;
+using std::unique_ptr;
+using std::make_unique;
 
 #ifndef __MYCLASS_HPP_
 #define __MYCLASS_HPP_
 
 class MyClass {
-    private:
-        map<int, string> _mydata;
     public:
+        unique_ptr<string> myPtr;
+
         MyClass();
-        void addData(const string& s);
-        string getData(const int& pos);
-        int findData(const string& s);
+
+        void alterData(const string& mydata);
+        string retrieveData();
 }; 
 
 #endif 

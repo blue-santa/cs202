@@ -10,6 +10,7 @@
 #include <iostream>
 #include <iomanip>
 #include <map>
+#include <memory>
 
 #include "MyClass.hpp"
 
@@ -21,27 +22,21 @@ using std::map;
 
 int main() {
 
-    // Declare new object
     MyClass a;
 
-    // Declare data to store
     string myData = "mydata";
 
-    // Create default data
-    a.addData(myData);
+    a.alterData(myData);
 
-    // Retrieve data
-    string myReturnedData = a.getData(0);
+    string d = a.retrieveData();
+    cout << d << endl;
 
-    // Print data here 
-    for (auto s: myReturnedData) {
-        cout << s;
-    }
-    cout << endl;
+    string otherData = "otherdata";
 
-    // Find position
-    int pos = a.findData(myData);
-    cout << pos << endl;
+    a.alterData(otherData);
+    string b = a.retrieveData();
+    cout << b << endl;
+
 
     return 0;
 

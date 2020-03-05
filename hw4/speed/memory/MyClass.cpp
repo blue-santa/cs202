@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <map>
 #include <iterator>
+#include <memory>
 
 #include "MyClass.hpp"
 
@@ -18,30 +19,16 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::map;
+using std::unique_ptr;
+using std::make_unique;
 
 MyClass::MyClass() {};
 
-void MyClass::addData(const string& s) {
-    int len = (int)_mydata.size();
-    _mydata.insert(make_pair(len, s));
+void MyClass::alterData(const string& s) {
+    myPtr = make_unique<string>(s);
 }
-string MyClass::getData(const int& pos) {
-    auto it = _mydata.find(pos);
-    if (it != _mydata.end()) {
-        return it->second;
-    } else {
-        cout << "Not found" << endl;
-        exit(0);
-    }
+
+string MyClass::retrieveData() {
+    return *myPtr;
 };
-int MyClass::findData(const string& s) {
-    auto it = _mydata.begin();
 
-    while (it != _mydata.end()) {
-        if (it->second == s) {
-            return it->first;
-        }
-    }
-
-    return -1;
-}
