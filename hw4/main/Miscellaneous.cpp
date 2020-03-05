@@ -1,7 +1,7 @@
 /*
  * Miscellaneous.cpp
- * CS 201
- * December 7, 2019
+ * CS 202
+ * March 3, 2020
  * Bryan Beus
  * Miscellaneous content definition file
  */
@@ -77,6 +77,7 @@ bool testUserInput(string& user_input_temp, int& userInput) {
     // Assume user input is valid
     bool res = true;
 
+    // For simplicity, set user input to upper case
     for (auto & c: user_input_temp) {
         c = toupper(c);
     }
@@ -95,10 +96,6 @@ bool testUserInput(string& user_input_temp, int& userInput) {
         res = false; 
     }
 
-    if (!res) {
-        return res;
-    }
-
     // Return the result
     return res;
 }
@@ -106,7 +103,10 @@ bool testUserInput(string& user_input_temp, int& userInput) {
 // Choose a random room
 int chooseRandomRoom(mt19937 *_e1, const int lower_limit, const int upper_limit) {
 
+    // Uniform random distribution between provided lower and upper limits
     std::uniform_int_distribution<int> uniform_dist(lower_limit, upper_limit);
+
+    // Set val variable to a random variable in the provided range, using *_e1 as the random device
 	int val = uniform_dist(*_e1);
 
 	return val;

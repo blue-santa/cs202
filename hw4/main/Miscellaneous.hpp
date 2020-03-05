@@ -1,7 +1,7 @@
 /*
  * Miscellaneous.hpp
- * CS 201
- * December 7, 2019
+ * CS 202
+ * March 3, 2020
  * Bryan Beus
  * Declaration file for miscellaneous content
  */

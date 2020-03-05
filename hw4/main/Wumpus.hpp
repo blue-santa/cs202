@@ -34,9 +34,11 @@ using std::random_device;
 using std::seed_seq;
 using std::mt19937;
 
+// Wumpus class
 class Wumpus {
 
     public:
+        // Default constructor
         Wumpus(mt19937& e1, const int max_room);
 
         // Get Current Room

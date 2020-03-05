@@ -34,12 +34,15 @@ using std::random_device;
 using std::seed_seq;
 using std::mt19937;
 
+// Default wumpus constructor
 Wumpus::Wumpus(mt19937& e1, const int max_room):
     _asleep(true) {
 
+    // Pass random device as a pointer
     mt19937 *_e1 = nullptr;
     _e1 = &e1;
 
+    // Set current room to room in provided range
     _currentRoom = chooseRandomRoom(_e1, max_room - 3, max_room - 1); 
 };
 
@@ -51,6 +54,8 @@ int Wumpus::getRoom() {
 // Change to an adjacent room
 void Wumpus::moveToAdjacentRoom(Pit& pit, const int max_room, mt19937& e1) {
     int upper_limit;
+
+    // The upper and lower limits are designed to push the wumpus towards the pit, but no further
     if (_currentRoom == max_room) {
         upper_limit = max_room;
     } else {

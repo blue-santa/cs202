@@ -34,9 +34,11 @@ using std::mt19937;
 // Default Constructor
 Pit::Pit(mt19937& e1, const int max_room) {
 
+    // Pass random device as a pointer
     mt19937 *_e1 = nullptr;
     _e1 = &e1;
 
+    // Set member variable to a random room in the provided range
     _room = chooseRandomRoom(_e1, max_room / 2 - 2, max_room / 2 + 2); 
 
 };

@@ -34,6 +34,7 @@ using std::mt19937;
 using std::random_device;
 using std::seed_seq;
 
+// Pit class
 class Pit {
 
     public:
