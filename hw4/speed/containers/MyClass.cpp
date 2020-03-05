@@ -25,6 +25,7 @@ void MyClass::addData(const string& s) {
     int len = (int)_mydata.size();
     _mydata.insert(make_pair(len, s));
 }
+
 string MyClass::getData(const int& pos) {
     auto it = _mydata.find(pos);
     if (it != _mydata.end()) {
@@ -34,6 +35,7 @@ string MyClass::getData(const int& pos) {
         exit(0);
     }
 };
+
 int MyClass::findData(const string& s) {
     auto it = _mydata.begin();
 

@@ -17,7 +17,7 @@ MyClass::MyClass() {};
 
 void MyClass::addData(const string& myStr) {
     int len = (int)_mydata.size();
-    _mydata[len] = myStr;
+    _mydata.insert(make_pair(len, myStr));
 }
 
 string MyClass::getLast() {
@@ -27,19 +27,18 @@ string MyClass::getLast() {
 }
 
 int MyClass::searchData(const string& myStr) {
-    int i = 0;
-    int len = (int)_mydata.size();
-    while (i < len) {
+    auto it = _mydata.begin();
 
-        cout << _mydata[i] << endl;
+    while (it != _mydata.end()) {
 
-        if (_mydata[i] == myStr) {
+        if (it->second == myStr) {
 
             cout << "Found it" << endl;
-            return i;
+            return it->first;
 
         }
-        i++;
+
+        it++;
 
     }
 
