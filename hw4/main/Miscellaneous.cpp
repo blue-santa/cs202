@@ -51,7 +51,7 @@ void capture_user_input(int& userInput) {
 		// Receive user input as a string
 		string user_input_temp;
         cout << endl;
-		cout << "Make a choice for the next room to visit (A, B, C).\nShoot an arrow by entering (S).\nEnter (Q) to perform a save demonstration and quit." << endl;
+		cout << "Make a choice for the next room to visit (A, B, C).\nShoot an arrow by entering (S).\nEnter (Q) to quit." << endl;
 
 		getline(cin, user_input_temp);
 

@@ -48,8 +48,7 @@ int main(int argc, char* argv[])
     // Inform user of the nature of the software
     clearConsole();
     cout << "Welcome to Hunt the Wumpus" << endl;
-    cout << "\nInitiate User Destruction" << endl;
-
+    cout << "Initiate User Destruction" << endl; 
     waitForContinue();
 
 	// Create pseudo-random device
@@ -181,7 +180,7 @@ int main(int argc, char* argv[])
                 arrows--; 
             } else {
                 cout << "Out of arrows" << endl;
-                break;
+                continue;
             }
 
             cout << "Arrows away!" << endl;
