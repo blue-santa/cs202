@@ -6,27 +6,42 @@
  * Main file
  */
 
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <map>
+
 #include "MyClass.hpp"
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::map;
 
 int main() {
 
     // Declare new object
     MyClass a;
 
+    // Declare data to store
+    string myData = "mydata";
+
     // Create default data
-    a.createData();
+    a.addData(myData);
 
-    // Save default data to file
-    a.saveData();
+    // Retrieve data
+    string myReturnedData = a.getData(0);
 
-    // Declare new object
-    MyClass b;
+    // Print data here 
+    for (auto s: myReturnedData) {
+        cout << s;
+    }
+    cout << endl;
 
-    // Load default data from object a
-    b.loadData();
-
-    // Report data
-    b.printData();
+    // Find position
+    int pos = a.findData(myData);
+    cout << pos << endl;
 
     return 0;
 

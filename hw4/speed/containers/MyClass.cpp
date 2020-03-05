@@ -8,58 +8,40 @@
 
 #include <iostream>
 #include <iomanip>
-#include <sstream>
-#include <fstream>
+#include <map>
+#include <iterator>
 
 #include "MyClass.hpp"
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
 using std::string;
-using std::istream;
-using std::ofstream;
-using std::ifstream;
-using std::istringstream;
-using std::getline;
+using std::map;
 
-MyClass::MyClass() { };
+MyClass::MyClass() {};
 
-void MyClass::createData() {
-    _data = "My Data";
+void MyClass::addData(const string& s) {
+    int len = (int)_mydata.size();
+    _mydata.insert(make_pair(len, s));
 }
-
-void MyClass::saveData() {
-    string myFile = "my_file.txt";
-    ofstream fout (myFile);
-
-    if (!fout) {
-        cout << "Error creating file" << endl;
+string MyClass::getData(const int& pos) {
+    auto it = _mydata.find(pos);
+    if (it != _mydata.end()) {
+        return it->second;
+    } else {
+        cout << "Not found" << endl;
         exit(0);
     }
+};
+int MyClass::findData(const string& s) {
+    auto it = _mydata.begin();
 
-    for (int i = 0; i < 10; i++) {
-        fout << i + 1 << " "; 
+    while (it != _mydata.end()) {
+        if (it->second == s) {
+            return it->first;
+        }
     }
 
-    fout << endl;
-    fout.close();
-}
-
-void MyClass::loadData() {
-
-    string myFile = "my_file.txt";
-    ifstream fin(myFile);
-    
-    if (!fin) {
-        cout << "Error reading in file" << endl;
-        exit(0);
-    }
-
-    getline(fin, _data);
-
-}
-
-void MyClass::printData() {
-    cout << _data << endl;
+    return -1;
 }

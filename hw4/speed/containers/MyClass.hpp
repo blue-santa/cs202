@@ -11,26 +11,23 @@
 #include <sstream>
 #include <fstream>
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
 using std::string;
-using std::istream;
-using std::ofstream;
-using std::istringstream;
+using std::map;
 
 #ifndef __MYCLASS_HPP_
 #define __MYCLASS_HPP_
 
 class MyClass {
     private:
-        string _data;
+        map<int, string> _mydata;
     public:
         MyClass();
-        void createData();
-        void saveData();
-        void loadData();
-        void printData();
+        void addData(const string& s);
+        string getData(const int& pos);
+        int findData(const string& s);
 }; 
 
 #endif 
