@@ -19,8 +19,13 @@ class MyClass {
     public:
         unique_ptr<string> _myptr;
 
+        // Default constructor
         MyClass();
+
+        // Set data in the unique_ptr
         void setData(const string& myStr);
+
+        // Get data from the default constructor
         string getData();
 };
 

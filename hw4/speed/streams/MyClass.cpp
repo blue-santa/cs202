@@ -23,13 +23,18 @@ using std::ifstream;
 using std::istringstream;
 using std::getline;
 
+// MyClass class default constructor
 MyClass::MyClass() { };
 
+// Create data
 void MyClass::createData() {
     _data = "My Data";
 }
 
+// Save data
 void MyClass::saveData() {
+
+    // Open filestream
     string myFile = "my_file.txt";
     ofstream fout (myFile);
 
@@ -38,6 +43,7 @@ void MyClass::saveData() {
         exit(0);
     }
 
+    // Add some random data
     for (int i = 0; i < 10; i++) {
         fout << i + 1 << " "; 
     }
@@ -46,6 +52,7 @@ void MyClass::saveData() {
     fout.close();
 }
 
+// Load data
 void MyClass::loadData() {
 
     string myFile = "my_file.txt";
@@ -60,6 +67,7 @@ void MyClass::loadData() {
 
 }
 
+// Print data
 void MyClass::printData() {
     cout << _data << endl;
 }

@@ -18,8 +18,7 @@ int main() {
     // Create data to store
     string mydata = "my data";
 
-    // Create new instance of class
-
+    // Create new instance of class 
     MyClass a;
 
     // Add data to class

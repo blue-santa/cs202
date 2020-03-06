@@ -13,12 +13,15 @@ using std::ifstream;
 using std::ofstream;
 using std::string;
 
+// MyClass default constructor
 MyClass::MyClass() {};
 
+// Add data to the member variable
 void MyClass::addData(const string& myStr) {
     _mydata = myStr;
 }
 
+// Save the data to a file
 void MyClass::saveData(const string& filename) {
     ofstream fout(filename);
 
@@ -33,6 +36,7 @@ void MyClass::saveData(const string& filename) {
 
 }
 
+// Load data from a file
 void MyClass::loadData(const string& filename) {
     ifstream fin(filename);
 
@@ -45,6 +49,7 @@ void MyClass::loadData(const string& filename) {
     getline(fin, _mydata);
 }
 
+// Print data
 void MyClass::printData() {
 
     cout << _mydata << endl;
