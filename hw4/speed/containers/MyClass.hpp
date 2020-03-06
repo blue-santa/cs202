@@ -20,13 +20,22 @@ using std::map;
 #ifndef __MYCLASS_HPP_
 #define __MYCLASS_HPP_
 
+// MyClass class
 class MyClass {
     private:
+        // Member data
         map<int, string> _mydata;
     public:
+        // Default constructor
         MyClass();
+
+        // Add data to default map variable
         void addData(const string& s);
+
+        // Retrieve data from the indicated position
         string getData(const int& pos);
+        
+        // Find string data (second member variable)
         int findData(const string& s);
 }; 
 

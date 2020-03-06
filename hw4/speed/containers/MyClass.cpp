@@ -19,13 +19,16 @@ using std::endl;
 using std::string;
 using std::map;
 
+// Default constructor
 MyClass::MyClass() {};
 
+// Add data to the _mydata map variable
 void MyClass::addData(const string& s) {
     int len = (int)_mydata.size();
     _mydata.insert(make_pair(len, s));
 }
 
+// Retrieve data from the given position
 string MyClass::getData(const int& pos) {
     auto it = _mydata.find(pos);
     if (it != _mydata.end()) {
@@ -36,6 +39,7 @@ string MyClass::getData(const int& pos) {
     }
 };
 
+// Find the provided data (second member variable)
 int MyClass::findData(const string& s) {
     auto it = _mydata.begin();
 
