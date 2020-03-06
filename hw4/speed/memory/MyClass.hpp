@@ -21,13 +21,18 @@ using std::make_unique;
 #ifndef __MYCLASS_HPP_
 #define __MYCLASS_HPP_
 
+// MyClass class
 class MyClass {
     public:
         unique_ptr<string> myPtr;
 
+        // Default constructor
         MyClass();
 
+        // Alter the unique_ptr
         void alterData(const string& mydata);
+
+        // Retrieve stored data
         string retrieveData();
 }; 
 

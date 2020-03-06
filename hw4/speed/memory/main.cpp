@@ -22,15 +22,18 @@ using std::map;
 
 int main() {
 
+    // Declare new MyClass instance
     MyClass a;
 
-    string myData = "mydata";
-
+    // Add data
+    string myData = "mydata"; 
     a.alterData(myData);
 
+    // Retrieve data
     string d = a.retrieveData();
     cout << d << endl;
 
+    // Test that data is loadable and alterable
     string otherData = "otherdata";
 
     a.alterData(otherData);
