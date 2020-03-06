@@ -79,6 +79,7 @@ int main(int argc, char* argv[])
 
  
     // Initiate user input while loop 
+    vector<string> choiceList{"A", "B", "C", "S", "X"};
     while (true) {
         clearConsole();
 
@@ -152,24 +153,7 @@ int main(int argc, char* argv[])
 
         // Present user with description of adjacent rooms and choices
         for (int i = 0; i < 3; i++) {
-            cout << "Choice ";
-           
-            switch (i) {
-                case 0: 
-                    cout << "A";
-                    break;
-                case 1:
-                    cout << "B";
-                    break;
-                case 2:
-                    cout << "C";
-                    break;
-                default:
-                    cout << "X";
-                    break;
-            }
-           
-            cout << ") ";
+            cout << "Choice " << choiceList.at(i) << ") ";
             cave.printShortDescription(adjacent_rooms.at(i));
             cout << endl;
         }
