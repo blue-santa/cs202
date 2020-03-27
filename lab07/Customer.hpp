@@ -22,7 +22,8 @@ class Customer {
     public:
         Customer();
         
-        void fetchData(); 
+        const string& firstName() const { return firstName_; }; 
+        const string& lastName() const { return lastName_; }; 
 
     private:
         string firstName_ = { "Grace" };

@@ -19,8 +19,6 @@ using std::string;
 
 Customer::Customer() { }
 
-void Customer::fetchData() {};
-
 ostream& operator<< (ostream& os, const Customer& customer) {
     return os;
 }
