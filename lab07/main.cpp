@@ -13,17 +13,16 @@
 
 using std::cout;
 using std::endl;
+using std::ostream;
+using std::string;
 
-// operator<< (ostream& cout, Foo& hello) {
-    // cout << my_data;
-    // return &cout;
-// }
+ostream& operator<< (ostream& os, const Customer& customer);
 
 int main() {
 
-    Customer hello();
+    const Customer customer;
 
-    // cout << hello << endl;
+    cout << customer << endl; 
 
     return 0;
 }

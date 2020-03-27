@@ -12,6 +12,7 @@
 
 using std::cout;
 using std::endl;
+using std::ostream;
 using std::string;
 
 #ifndef __CUSTOMER_HPP__
@@ -20,6 +21,8 @@ using std::string;
 class Customer { 
     public:
         Customer();
+        
+        void fetchData(); 
 
     private:
         string firstName_ = { "Grace" };
@@ -27,5 +30,7 @@ class Customer {
         double bankbalance_ = { 100.0 };
 
 };
+
+ostream& operator<< (ostream& os, const Customer& customer);
 
 #endif

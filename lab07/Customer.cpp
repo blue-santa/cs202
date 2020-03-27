@@ -14,8 +14,14 @@
 
 using std::cout;
 using std::endl;
+using std::ostream;
+using std::string;
 
-Customer::Customer() 
-{
+Customer::Customer() { }
+
+void Customer::fetchData() {};
+
+ostream& operator<< (ostream& os, const Customer& customer) {
+    return os;
 }
 
