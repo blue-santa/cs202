@@ -15,7 +15,7 @@
 using std::cout;
 using std::endl;
 
-Customer::Customer(string data) :
-    my_data(data) {
+Customer::Customer() 
+{
 }
 

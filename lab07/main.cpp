@@ -9,21 +9,21 @@
 #include <iomanip>
 #include <string>
 
-#include "Class.hpp"
+#include "Customer.hpp"
 
 using std::cout;
 using std::endl;
 
-operator<< (ostream& cout, Foo& hello) {
-    cout << my_data;
-    return &cout;
-}
+// operator<< (ostream& cout, Foo& hello) {
+    // cout << my_data;
+    // return &cout;
+// }
 
 int main() {
 
-    Foo hello("Hello");
+    Customer hello();
 
-    cout << hello << endl;
+    // cout << hello << endl;
 
     return 0;
 }

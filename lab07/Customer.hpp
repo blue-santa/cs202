@@ -19,10 +19,12 @@ using std::string;
 
 class Customer { 
     public:
-        Foo(string data);
+        Customer();
 
     private:
-        string my_data; 
+        string firstName_ = { "Grace" };
+        string lastName_ = { "Hopper" };
+        double bankbalance_ = { 100.0 };
 
 };
 
