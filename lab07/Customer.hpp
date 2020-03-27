@@ -24,11 +24,12 @@ class Customer {
         
         const string& firstName() const { return firstName_; }; 
         const string& lastName() const { return lastName_; }; 
+        double bankBalance() const { return bankBalance_; };
 
     private:
         string firstName_ = { "Grace" };
         string lastName_ = { "Hopper" };
-        double bankbalance_ = { 100.0 };
+        double bankBalance_ = { 100.0 };
 
 };
 

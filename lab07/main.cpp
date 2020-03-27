@@ -16,9 +16,10 @@ using std::endl;
 using std::ostream;
 using std::string;
 
-ostream& operator<< (ostream& os, const Customer& customer);
-
 int main() {
+
+    cout.imbue(std::locale("en_US.UTF-8"));
+    cout << std::showbase;
 
     const Customer customer;
 
