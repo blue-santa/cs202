@@ -1,9 +1,9 @@
 /*
- * Class.hpp
+ * Customer.hpp
  * CS 202
  * March 27, 2020
  * Bryan Beus
- * Class declaration file
+ * Customer declaration file
  */
 
 #include <iostream>
@@ -14,10 +14,10 @@ using std::cout;
 using std::endl;
 using std::string;
 
-#ifndef __CLASS_HPP__
-#define __CLASS_HPP__
+#ifndef __CUSTOMER_HPP__
+#define __CUSTOMER_HPP__
 
-class Foo { 
+class Customer { 
     public:
         Foo(string data);
 
