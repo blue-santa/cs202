@@ -22,6 +22,18 @@ using std::right;
 
 Customer::Customer() { }
 
+void Customer::setFirstName(const string& newFirstName) {
+    firstName_ = newFirstName;
+}
+
+void Customer::setLastName(const string& newLastName) {
+    lastName_ = newLastName;
+}
+
+void Customer::setBankBalance(double newBankBalance) {
+    bankBalance_ = newBankBalance;
+}
+
 ostream& operator<< (ostream& os, const Customer& customer) {
     os << left << setw(35) << "First Name: " << right << setw(35) <<  customer.firstName() << endl;;
     os << left << setw(35) << "Last Name: " << right << setw(35) <<  customer.lastName() << endl;;

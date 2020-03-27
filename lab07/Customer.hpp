@@ -26,6 +26,10 @@ class Customer {
         const string& lastName() const { return lastName_; }; 
         double bankBalance() const { return bankBalance_; };
 
+        void setFirstName(const string& newFirstName); 
+        void setLastName(const string& newLastName); 
+        void setBankBalance(double newBankBalance);
+
     private:
         string firstName_ = { "Grace" };
         string lastName_ = { "Hopper" };
