@@ -22,6 +22,15 @@ using std::right;
 
 Customer::Customer() { }
 
+Customer& Customer::operator=(const Customer& other) {
+
+    firstName_ = other.firstName();
+    lastName_ = other.lastName();
+    bankBalance_ = other.bankBalance();
+
+    return *this;
+}
+
 void Customer::setFirstName(const string& newFirstName) {
     firstName_ = newFirstName;
 }

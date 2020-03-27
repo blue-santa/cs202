@@ -32,5 +32,10 @@ int main() {
 
     cout << customer2 << endl;
 
+    Customer customer3;
+    customer3 = customer2;
+
+    cout << customer3 << endl;
+
     return 0;
 }

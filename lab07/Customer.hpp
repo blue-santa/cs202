@@ -21,6 +21,7 @@ using std::string;
 class Customer { 
     public:
         Customer();
+        Customer& operator=(const Customer& other);
         
         const string& firstName() const { return firstName_; }; 
         const string& lastName() const { return lastName_; }; 
@@ -37,6 +38,6 @@ class Customer {
 
 };
 
-ostream& operator<< (ostream& os, const Customer& customer);
+ostream& operator<< (ostream& os, const Customer& customer); 
 
 #endif
