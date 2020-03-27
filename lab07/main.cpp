@@ -25,5 +25,12 @@ int main() {
 
     cout << customer << endl; 
 
+    Customer customer2;
+    customer2.setFirstName("Albert");
+    customer2.setLastName("Einstein");
+    customer2.setBankBalance(200.0);
+
+    cout << customer2 << endl;
+
     return 0;
 }
