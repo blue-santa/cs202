@@ -33,5 +33,12 @@ int main() {
     cout << 1.0 + Complex(2, 3) << endl;
     cout << Complex(2, 3) + 1.0 << endl;
 
+    Complex complex1(7, 8); 
+    Complex complex2(10, 20); 
+    cout << complex1 << endl;
+    cout << complex2 << endl;
+    complex1 += complex2;
+    cout << complex1 << endl;
+
     return 0;
 }

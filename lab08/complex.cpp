@@ -26,6 +26,12 @@ Complex Complex::operator+(const Complex complex) {
     return Complex(real_ + complex.real_, imag_ + complex.imag_);
 }
 
+Complex& Complex::operator+=(const Complex complex) {
+    real_ += complex.real_;
+    imag_ += complex.imag_;
+    return *this;
+}
+
 std::ostream& operator<<(std::ostream& os, const Complex& complex) {
     os << complex.realPart();
     os << " + i ";

@@ -24,6 +24,7 @@ class Complex {
         Complex(double real, double imag = 0);
 
         Complex operator+(const Complex complex);
+        Complex& operator+=(const Complex complex);
 
         double realPart() const { return real_; };
         double imagPart() const { return imag_; };
