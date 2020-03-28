@@ -29,5 +29,6 @@ class Complex {
         double imag_{0};
 };
 
+std::ostream& operator<<(std::ostream& os, const Complex& complex);
 
 #endif
