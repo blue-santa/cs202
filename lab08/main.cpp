@@ -15,6 +15,7 @@ using std::cout;
 using std::endl;
 using std::ostream;
 using std::string;
+using std::fixed;
 
 // Desing
 // [x] Create Complex class
@@ -24,9 +25,11 @@ using std::string;
 
 int main() {
 
-    
+    cout << fixed;
 
-    cout << 1 + Complex(2, 3) << endl;
+    cout << Complex() << endl;
+    cout << Complex(2, 3) << endl;
+    // cout << 1 + Complex(2, 3) << endl;
 
     return 0;
 }

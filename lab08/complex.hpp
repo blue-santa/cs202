@@ -23,6 +23,9 @@ class Complex {
         Complex() {};
         Complex(double real, double imag = 0);
 
+        double realPart() const { return real_; };
+        double imagPart() const { return imag_; };
+
     private:
 
         double real_{0};

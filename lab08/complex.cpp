@@ -17,7 +17,7 @@ using std::endl;
 using std::ostream;
 using std::string;
 
-Complex::Complex(double real, double imag = 0) 
+Complex::Complex(double real, double imag) 
     : real_(real), imag_(imag) 
 {
 }
