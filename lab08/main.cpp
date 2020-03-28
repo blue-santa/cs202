@@ -10,6 +10,7 @@
 #include <string>
 
 #include "complex.hpp"
+#include "myclass.hpp"
 
 using std::cout;
 using std::endl;
@@ -17,11 +18,17 @@ using std::ostream;
 using std::string;
 using std::fixed;
 
-// Desing
+// Design
 // [x] Create Complex class
 // [x] override << operator
 // [x] override + operator
 // [x] override += operator
+
+// Design2
+// [x] Create new class
+// [x] override << operator
+// [x] override - operator
+// [x] override -= operator
 
 int main() {
 
@@ -39,6 +46,20 @@ int main() {
     cout << complex2 << endl;
     complex1 += complex2;
     cout << complex1 << endl;
+
+    // Lab
+    cout << MyClass() << endl;
+    cout << MyClass(2, 3) << endl;
+    cout << MyClass(4, 5) - MyClass(2, 3) << endl;
+    cout << 1.0 - MyClass(2, 3) << endl;
+    cout << MyClass(2, 3) - 1.0f << endl;
+
+    MyClass myclass1(7, 8); 
+    MyClass myclass2(10, 20); 
+    cout << myclass1 << endl;
+    cout << myclass2 << endl;
+    myclass1 -= myclass2;
+    cout << myclass1 << endl;
 
     return 0;
 }

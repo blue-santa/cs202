@@ -37,11 +37,3 @@ std::ostream& operator<<(std::ostream& os, const Complex& complex) {
     os << complex.imagPart();
     return os;
 }
-
-// class Complex { 
-    // public:
-        // Complex();
-
-    // private:
-
-// }; 
