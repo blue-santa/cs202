@@ -19,8 +19,8 @@ using std::fixed;
 
 // Desing
 // [x] Create Complex class
-// [ ] override << operator
-// [ ] override + operator
+// [x] override << operator
+// [x] override + operator
 // [ ] override += operator
 
 int main() {
@@ -29,7 +29,9 @@ int main() {
 
     cout << Complex() << endl;
     cout << Complex(2, 3) << endl;
-    // cout << 1 + Complex(2, 3) << endl;
+    cout << Complex(4, 5) + Complex(2, 3) << endl;
+    cout << 1.0 + Complex(2, 3) << endl;
+    cout << Complex(2, 3) + 1.0 << endl;
 
     return 0;
 }

@@ -23,6 +23,8 @@ class Complex {
         Complex() {};
         Complex(double real, double imag = 0);
 
+        Complex operator+(const Complex complex);
+
         double realPart() const { return real_; };
         double imagPart() const { return imag_; };
 
@@ -31,6 +33,10 @@ class Complex {
         double real_{0};
         double imag_{0};
 };
+
+inline Complex operator+(double lhs, const Complex rhs) {
+    return Complex(lhs + rhs.realPart(), rhs.imagPart());
+}
 
 std::ostream& operator<<(std::ostream& os, const Complex& complex);
 
