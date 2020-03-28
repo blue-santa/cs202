@@ -21,7 +21,7 @@ using std::fixed;
 // [x] Create Complex class
 // [x] override << operator
 // [x] override + operator
-// [ ] override += operator
+// [x] override += operator
 
 int main() {
 
