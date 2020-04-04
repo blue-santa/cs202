@@ -17,13 +17,29 @@ using std::ostream;
 using std::string;
 using std::fixed;
 
-// [ ] Static local variable
+// [x] Static local variable
 // [ ] Static global variable
 // [ ] Static member variable
 // [ ] Static member function
 
+void foo_static() {
+    static int countInitialized = 0;
+    if (!countInitialized) {
+        cout << __FUNCTION__ << " is not initialized" << endl;;
+        countInitialized++;
+    } else {
+        cout << __FUNCTION__ << " called " << countInitialized << " times." << endl; 
+        countInitialized++;
+    }
+
+
+}
+
 int main() {
 
+    foo_static();
+    foo_static();
+    foo_static();
 
     return 0;
 }
