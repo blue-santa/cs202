@@ -10,8 +10,6 @@
 #include <string>
 #include <sstream>
 
-#include "myclass.hpp"
-
 using std::cout;
 using std::endl;
 using std::ostream;
@@ -32,6 +30,27 @@ using std::ostringstream;
 static int test_static_count = 0;
 
 static string my_static_string = "My Static String";
+
+class MyClass {
+    public:
+
+        MyClass() {
+            cout << another_static_string_ << endl;;
+            another_static_string_ = "Another Static String";
+            cout << another_static_string_ << endl;;
+        }
+
+        static void printAnotherStaticString() {
+            cout << another_static_string_ << endl;
+        }
+
+    private:
+        int testInt;
+        static string another_static_string_;
+
+};
+
+string MyClass::another_static_string_{ "First value of another static string" };
 
 class TestStatic {
     public:
@@ -104,6 +123,13 @@ int main() {
 
     ts1.printClassName();
     cout << "Leaving main" << endl;
+
+    cout << "Starting my lab" << endl;
+
+    cout << my_static_string << endl;
+
+    MyClass mc;
+    mc.printAnotherStaticString();
 
     return 0;
 }
