@@ -1,3 +1,10 @@
+/*
+ * main.cpp
+ * CS202 Dr. Metzgar
+ * Bryan Beus
+ * April 3, 2020
+ * Modification of exception.cpp file for Lab10
+ */
 #include <iostream>
 
 using std::cout;
