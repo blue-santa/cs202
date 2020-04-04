@@ -5,15 +5,15 @@ using std::endl;
 
 // [x] Write try/catch block
 // [x] Put runtime_error in functionC
-// [ ] Write object with constructor/destructor message
+// [x] Write object with constructor/destructor message
 
-class MyObj {
+class TestObj {
     public:
-        MyObj() {
+        TestObj() {
             cout << "Construction obj object" << endl;
         }
 
-        ~MyObj() {
+        ~TestObj() {
             cout << "Destruction of object" << endl;
         }
     private:
@@ -26,7 +26,7 @@ void functionC()
 
 void functionB()
 {
-    //your code here
+    TestObj to;
     cout << "Starting functionB()\n";
     functionC();
     cout << "Ending functionB()\n";
