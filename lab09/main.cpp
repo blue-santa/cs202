@@ -24,7 +24,14 @@ using std::ostringstream;
 // [x] Static member variable
 // [x] Static member function
 
+// My Design
+// [x] Static local variable
+// [ ] Static member variable
+// [ ] Static member function
+
 static int test_static_count = 0;
+
+static string my_static_string = "My Static String";
 
 class TestStatic {
     public:
