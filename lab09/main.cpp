@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <sstream>
 
 #include "myclass.hpp"
 
@@ -16,11 +17,12 @@ using std::endl;
 using std::ostream;
 using std::string;
 using std::fixed;
+using std::ostringstream;
 
 // [x] Static local variable
 // [x] Static global variable
-// [ ] Static member variable
-// [ ] Static member function
+// [x] Static member variable
+// [x] Static member function
 
 static int test_static_count = 0;
 
@@ -30,15 +32,32 @@ class TestStatic {
             instanceNum_(test_static_count) {
             cout << __FUNCTION__ << " " << instanceNum_ << " initialized" << endl;
             test_static_count++;
+            ostringstream os;
+            os << "TestStatic" << instanceNum_;
+            className_ = os.str();
         }
 
         ~TestStatic() {
             cout << __FUNCTION__ << " " << instanceNum_ << " destroyed" << endl;
         }
 
+        void printClassName() {
+            cout << className_ << endl;
+        }
+
+        static void writeClassName() {
+            cout << "Static " << className_ << endl;
+        }
+
+        static void writeClassName(const TestStatic& ts) {
+            cout << "Static instance: " << ts.instanceNum_ << endl;
+        }
     private:
         int instanceNum_;
+        static string className_;
 };
+
+string TestStatic::className_{ "test" };
 
 namespace {
 
@@ -57,15 +76,26 @@ void foo_static() {
         countInitialized++;
     }
 
+    ts1.printClassName();
+    TestStatic::writeClassName(ts1);
+    TestStatic::writeClassName(ts2);
+
 
 }
 
 int main() {
 
+    cout << endl;
     cout << "Starting main" << endl;
+
+    ts1.printClassName();
+    ts2.printClassName();
+
     foo_static();
     foo_static();
     foo_static();
+
+    ts1.printClassName();
     cout << "Leaving main" << endl;
 
     return 0;
