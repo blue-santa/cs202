@@ -21,6 +21,7 @@ using std::string;
 using std::vector;
 using std::ofstream;
 
+// Calculate Ackerman's value
 long long int ack(const long long int& m, const long long int& n) {
     if (m == 0) {
         return n + 1;
@@ -35,24 +36,23 @@ long long int ack(const long long int& m, const long long int& n) {
 
 int main() {
 
+    // Save output to local file
     ofstream fout("./values.txt");
 
     if (!fout) {
         cout << "Error loading output file" << endl;
     }
 
+    // Initiate StopWatch instance
     StopWatch totalTime;
 
-    // TODO: Get rid of these and just use the for loops below
-    long long int m = 0;
-    long long int n = 0;
     long long int val;
 
     cout << "Calculating Ackerman's Values" << endl;
     int max = 0;
 
     // Iterations for n
-    for (int i = 0; i < 4; i++) { 
+    for (long long int n = 0; n < 5; n++) { 
 
         // Set highest level for m at each level n
         switch (n) {
@@ -66,32 +66,30 @@ int main() {
                 max = 3;
                 break;
             case 3:
-                max = 1;
+                max = 3;
+                break;
+            case 4:
+                max = 3;
+                break;
             default:
                 break; 
         }
 
         // Iteration level for m
-        for (int k = 0; k < max; k++) {
+        for (long long int m = 0; m <= max; m++) {
 
-            // Within each n, calculate each m starting at 0
-            for (int j = 0; j <= n; j++) {
-                cout << endl;
-                cout << "m: " << m << endl;
-                cout << "n: " << n << endl; 
-                StopWatch currSw; 
-                val = ack(m, n); 
-                currSw.captureFinishTime();
-                cout << "v: " << val << endl;
-                cout << "t: " << currSw.reportFinishTime() << endl;;
-                fout << m << ", " << n << ", " << currSw.reportFinishTime() << "," << endl;
-                cout << endl; 
-                cout << endl;
-                m++;
-            }
+            cout << endl;
+            cout << "m: " << m << endl;
+            cout << "n: " << n << endl; 
+            StopWatch currSw; 
+            val = ack(m, n); 
+            currSw.captureFinishTime();
+            cout << "v: " << val << endl;
+            cout << "t: " << currSw.reportFinishTime() << endl;
+            fout << m << ", " << n << ", " << val << ", " << currSw.reportFinishTime() << "," << endl;
+            cout << endl; 
+            cout << endl;
         }
-        n++; 
-        m = 0;
     }
 
     cout << "Final Time: ";
