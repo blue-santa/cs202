@@ -33,21 +33,38 @@ long long int ack(const long long int& m, const long long int& n) {
 
 int main() {
 
-    StopWatch sw;
+    StopWatch totalTime;
 
+    vector<StopWatch> values;
     long long int m = 0;
     long long int n = 0;
     long long int val;
 
-    val = ack(m, n);
+    cout << "Calculating Ackerman's Values" << endl;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j <= n; j++) {
+            cout << endl;
+            cout << "m: " << m << endl;
+            cout << "n: " << n << endl; 
+            val = ack(m, n); 
+            cout << val << endl;
+            cout << endl; 
+            cout << endl;
+            m++;
+        }
+        n++; 
+        m = 0;
+    }
 
-    cout << endl;
-    cout << val << endl;
+    cout << "Final Time: ";
+    totalTime.captureFinishTime();
+    cout << totalTime.reportFinishTime() << endl << endl;
 
-    sw.captureFinishTime();
-    cout << sw.reportFinishTime() << endl;
+    ofstream fout("./values.txt");
 
-    cout << endl;
+    if (!fout) {
+        cout << "Error loading output file" << endl;
+    }
 
     return 0;
 }
