@@ -35,7 +35,7 @@ int factorial_non_recursive(const int& final_num) {
         values.push_back(current_value);
     } 
 
-    // Calculate the factorial value until the final_num is reached
+    // Calculate the factorial value until the final value is reached
     while (current_num <= final_num) {
         current_value = current_num * values.at(current_num - 1);
         values.push_back(current_value); 
