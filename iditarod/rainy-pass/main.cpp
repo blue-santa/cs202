@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 #include "StopWatch.hpp"
 
@@ -18,6 +19,7 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::vector;
+using std::ofstream;
 
 long long int ack(const long long int& m, const long long int& n) {
     if (m == 0) {
@@ -46,7 +48,10 @@ int main() {
             cout << endl;
             cout << "m: " << m << endl;
             cout << "n: " << n << endl; 
+            StopWatch currSw; 
             val = ack(m, n); 
+            currSw.captureFinishTime();
+            cout << currSw.reportFinishTime() << endl;;
             cout << val << endl;
             cout << endl; 
             cout << endl;
