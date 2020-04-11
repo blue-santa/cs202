@@ -13,6 +13,8 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <memory>
+#include <stdlib.h>
 
 using std::cout;
 using std::endl;
@@ -135,6 +137,49 @@ void TestShapes() {
     cout << "drawing aggregateshape" << endl;
     ashape.draw();
     cout << "---------------" << endl;
+
+}
+
+enum class ShapeType {
+    Box,
+    Circle
+};
+
+class ShapeFactory {
+    public:
+        static std::shared_ptr<Shape> Create(ShapeType shape) {
+            switch (shape) {
+                case ShapeType::Circle:
+                    return std::make_shared<Circle>();
+                case ShapeType::Box:
+                    return std::make_shared<Box>();
+                default:
+                    throw std::runtime_error("Invalid");
+                    break;
+            }
+        }
+};
+
+void TestFactory() {
+    std::vector<std::shared_ptr<Shape>> shapes {
+        ShapeFactory::Create(ShapeType::Circle),
+        ShapeFactory::Create(ShapeType::Box),
+        ShapeFactory::Create(ShapeType::Circle) 
+    };
+
+    for (int i = 0; i < 10; i++) {
+        int whichShape = rand() % 100;
+        if (whichShape < 50) 
+            shapes.push_back(ShapeFactory::Create(ShapeType::Circle));
+        else 
+            shapes.push_back(ShapeFactory::Create(ShapeType::Box));
+    }
+
+    cout << "--------------------------------------------------" << endl << endl;;
+    for (auto s: shapes) {
+        s->draw();
+    }
+    cout << "--------------------------------------------------" << endl << endl;;
 
 }
 

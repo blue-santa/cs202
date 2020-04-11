@@ -19,7 +19,7 @@ using std::endl;
 int main()
 {
 
-    TestShapes();
+    TestFactory();
     
     return 0;
 }
