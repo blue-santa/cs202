@@ -80,6 +80,9 @@ int main()
     { Derived d; } 
     cout << endl << endl;
 
+    { Derived d("Sony"); }
+    cout << endl << endl;
+
     { Derived d(30, true, "GCI" ); }
     cout << endl << endl;
 
