@@ -2,24 +2,80 @@
  * main.cpp
  * CS202 Dr. Metzgar
  * Bryan Beus
- * April 10, 2020
- * Content for Lectur V601 and Lab11
+ * April 11, 2020
+ * Main file for lab11
  */
 
 #include <iostream>
-#include "shape.hpp"
+#include <string>
 
 using std::cout;
 using std::endl;
+using std::string;
 
-// [x] Write try/catch block
-// [x] Put runtime_error in functionC
-// [x] Write object with constructor/destructor message
+// [x] Default base class object
+// [x] Base class object using two parameter constructors
+// [x] Default derived class object
+// [x] Derived class object using three parameter constructor
+
+class Base {
+    public:
+        Base() {
+            cout << "Constructing default base object with values: " << audio_level_ << " " << initiated_ << endl;
+        };
+
+        Base(int audio_level, bool initiated) 
+        : audio_level_{audio_level}, initiated_{initiated} {
+            cout << "Constructing base object " << audio_level_ << " " << initiated_ << endl; 
+        }
+
+        ~Base() {
+            cout << "Destructing base object: " << audio_level_ << " " << initiated_ << endl;
+        }
+
+    private:
+        int audio_level_ { 8 };
+        bool initiated_ { false };
+
+};
+
+// class Derived
+
+class Derived : public Base {
+    public:
+        Derived() 
+            : Base{ 17, true }, brand_{ "Sony" }
+        {
+            cout << "Constructing a Derived Object with brand: " << brand_ << endl; 
+        }
+
+        Derived(int audio_level, bool initiated, const string& brand)
+            : Base{ audio_level, initiated }, brand_{ brand } 
+        {
+            cout << "Constructing a derived object of the values: " << brand_ << endl;
+        }
+
+
+        ~Derived() {
+            cout << "Destructing a derived object with brand: " << brand_ << endl;
+        }
+    private: 
+        string brand_;
+};
 
 int main()
 {
+    { Base b; }
+    cout << endl << endl;
 
-    TestFactory();
-    
+    { Base b{ 5, true }; } 
+    cout << endl << endl;
+
+    { Derived d; } 
+    cout << endl << endl;
+
+    { Derived d(30, true, "GCI" ); }
+    cout << endl << endl;
+
     return 0;
 }
