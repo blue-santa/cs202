@@ -44,7 +44,13 @@ class Base {
 class Derived : public Base {
     public:
         Derived() 
-            : Base{ 17, true }, brand_{ "Sony" }
+            : Base{ 17, true }
+        {
+            cout << "Constructing a Derived Object with brand: " << brand_ << endl; 
+        }
+
+        Derived(const string& brand) 
+            : Base{ 17, true }, brand_{ brand }
         {
             cout << "Constructing a Derived Object with brand: " << brand_ << endl; 
         }
