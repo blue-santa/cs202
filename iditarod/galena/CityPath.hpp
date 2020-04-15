@@ -55,6 +55,9 @@ class CityPath {
         // Get the size of the connections_ object
         size_t getCount();
 
+        // Get the value at a particular array index
+        unsigned int getNode(const int& index);
+
     private:
         vector<unsigned int> connections_;
 };

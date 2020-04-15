@@ -66,6 +66,7 @@ void CityList::parseFile(ifstream& is) {
             break;
         }
 
+        cout << "Parsing line: " << current_line << endl;
         unsigned int num;
         float latF;
         float lonF;
@@ -163,6 +164,28 @@ unsigned int CityList::getNodeNum(const int& vectorPos) const {
     }
 
     return it->getNum();
+
+}
+
+int CityList::calcArrayNum(const unsigned int& numVal) const { 
+    vector<CityNode>::const_iterator it = list_.begin();
+
+    int i = 0; 
+    while (it != list_.end() && it->getNum() != numVal) { 
+        advance(it, 1);
+        i++;
+    }
+
+    // if (
+                // (i == vectorPos && it == list_.end())
+            // ||  (it == list_.end() && i < vectorPos - 1)
+        // ) 
+    // {
+        // cout << "Error check in CityList.cpp" << endl;
+        // exit(0);
+    // }
+
+    return i;
 
 }
 

@@ -3,7 +3,7 @@
  * CS202
  * April 14, 2020
  * Bryan Beus
- * Takotna station for Iditarod Challenge
+ * Galena station for Iditarod Challenge
  */
 
 #include <iomanip>
@@ -46,7 +46,9 @@ int main() {
     callFileNames(fileNames); 
     vector<CityList> citylist;
 
+    // Parse File
     for (size_t i = 0; i < fileNames.size(); i++) {
+        cout << "Parsing file: " << fileNames.at(i) << endl;
         string file = "./big/" + fileNames.at(i);
         ifstream fin(file); 
         if (!fin) {
@@ -60,16 +62,35 @@ int main() {
     }
 
     // SolveRandomly() 
-    double bestDistance = 1000000000000;
-
+    double bestDistanceRandom = 1000000000000; 
     for (size_t i = 0; i < citylist.size(); i++) {
         CityPath citypath; 
         TspSolver tsp;
         double randomDistance = tsp.SolveRandomly(citylist.at(i), citypath);
-        if (bestDistance > randomDistance) bestDistance = randomDistance;
-    }
+        if (bestDistanceRandom > randomDistance) bestDistanceRandom = randomDistance;
+    } 
+    cout << "Best Distance for SolveRandomly: " << bestDistanceRandom << endl;
 
-    cout << "Best Distance for SolveRandomly: " << bestDistance << endl;
+    // SolveMyWay() 
+    double bestDistanceMyWay = 1000000000000; 
+    for (size_t i = 0; i < citylist.size(); i++) {
+        CityPath citypath; 
+        TspSolver tsp;
+        double MyWayDistance = tsp.SolveMyWay(citylist.at(i), citypath);
+        if (bestDistanceMyWay > MyWayDistance) bestDistanceMyWay = MyWayDistance;
+    } 
+    cout << "Best Distance for SolveMyWay: " << bestDistanceMyWay << endl;
+
+    // SolveGreedy() 
+    // (This is too long to actually complete!
+    double bestDistanceGreedy = 1000000000000; 
+    for (size_t i = 0; i < citylist.size(); i++) {
+        CityPath citypath; 
+        TspSolver tsp;
+        double greedyDistance = tsp.SolveGreedy(citylist.at(i), citypath);
+        if (bestDistanceGreedy > greedyDistance) bestDistanceGreedy = greedyDistance;
+    } 
+    cout << "Best Distance for SolveGreedy: " << bestDistanceGreedy << endl;
 
     return 0;
 }

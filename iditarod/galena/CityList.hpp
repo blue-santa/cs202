@@ -62,6 +62,9 @@ class CityList {
         // Get the num_ value of the indicated node
         unsigned int getNodeNum(const int& vectorPos) const;
 
+        // Calculate the array value from a provided num_
+        int calcArrayNum(const unsigned int& numVal) const;
+
         // Calculate the distance between two nodes
         double distance(const int& fir, const int& sec) const;
 
