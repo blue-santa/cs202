@@ -17,6 +17,7 @@
 
 #include "Takotna.hpp"
 #include "CityNode.hpp"
+#include "CityPath.hpp"
 #include "CityList.hpp"
 #include "Miscellaneous.hpp"
 
