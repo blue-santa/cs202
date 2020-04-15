@@ -34,7 +34,7 @@ using std::left;
 namespace fs = std::filesystem; 
 
 CityNode::CityNode(const unsigned int num, const double lat, const double lon)
-    : num_(num), lat_(lat), lon_(lon) { } 
+    : num_(num), lat_(lat), lon_(lon), y_(lat), x_(lon) { } 
 
 double CityNode::getLon() {
     return lon_;

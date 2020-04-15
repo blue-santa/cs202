@@ -40,6 +40,7 @@ class CityList {
         CityList() {};
         ~CityList() {};
 
+        void parseFile(ifstream& is);
         void addNode(const CityNode& node);
         size_t getCount(); 
         double getNodeLon(const unsigned int& nodeNum); 

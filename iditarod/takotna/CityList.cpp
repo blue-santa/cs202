@@ -34,6 +34,57 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
+void CityList::parseFile(ifstream& is) {
+
+    if (list_.size() > 0) {
+        cout << "Each CityList object should only have one file" << endl;
+        exit(0);
+    }
+
+    int i = 0;
+    string current_line;
+    while (i < 15 && !is.eof() && current_line != "NODE_COORD_SECTION") {
+        getline(is, current_line);
+        i++;
+    }
+
+    while (current_line != "EOF") {
+        getline(is, current_line);
+
+        unsigned int num;
+        float latF;
+        float lonF;
+        istringstream ss(current_line);
+        ss >> num;
+
+        if (!ss) {
+            cout << "Error parsing num" << endl;
+            exit(0);
+        }
+
+        ss >> latF;
+
+        if (!ss) {
+            cout << "Error parsing latF" << endl;
+            exit(0);
+        }
+
+        ss >> lonF;
+
+        if (!ss) {
+            cout << "Error parsing lonF" << endl;
+            exit(0);
+        }
+
+        double lat = (double)latF;
+        double lon = (double)lonF;
+
+        CityNode newNode(num, lat, lon);
+        this->addNode(newNode);
+    }
+
+}
+
 void CityList::addNode(const CityNode& node) {
     list_.push_back(node);
 }

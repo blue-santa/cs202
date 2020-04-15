@@ -45,8 +45,8 @@ class CityNode {
         unsigned int num_;
         double lat_;
         double lon_;
-        double x_;
         double y_;
+        double x_;
 };
 
 #endif
