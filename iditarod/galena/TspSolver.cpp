@@ -177,16 +177,23 @@ double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
         if (unchosen_max == 1) { 
             currCityPos = 0;
         } else {
-            currCityPos = rand() % (unchosen_max - 1);
-            currCity = citylist.getNodeNum(currCityPos);
-            unsigned int prevCity = citypath.getNode(citypath.size() - 1);
-            unsigned int currCity = citypath.getNode(i);
-            unsigned int nextCity = citypath.getNode(i + 1);
+            double val = 1000000000000;
+            int p = 0;
+            for (int i = 0; i < 5; i++) {
+                currCityPos = rand() % (unchosen_max - 1);
+                unsigned int currCity = citylist.getNodeNum(currCityPos);
+                unsigned int prevCity = citypath.getNode(citypath.getCount() - 1);
 
-            int currCityPos = citylist.calcArrayNum(currCity);
-            int nextCityPos = citylist.calcArrayNum(nextCity);
-            cout << "Calculating distance between nodes: " << currCity << " and " << nextCity << endl;
-            double val = citylist.distance(currCityPos, nextCityPos);
+                int currCityPos = citylist.calcArrayNum(prevCity);
+                int nextCityPos = citylist.calcArrayNum(currCity);
+                cout << "Calculating distance between nodes: " << currCity << " and " << prevCity << endl;
+                double curr_val = citylist.distance(currCityPos, nextCityPos);
+                if (val > curr_val) {
+                    val = curr_val;
+                    p = currCityPos;
+                }
+            }
+            currCityPos = p;
         }
 
         unsigned int currCity = citylist.getNodeNum(currCityPos);
