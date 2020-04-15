@@ -39,7 +39,7 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
-unsigned long long int TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
+double TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
     int max = (int)citylist.getCount();
 
     int startingCityPos = rand() % (max - 1);
@@ -55,17 +55,38 @@ unsigned long long int TspSolver::SolveRandomly(const CityList& citylist, CityPa
         unchosenCities.addCity(currCity);
     } 
 
-    while (unchosenCities.getCount() > ) {
+    while (unchosenCities.getCount() > 0) {
+        int unchosen_max = (int)unchosenCities.getCount();
+        int currCityPos;
+        if (unchosen_max == 1) { 
+            currCityPos = 0;
+        } else {
+            currCityPos = rand() % (unchosen_max - 1);
+        }
 
+        unsigned int currCity = citylist.getNodeNum(currCityPos);
+        citypath.addCity(currCity); 
         unchosenCities.removeCity(currCity);
+    } 
+
+    citypath.addCity(startingCity);
+
+    double current_distance = 0;
+
+    for (int i = 0; i < (int)citypath.getCount() - 1; i++) {
+        double val = citylist.distance(i, i + 1);
+        current_distance += val;
     }
 
-
-
+    return current_distance;
 
 }
 
-void TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) {}
+double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) { 
+    return 0;
+}
 
-void TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {}
+double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
+    return 0;
+}
 

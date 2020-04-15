@@ -20,6 +20,7 @@
 #include "CityPath.hpp"
 #include "CityList.hpp"
 #include "Miscellaneous.hpp"
+#include "TspSolver.hpp"
 
 using std::cin;
 using std::cout;
@@ -58,13 +59,18 @@ int main() {
         citylist.push_back(newList);
     }
 
-    CityList test1 = citylist.at(0);
-    double testDistance = test1.distance(1,2);
-    cout << "The distance between Nodes 1 and 2 of CityList 0 is: " << testDistance << endl;
+    // SolveRandomly() 
+    double bestDistance = 1000000000000;
 
-    // Random 
+    for (size_t i = 0; i < citylist.size(); i++) {
+        CityPath citypath; 
+        TspSolver tsp;
+        double randomDistance = tsp.SolveRandomly(citylist.at(i), citypath);
+        if (bestDistance > randomDistance) bestDistance = randomDistance;
+    }
 
-    unsigned long long int bestDistance = 1000000000000;
+    cout << "Best Distance for SolveRandomly: " << bestDistance << endl;
+
     return 0;
 }
 

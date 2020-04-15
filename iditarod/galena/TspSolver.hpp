@@ -43,12 +43,11 @@ class TspSolver {
         TspSolver() {};
         ~TspSolver() {};
 
-        void SolveRandomly(const CityList& citylist, CityPath& citypath);
-        void SolveGreedy(const CityList& citylist, CityPath& citypath);
-        void SolveMyWay(const CityList& citylist, CityPath& citypath);
+        double SolveRandomly(const CityList& citylist, CityPath& citypath);
+        double SolveGreedy(const CityList& citylist, CityPath& citypath);
+        double SolveMyWay(const CityList& citylist, CityPath& citypath);
 
     private:
-        vector<CityNode> list_; 
 };
 
 #endif

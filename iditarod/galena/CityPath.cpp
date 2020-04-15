@@ -49,11 +49,11 @@ void CityPath::removeCity(const unsigned int& nextCity) {
     }
     vector<unsigned int>::iterator it = connections_.begin();
 
-    while (*it != nextCity && it != connections_.end()) advance(it, 1);
+    while (*it != nextCity && it != connections_.end() - 1) advance(it, 1);
 
     if (it == connections_.end()) {
         cout << "Error searching for city to remove" << endl;
-        exit(0);
+        // exit(0);
     }
 
     connections_.erase(it);
