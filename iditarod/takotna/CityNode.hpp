@@ -37,9 +37,9 @@ class CityNode {
     public:
         CityNode(const unsigned int num, const double lat, const double lon);
 
-        double getLon(); 
-        double getLat();
-        unsigned int getNum();
+        double getLon() const; 
+        double getLat() const;
+        unsigned int getNum() const;
 
     private:
         unsigned int num_;

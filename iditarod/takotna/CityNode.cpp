@@ -36,14 +36,14 @@ namespace fs = std::filesystem;
 CityNode::CityNode(const unsigned int num, const double lat, const double lon)
     : num_(num), lat_(lat), lon_(lon), y_(lat), x_(lon) { } 
 
-double CityNode::getLon() {
+double CityNode::getLon() const {
     return lon_;
 }
 
-double CityNode::getLat() {
+double CityNode::getLat() const {
     return lat_;
 }
 
-unsigned int CityNode::getNum() {
+unsigned int CityNode::getNum() const {
     return num_;
 }

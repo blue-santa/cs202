@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <stdlib.h>
 #include <iterator>
+#include <cmath>
 
 #include "CityList.hpp"
 #include "CityNode.hpp"
@@ -132,3 +133,12 @@ double CityList::getNodeLat(const unsigned int& nodeNum) {
     return it->getLat();
 
 }
+
+double CityList::distance(const CityNode& fir, const CityNode& sec) const {
+    const double x2 = sec.getLon();
+    const double x1 = fir.getLon();
+    const double y2 = sec.getLat();
+    const double y1 = fir.getLon();
+    return sqrt(pow((x2 - x1), 2.0) - pow((y2 - y1), 2.0)); 
+}
+
