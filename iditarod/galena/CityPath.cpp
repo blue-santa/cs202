@@ -38,27 +38,34 @@ using std::advance;
 
 namespace fs = std::filesystem; 
 
+// Add a city to the citypath object
 void CityPath::addCity(const unsigned int& nextCity) {
     connections_.push_back(nextCity);
 }
 
-void CityPath::removeCity(const unsigned int& nextCity) {
+// Remove a city from the citypath object
+void CityPath::removeCity(const unsigned int& nextCity) { 
     if (connections_.size() == 0) {
         cout << "Error calling .removeCity()" << endl;
         exit(0);
     }
+
     vector<unsigned int>::iterator it = connections_.begin();
 
+    // Search until the nextCity value is found 
     while (*it != nextCity && it != connections_.end() - 1) advance(it, 1);
 
+    // Error checking
     if (it == connections_.end()) {
         cout << "Error searching for city to remove" << endl;
-        // exit(0);
+        exit(0);
     }
 
+    // Erase the city
     connections_.erase(it);
 }
 
+// Get the size of the connections_ object
 size_t CityPath::getCount() {
     return connections_.size();
 }

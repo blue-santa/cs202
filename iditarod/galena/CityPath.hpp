@@ -40,11 +40,19 @@ namespace fs = std::filesystem;
 
 class CityPath {
     public:
+
+        // Default constructor
         CityPath() {};
+        // Default destructor
         ~CityPath() {};
 
+        // Add a city to the connections_ object
         void addCity(const unsigned int& nextCity);
+
+        // Remove a city from the connections_ object
         void removeCity(const unsigned int& removeCity);
+
+        // Get the size of the connections_ object
         size_t getCount();
 
     private:

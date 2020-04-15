@@ -30,6 +30,7 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
+// Load the filenames
 void callFileNames(vector<string>& fileNames) { 
     ifstream fin1("./big/list.txt");
 

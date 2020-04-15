@@ -37,8 +37,13 @@ class CityNode {
     public:
         CityNode(const unsigned int num, const double lat, const double lon);
 
+        // Get the longitude value of the node
         double getLon() const; 
+
+        // Get the latitude value of the node
         double getLat() const;
+
+        // Get the num_ value of the indicated node
         unsigned int getNum() const;
 
     private:
