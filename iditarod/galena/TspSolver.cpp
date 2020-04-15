@@ -196,33 +196,29 @@ double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
     while (unchosenCities.getCount() > 0) {
         int unchosen_max = (int)unchosenCities.getCount();
         cout << "Solve My Way: Unchosen count in current list: " << unchosen_max << endl;
-        int currCityPos;
-        if (unchosen_max == 1) { 
-            currCityPos = 0;
-        } else {
+        int p = 0;
+        if (unchosen_max != 1) { 
             // From 5 random cities, pick the lowest distance and only add that one as the next city
-            double val = 1000000000000;
-            int p = 0;
+            double val = 1000000000000.0;
             for (int i = 0; i < 5; i++) {
-                currCityPos = rand() % (unchosen_max - 1);
-                unsigned int currCity = citylist.getNodeNum(currCityPos);
+                int nextCityPosRandom = rand() % (unchosen_max - 1);
                 unsigned int prevCity = citypath.getNode(citypath.getCount() - 1);
-
-                int currCityPos = citylist.calcArrayNum(prevCity);
-                int nextCityPos = citylist.calcArrayNum(currCity);
-                cout << "Solve My Way: Calculating distance between nodes: " << prevCity << " and " << currCity << endl;
-                double curr_val = citylist.distance(currCityPos, nextCityPos);
+                unsigned int nextCity = unchosenCities.getNode(nextCityPosRandom); 
+                int prevCityPos = citylist.calcArrayNum(prevCity);
+                int nextCityPos = citylist.calcArrayNum(nextCity);
+                cout << "Solve My Way: Calculating distance between nodes: " << prevCity << " and " << nextCity << endl; 
+                double curr_val = citylist.distance(prevCityPos, nextCityPos);
+                cout << "val: " << val << " curr_val: " << curr_val << endl;
                 if (val > curr_val) {
                     val = curr_val;
-                    p = currCityPos;
+                    p = nextCityPos;
                 }
             }
-            currCityPos = p;
         }
 
-        unsigned int currCity = citylist.getNodeNum(currCityPos);
-        citypath.addCity(currCity); 
-        unchosenCities.removeCity(currCity);
+        unsigned int nextCity = citylist.getNodeNum(p);
+        citypath.addCity(nextCity); 
+        unchosenCities.removeCity(nextCity);
     } 
 
     citypath.addCity(startingCity);

@@ -47,7 +47,8 @@ int main() {
     vector<CityList> citylist;
 
     // Parse File
-    for (size_t i = 0; i < fileNames.size(); i++) {
+    // for (size_t i = 0; i < fileNames.size(); i++) {
+    for (size_t i = 0; i < 1; i++) {
         cout << "Parsing file: " << fileNames.at(i) << endl;
         string file = "./big/" + fileNames.at(i);
         ifstream fin(file); 
@@ -63,7 +64,8 @@ int main() {
 
     // SolveRandomly() 
     double bestDistanceRandom = 1000000000000; 
-    for (size_t i = 0; i < citylist.size(); i++) {
+    // for (size_t i = 0; i < citylist.size(); i++) {
+    for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
         double randomDistance = tsp.SolveRandomly(citylist.at(i), citypath);
@@ -73,7 +75,8 @@ int main() {
 
     // SolveMyWay() 
     double bestDistanceMyWay = 1000000000000; 
-    for (size_t i = 0; i < citylist.size(); i++) {
+    // for (size_t i = 0; i < citylist.size(); i++) {
+    for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
         double MyWayDistance = tsp.SolveMyWay(citylist.at(i), citypath);
@@ -84,7 +87,8 @@ int main() {
     // SolveGreedy() 
     // (This is too long to actually complete!
     double bestDistanceGreedy = 1000000000000; 
-    for (size_t i = 0; i < citylist.size(); i++) {
+    // for (size_t i = 0; i < citylist.size(); i++) {
+    for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
         double greedyDistance = tsp.SolveGreedy(citylist.at(i), citypath);
