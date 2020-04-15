@@ -42,10 +42,10 @@ class CityList {
 
         void parseFile(ifstream& is);
         void addNode(const CityNode& node);
-        size_t getCount(); 
-        double getNodeLon(const unsigned int& nodeNum); 
-        double getNodeLat(const unsigned int& nodeNum);
-        double distance(const CityNode& fir, const CityNode& sec) const;
+        size_t getCount() const; 
+        double getNodeLon(const unsigned int& nodeNum) const; 
+        double getNodeLat(const unsigned int& nodeNum) const;
+        double distance(const int& fir, const int& sec) const;
 
     private:
         vector<CityNode> list_; 

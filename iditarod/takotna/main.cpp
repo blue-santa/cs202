@@ -13,6 +13,7 @@
 #include <fstream>
 #include <filesystem>
 #include <stdlib.h>
+#include <memory>
 
 #include "Takotna.hpp"
 #include "CityNode.hpp"
@@ -53,9 +54,12 @@ int main() {
 
         CityList newList; 
         newList.parseFile(fin); 
-        cout << newList.getCount() << endl;
         citylist.push_back(newList);
     }
+
+    CityList test1 = citylist.at(0);
+    double testDistance = test1.distance(1,2);
+    cout << "The distance between Nodes 1 and 2 of CityList 0 is: " << testDistance << endl;
 
     return 0;
 }

@@ -100,12 +100,12 @@ void CityList::addNode(const CityNode& node) {
     list_.push_back(node);
 }
 
-size_t CityList::getCount() {
+size_t CityList::getCount() const {
     return list_.size();
 }
 
-double CityList::getNodeLon(const unsigned int& nodeNum) {
-    vector<CityNode>::iterator it = list_.begin();
+double CityList::getNodeLon(const unsigned int& nodeNum) const {
+    vector<CityNode>::const_iterator it = list_.begin();
 
     while (it->getNum() != nodeNum && it != list_.end()) {
         it++;
@@ -119,8 +119,8 @@ double CityList::getNodeLon(const unsigned int& nodeNum) {
 
 }
 
-double CityList::getNodeLat(const unsigned int& nodeNum) {
-    vector<CityNode>::iterator it = list_.begin();
+double CityList::getNodeLat(const unsigned int& nodeNum) const {
+    vector<CityNode>::const_iterator it = list_.begin();
 
     while (it->getNum() != nodeNum && it != list_.end()) {
         it++;
@@ -134,11 +134,11 @@ double CityList::getNodeLat(const unsigned int& nodeNum) {
 
 }
 
-double CityList::distance(const CityNode& fir, const CityNode& sec) const {
-    const double x2 = sec.getLon();
-    const double x1 = fir.getLon();
-    const double y2 = sec.getLat();
-    const double y1 = fir.getLon();
+double CityList::distance(const int& fir, const int& sec) const {
+    const double x2 = getNodeLon(sec);
+    const double x1 = getNodeLon(fir);
+    const double y2 = getNodeLat(sec);
+    const double y1 = getNodeLat(fir);
     return sqrt(pow((x2 - x1), 2.0) - pow((y2 - y1), 2.0)); 
 }
 
