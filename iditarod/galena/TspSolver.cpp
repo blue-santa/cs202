@@ -41,22 +41,24 @@ namespace fs = std::filesystem;
 
 // Create a TSP solution using random city choices
 double TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
-    int max = (int)citylist.getCount();
-
+    // Pick a random starting city
+    int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
     unsigned int startingCity = citylist.getNodeNum(startingCityPos);
     citypath.addCity(startingCity);
 
+    // Populate the unchosen cities list
     CityPath unchosenCities;
     for (int i = 0; i < max; i++) {
         unsigned int currCity = citylist.getNodeNum(i); 
         unchosenCities.addCity(currCity);
     } 
     unchosenCities.removeCity(startingCity);
-
+    
+    // Populate the citypath object using random selections from the unchosen city list
     while (unchosenCities.getCount() > 0) {
         int unchosen_max = (int)unchosenCities.getCount();
-        cout << "Unchosen count in current list: " << unchosen_max << endl;
+        cout << "Solve Randomly: Unchosen count in current list: " << unchosen_max << endl;
         int currCityPos;
         if (unchosen_max == 1) { 
             currCityPos = 0;
@@ -64,26 +66,27 @@ double TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
             currCityPos = rand() % (unchosen_max - 1);
         }
 
-        unsigned int currCity = citylist.getNodeNum(currCityPos);
+        // Add the random node to the citypath object
+        unsigned int currCity = unchosenCities.getNode(currCityPos);
         citypath.addCity(currCity); 
         unchosenCities.removeCity(currCity);
     } 
 
+    // Make sure to add one additional startingcity node
     citypath.addCity(startingCity);
 
-    double current_distance = 0;
-
+    // Calculate the distance between each node and find the sum
+    double current_distance = 0; 
     for (int i = 0; i < (int)citypath.getCount() - 1; i++) {
         unsigned int currCity = citypath.getNode(i);
         unsigned int nextCity = citypath.getNode(i + 1);
 
         int currCityPos = citylist.calcArrayNum(currCity);
         int nextCityPos = citylist.calcArrayNum(nextCity);
-        cout << "Calculating distance between nodes: " << currCity << " and " << nextCity << endl;
+        cout << "Solve Randomly: Calculating distance between nodes: " << currCity << " and " << nextCity << endl;
         double val = citylist.distance(currCityPos, nextCityPos);
         current_distance += val;
-    }
-
+    } 
 
     return current_distance;
 
@@ -91,12 +94,14 @@ double TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
 
 // Create a highly accurate solution using greedy algorithms
 double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) { 
-    int max = (int)citylist.getCount();
 
+    // Find a random starting city
+    int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
     unsigned int startingCity = citylist.getNodeNum(startingCityPos);
     citypath.addCity(startingCity);
 
+    // Populate the unchosen city object
     CityPath unchosenCities;
     unsigned int currCity;
     for (int i = 0; i < max; i++) {
@@ -104,33 +109,45 @@ double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) {
         unchosenCities.addCity(currCity);
     } 
 
-    currCity = startingCity;
+    // (Don't remove the startingCity from unchosenCities; we do that later) 
+    currCity = startingCity; 
     int currCityPos = startingCityPos;
+
+    // Calculate each nearest city value
     while (unchosenCities.getCount() > 0) {
         int unchosen_max = (int)unchosenCities.getCount();
-        cout << "Unchosen count in current list: " << unchosen_max << endl;
+        cout << "Solve Greedy: Unchosen count in current list: " << unchosen_max << endl;
         if (unchosen_max != 1) { 
+
+            // While there are still more than one city in the chosen cities list
+            // Iterate through each city pair and calculate the shortest route for each
             double dist1 = 1000000000000;
             size_t p = 0;
 
+            // Get the array value of the current city
+            currCityPos = citylist.calcArrayNum(currCity);
             for (int i = 0; i < unchosen_max; i++) {
-                unsigned int nextCity = unchosenCities.getNode(i);
                 // currcity is already here
+                // Capture the next node to test the distance
+                unsigned int nextCity = unchosenCities.getNode(i);
 
-                // Get the array value of the current city
-                currCityPos = citylist.calcArrayNum(currCity);
                 // Get the array value of the next city to test
                 int nextCityPos = citylist.calcArrayNum(nextCity);
 
+                // Calculate the distance between current and next city positions
                 double val = citylist.distance(currCityPos, nextCityPos);
+                // if this value is less than the current lowest value, switch the target
                 if (val < dist1) {
                     dist1 = val;
                     p = i;
                 }
             }
+
+            // Take the lowest captured city node
             currCity = unchosenCities.getNode(p); 
-            currCityPos = p;
-            citypath.addCity(currCity);
+            // Add the target currCity to the citypath list
+            citypath.addCity(currCity); 
+            // Remove the currCity from the unchosen cities
             unchosenCities.removeCity(currCity); 
         } else {
             currCity = unchosenCities.getNode(0);
@@ -139,16 +156,18 @@ double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) {
         }
     } 
 
+    // Add the final reciprocal city to the list
     citypath.addCity(startingCity);
 
-    double current_distance = 0;
-
+    // Calculate the total distance of the list
+    double current_distance = 0; 
     for (int i = 0; i < (int)citypath.getCount() - 1; i++) {
         currCity = citypath.getNode(i);
         unsigned int nextCity = citypath.getNode(i + 1);
 
-        int currCityPos = citylist.calcArrayNum(currCity);
+        currCityPos = citylist.calcArrayNum(currCity);
         int nextCityPos = citylist.calcArrayNum(nextCity);
+        cout << "Solve Greedy: Calculating distance between nodes: " << currCity << " and " << nextCity << endl;
         double val = citylist.distance(currCityPos, nextCityPos);
         current_distance += val;
     }
@@ -156,13 +175,16 @@ double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) {
     return current_distance;
 }
 
+// Solve TSP using my way
 double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
-    int max = (int)citylist.getCount();
 
+    // Choose random starting city
+    int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
     unsigned int startingCity = citylist.getNodeNum(startingCityPos);
     citypath.addCity(startingCity);
 
+    // Populate unchosen cities list
     CityPath unchosenCities;
     for (int i = 0; i < max; i++) {
         unsigned int currCity = citylist.getNodeNum(i); 
@@ -170,13 +192,15 @@ double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
     } 
     unchosenCities.removeCity(startingCity);
 
+    // Calculate somewhat optimized random chosen path list
     while (unchosenCities.getCount() > 0) {
         int unchosen_max = (int)unchosenCities.getCount();
-        cout << "Unchosen count in current list: " << unchosen_max << endl;
+        cout << "Solve My Way: Unchosen count in current list: " << unchosen_max << endl;
         int currCityPos;
         if (unchosen_max == 1) { 
             currCityPos = 0;
         } else {
+            // From 5 random cities, pick the lowest distance and only add that one as the next city
             double val = 1000000000000;
             int p = 0;
             for (int i = 0; i < 5; i++) {
@@ -186,7 +210,7 @@ double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
 
                 int currCityPos = citylist.calcArrayNum(prevCity);
                 int nextCityPos = citylist.calcArrayNum(currCity);
-                cout << "Calculating distance between nodes: " << currCity << " and " << prevCity << endl;
+                cout << "Solve My Way: Calculating distance between nodes: " << prevCity << " and " << currCity << endl;
                 double curr_val = citylist.distance(currCityPos, nextCityPos);
                 if (val > curr_val) {
                     val = curr_val;
@@ -211,7 +235,7 @@ double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
 
         int currCityPos = citylist.calcArrayNum(currCity);
         int nextCityPos = citylist.calcArrayNum(nextCity);
-        cout << "Calculating distance between nodes: " << currCity << " and " << nextCity << endl;
+        cout << "Solve My Way: Calculating distance between nodes: " << currCity << " and " << nextCity << endl;
         double val = citylist.distance(currCityPos, nextCityPos);
         current_distance += val;
     }

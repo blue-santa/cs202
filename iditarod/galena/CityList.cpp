@@ -1,9 +1,9 @@
 /*
- * CityNode.cpp
+ * CityList.cpp
  * CS 202
  * April 14, 2020
  * Bryan Beus
- * Definition file for CityNode content
+ * Definition file for CityList content
  */
 
 #include <iomanip>
@@ -167,6 +167,7 @@ unsigned int CityList::getNodeNum(const int& vectorPos) const {
 
 }
 
+// Retrieve the index number of a provided num_ value
 int CityList::calcArrayNum(const unsigned int& numVal) const { 
     vector<CityNode>::const_iterator it = list_.begin();
 
@@ -176,14 +177,10 @@ int CityList::calcArrayNum(const unsigned int& numVal) const {
         i++;
     }
 
-    // if (
-                // (i == vectorPos && it == list_.end())
-            // ||  (it == list_.end() && i < vectorPos - 1)
-        // ) 
-    // {
-        // cout << "Error check in CityList.cpp" << endl;
-        // exit(0);
-    // }
+    if (it == list_.end() && it->getNum() != numVal) {
+        cout << "Error finding numVal in calcArrayNum()" << endl;
+        exit(0);
+    }
 
     return i;
 

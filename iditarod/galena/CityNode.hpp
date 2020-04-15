@@ -35,6 +35,7 @@ namespace fs = std::filesystem;
 
 class CityNode {
     public:
+        // Default constructor
         CityNode(const unsigned int num, const double lat, const double lon);
 
         // Get the longitude value of the node
