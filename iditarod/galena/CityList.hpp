@@ -45,6 +45,7 @@ class CityList {
         size_t getCount() const; 
         double getNodeLon(const unsigned int& nodeNum) const; 
         double getNodeLat(const unsigned int& nodeNum) const;
+        unsigned int getNodeNum(const int& vectorPos) const;
         double distance(const int& fir, const int& sec) const;
 
     private:

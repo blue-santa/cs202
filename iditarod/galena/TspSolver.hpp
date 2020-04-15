@@ -44,6 +44,8 @@ class TspSolver {
         ~TspSolver() {};
 
         void SolveRandomly(const CityList& citylist, CityPath& citypath);
+        void SolveGreedy(const CityList& citylist, CityPath& citypath);
+        void SolveMyWay(const CityList& citylist, CityPath& citypath);
 
     private:
         vector<CityNode> list_; 

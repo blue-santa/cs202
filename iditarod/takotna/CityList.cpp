@@ -35,13 +35,16 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
+// Parse a provided ifstream file
 void CityList::parseFile(ifstream& is) {
 
+    // Test that citylist object is not already claimed
     if (list_.size() > 0) {
         cout << "Each CityList object should only have one file" << endl;
         exit(0);
     }
 
+    // Skip the introduction
     int i = 0;
     string current_line;
     while (i < 15 && !is.eof() && current_line.find("NODE_COORD_SECTION") == string::npos) {
@@ -49,11 +52,13 @@ void CityList::parseFile(ifstream& is) {
         i++;
     }
 
+    // Error checking
     if (i == 15) {
         cout << "Error reading input file" << endl;
         exit(0);
     }
 
+    // Parse each line into a new city node
     while (current_line != "EOF") {
         getline(is, current_line);
 
@@ -96,14 +101,17 @@ void CityList::parseFile(ifstream& is) {
 
 }
 
+// Add a node to the list_ object
 void CityList::addNode(const CityNode& node) {
     list_.push_back(node);
 }
 
+// Return the count
 size_t CityList::getCount() const {
     return list_.size();
 }
 
+// Get the Node's Lon value
 double CityList::getNodeLon(const unsigned int& nodeNum) const {
     vector<CityNode>::const_iterator it = list_.begin();
 
@@ -119,6 +127,7 @@ double CityList::getNodeLon(const unsigned int& nodeNum) const {
 
 }
 
+// Get the Node's Lat value
 double CityList::getNodeLat(const unsigned int& nodeNum) const {
     vector<CityNode>::const_iterator it = list_.begin();
 
@@ -134,6 +143,7 @@ double CityList::getNodeLat(const unsigned int& nodeNum) const {
 
 }
 
+// Calculate the distance between two nodes
 double CityList::distance(const int& fir, const int& sec) const {
     const double x2 = getNodeLon(sec);
     const double x1 = getNodeLon(fir);

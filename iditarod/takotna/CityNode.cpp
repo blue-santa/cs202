@@ -33,17 +33,23 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
+// Default constructor
 CityNode::CityNode(const unsigned int num, const double lat, const double lon)
-    : num_(num), lat_(lat), lon_(lon), y_(lat), x_(lon) { } 
+    : num_(num), lat_(lat), lon_(lon), y_(lat), x_(lon) 
+{ 
+} 
 
+// Get the node's lon value
 double CityNode::getLon() const {
     return lon_;
 }
 
+// Get the node's lat value
 double CityNode::getLat() const {
     return lat_;
 }
 
+// Get the node's num value
 unsigned int CityNode::getNum() const {
     return num_;
 }

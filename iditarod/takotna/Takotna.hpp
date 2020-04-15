@@ -33,6 +33,7 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
+// Capture the file names
 void callFileNames(vector<string>& fileNames);
 
 #endif

@@ -35,10 +35,16 @@ namespace fs = std::filesystem;
 
 class CityNode {
     public:
+        // Default constructor
         CityNode(const unsigned int num, const double lat, const double lon);
 
+        // Return the node's lon value
         double getLon() const; 
+
+        // Return the node's lat value
         double getLat() const;
+
+        // Get the node's num value
         unsigned int getNum() const;
 
     private:

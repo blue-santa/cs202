@@ -43,10 +43,12 @@ class CityPath {
         CityPath() {};
         ~CityPath() {};
 
-        void addCity(const int& nextCity);
+        void addCity(const unsigned int& nextCity);
+        void removeCity(const unsigned int& removeCity);
+        size_t getCount();
 
     private:
-        vector<int> connections_;
+        vector<unsigned int> connections_;
 };
 
 #endif

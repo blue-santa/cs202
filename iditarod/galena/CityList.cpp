@@ -32,6 +32,7 @@ using std::make_pair;
 using std::setw;
 using std::right;
 using std::left;
+using std::advance;
 
 namespace fs = std::filesystem; 
 
@@ -131,6 +132,28 @@ double CityList::getNodeLat(const unsigned int& nodeNum) const {
     }
 
     return it->getLat();
+
+}
+
+unsigned int CityList::getNodeNum(const int& vectorPos) const { 
+    vector<CityNode>::const_iterator it = list_.begin();
+
+    int i = 0; 
+    while (it != list_.end() && i < vectorPos) { 
+        advance(it, 1);
+        i++;
+    }
+
+    if (
+                (i == vectorPos && it == list_.end())
+            ||  (it == list_.end() && i < vectorPos - 1)
+        ) 
+    {
+        cout << "Error check in CityList.cpp" << endl;
+        exit(0);
+    }
+
+    return it->getNum();
 
 }
 

@@ -62,6 +62,9 @@ int main() {
     double testDistance = test1.distance(1,2);
     cout << "The distance between Nodes 1 and 2 of CityList 0 is: " << testDistance << endl;
 
+    // Random 
+
+    unsigned long long int bestDistance = 1000000000000;
     return 0;
 }
 

@@ -1,9 +1,9 @@
 /*
- * CityNode.cpp
+ * TspSolver.cpp
  * CS 202
  * April 14, 2020
  * Bryan Beus
- * Definition file for CityNode content
+ * Definition file for TspSolver content
  */
 
 #include <iomanip>
@@ -15,9 +15,13 @@
 #include <stdlib.h>
 #include <iterator>
 #include <cmath>
+#include <stdlib.h>
 
 #include "CityList.hpp"
 #include "CityNode.hpp"
+#include "TspSolver.hpp"
+#include "CityPath.hpp"
+#include "Takotna.hpp"
 
 using std::cin;
 using std::cout;
@@ -35,110 +39,33 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
-void CityList::parseFile(ifstream& is) {
+unsigned long long int TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
+    int max = (int)citylist.getCount();
 
-    if (list_.size() > 0) {
-        cout << "Each CityList object should only have one file" << endl;
-        exit(0);
+    int startingCityPos = rand() % (max - 1);
+    unsigned int startingCity = citylist.getNodeNum(startingCityPos);
+    citypath.addCity(startingCity);
+
+    CityPath unchosenCities;
+    for (int i = 0; i < max; i++) {
+        unsigned int currCity = citylist.getNodeNum(i);
+
+        if (currCity == startingCity) continue;
+
+        unchosenCities.addCity(currCity);
+    } 
+
+    while (unchosenCities.getCount() > ) {
+
+        unchosenCities.removeCity(currCity);
     }
 
-    int i = 0;
-    string current_line;
-    while (i < 15 && !is.eof() && current_line.find("NODE_COORD_SECTION") == string::npos) {
-        getline(is, current_line);
-        i++;
-    }
 
-    if (i == 15) {
-        cout << "Error reading input file" << endl;
-        exit(0);
-    }
 
-    while (current_line != "EOF") {
-        getline(is, current_line);
-
-        if (current_line.find("EOF") != string::npos || current_line.find_first_not_of(' ') == string::npos) {
-            break;
-        }
-
-        unsigned int num;
-        float latF;
-        float lonF;
-        istringstream ss(current_line);
-        ss >> num;
-
-        if (!ss) {
-            cout << "Error parsing num" << endl;
-            cout << current_line << endl;
-            exit(0);
-        }
-
-        ss >> latF;
-
-        if (!ss) {
-            cout << "Error parsing latF" << endl;
-            exit(0);
-        }
-
-        ss >> lonF;
-
-        if (!ss) {
-            cout << "Error parsing lonF" << endl;
-            exit(0);
-        }
-
-        double lat = (double)latF;
-        double lon = (double)lonF;
-
-        CityNode newNode(num, lat, lon);
-        this->addNode(newNode);
-    }
 
 }
 
-void CityList::addNode(const CityNode& node) {
-    list_.push_back(node);
-}
+void TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) {}
 
-size_t CityList::getCount() const {
-    return list_.size();
-}
-
-double CityList::getNodeLon(const unsigned int& nodeNum) const {
-    vector<CityNode>::const_iterator it = list_.begin();
-
-    while (it->getNum() != nodeNum && it != list_.end()) {
-        it++;
-    }
-
-    if (it == list_.end()) {
-        return 0.0;
-    }
-
-    return it->getLon();
-
-}
-
-double CityList::getNodeLat(const unsigned int& nodeNum) const {
-    vector<CityNode>::const_iterator it = list_.begin();
-
-    while (it->getNum() != nodeNum && it != list_.end()) {
-        it++;
-    }
-
-    if (it == list_.end()) {
-        return 0.0;
-    }
-
-    return it->getLat();
-
-}
-
-double CityList::distance(const int& fir, const int& sec) const {
-    const double x2 = getNodeLon(sec);
-    const double x1 = getNodeLon(fir);
-    const double y2 = getNodeLat(sec);
-    const double y1 = getNodeLat(fir);
-    return sqrt(pow((x2 - x1), 2.0) + pow((y2 - y1), 2.0)); 
-}
+void TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {}
 

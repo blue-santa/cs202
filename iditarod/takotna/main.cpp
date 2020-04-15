@@ -40,10 +40,12 @@ int main() {
 
     clearConsole();
 
+    // Capture the chosen file names
     vector<string> fileNames; 
     callFileNames(fileNames); 
-    vector<CityList> citylist;
 
+    // Create and populate a new CityList
+    vector<CityList> citylist; 
     for (size_t i = 0; i < fileNames.size(); i++) {
         string file = "./big/" + fileNames.at(i);
         ifstream fin(file); 
@@ -57,6 +59,7 @@ int main() {
         citylist.push_back(newList);
     }
 
+    // Simple testing algorithm
     CityList test1 = citylist.at(0);
     double testDistance = test1.distance(1,2);
     cout << "The distance between Nodes 1 and 2 of CityList 0 is: " << testDistance << endl;

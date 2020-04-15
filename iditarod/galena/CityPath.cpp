@@ -34,9 +34,31 @@ using std::make_pair;
 using std::setw;
 using std::right;
 using std::left;
+using std::advance;
 
 namespace fs = std::filesystem; 
 
-CityPath::addCity(const int& nextCity) {
+void CityPath::addCity(const unsigned int& nextCity) {
     connections_.push_back(nextCity);
+}
+
+void CityPath::removeCity(const unsigned int& nextCity) {
+    if (connections_.size() == 0) {
+        cout << "Error calling .removeCity()" << endl;
+        exit(0);
+    }
+    vector<unsigned int>::iterator it = connections_.begin();
+
+    while (*it != nextCity && it != connections_.end()) advance(it, 1);
+
+    if (it == connections_.end()) {
+        cout << "Error searching for city to remove" << endl;
+        exit(0);
+    }
+
+    connections_.erase(it);
+}
+
+size_t CityPath::getCount() {
+    return connections_.size();
 }
