@@ -34,22 +34,22 @@ using std::left;
 
 namespace fs = std::filesystem; 
 
-void addNode(const CityNode& node) {
+void CityList::addNode(const CityNode& node) {
     list_.push_back(node);
 }
 
-size_t getCount() {
+size_t CityList::getCount() {
     return list_.size();
 }
 
-double getNodeLon(const unsigned int& nodeNum) {
-    vector<string>::iterator it = list_.begin();
+double CityList::getNodeLon(const unsigned int& nodeNum) {
+    vector<CityNode>::iterator it = list_.begin();
 
     while (it->getNum() != nodeNum && it != list_.end()) {
         it++;
     }
 
-    if (it == list.end()) {
+    if (it == list_.end()) {
         return 0.0;
     }
 
@@ -57,14 +57,14 @@ double getNodeLon(const unsigned int& nodeNum) {
 
 }
 
-double getNodeLat(const unsigned int& nodeNum) {
-    vector<string>::iterator it = list_.begin();
+double CityList::getNodeLat(const unsigned int& nodeNum) {
+    vector<CityNode>::iterator it = list_.begin();
 
     while (it->getNum() != nodeNum && it != list_.end()) {
         it++;
     }
 
-    if (it == list.end()) {
+    if (it == list_.end()) {
         return 0.0;
     }
 

@@ -35,10 +35,11 @@ namespace fs = std::filesystem;
 
 class CityNode {
     public:
-        CityNode(const unsigned int num, const double lat, const double lon); 
+        CityNode(const unsigned int num, const double lat, const double lon);
 
         double getLon(); 
         double getLat();
+        unsigned int getNum();
 
     private:
         unsigned int num_;

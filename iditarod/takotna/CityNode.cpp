@@ -14,6 +14,9 @@
 #include <filesystem>
 #include <stdlib.h>
 
+#include "CityNode.hpp"
+#include "CityList.hpp"
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -31,10 +34,7 @@ using std::left;
 namespace fs = std::filesystem; 
 
 CityNode::CityNode(const unsigned int num, const double lat, const double lon)
-    : num_(num), lat_(lat), lon_(lon) 
-{
-
-} 
+    : num_(num), lat_(lat), lon_(lon) { } 
 
 double CityNode::getLon() {
     return lon_;
@@ -42,4 +42,8 @@ double CityNode::getLon() {
 
 double CityNode::getLat() {
     return lat_;
+}
+
+unsigned int CityNode::getNum() {
+    return num_;
 }
