@@ -43,19 +43,20 @@ void CityList::parseFile(ifstream& is) {
 
     int i = 0;
     string current_line;
-    while (i < 15 && !is.eof() && current_line != "NODE_COORD_SECTION") {
+    while (i < 15 && !is.eof() && current_line.find("NODE_COORD_SECTION") == string::npos) {
         getline(is, current_line);
         i++;
     }
 
-    cout << endl;
-    cout << current_line << endl;
+    if (i == 15) {
+        cout << "Error reading input file" << endl;
+        exit(0);
+    }
 
     while (current_line != "EOF") {
         getline(is, current_line);
-        cout << current_line << endl;;
 
-        if (current_line.find("EOF") != std::string::npos || current_line.find_first_not_of(' ') == std::string::npos) {
+        if (current_line.find("EOF") != string::npos || current_line.find_first_not_of(' ') == string::npos) {
             break;
         }
 

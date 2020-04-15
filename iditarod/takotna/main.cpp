@@ -17,6 +17,7 @@
 #include "Takotna.hpp"
 #include "CityNode.hpp"
 #include "CityList.hpp"
+#include "Miscellaneous.hpp"
 
 using std::cin;
 using std::cout;
@@ -36,11 +37,12 @@ namespace fs = std::filesystem;
 
 int main() {
 
-    vector<string> fileNames;
+    clearConsole();
 
-    callFileNames(fileNames);
-
+    vector<string> fileNames; 
+    callFileNames(fileNames); 
     vector<CityList> citylist;
+
     for (size_t i = 0; i < fileNames.size(); i++) {
         string file = "./big/" + fileNames.at(i);
         ifstream fin(file); 
@@ -51,6 +53,8 @@ int main() {
 
         CityList newList; 
         newList.parseFile(fin); 
+        cout << newList.getCount() << endl;
+        citylist.push_back(newList);
     }
 
     return 0;
