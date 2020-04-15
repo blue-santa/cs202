@@ -139,6 +139,6 @@ double CityList::distance(const int& fir, const int& sec) const {
     const double x1 = getNodeLon(fir);
     const double y2 = getNodeLat(sec);
     const double y1 = getNodeLat(fir);
-    return sqrt(pow((x2 - x1), 2.0) - pow((y2 - y1), 2.0)); 
+    return sqrt(pow((x2 - x1), 2.0) + pow((y2 - y1), 2.0)); 
 }
 
