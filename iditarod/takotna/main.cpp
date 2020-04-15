@@ -40,6 +40,19 @@ int main() {
 
     callFileNames(fileNames);
 
+    vector<CityList> citylist;
+    for (size_t i = 0; i < fileNames.size(); i++) {
+        string file = "./big/" + fileNames.at(i);
+        ifstream fin(file); 
+        if (!fin) {
+            cout << "Error loading file: " << file << endl;
+            exit(0);
+        }
+
+        CityList newList; 
+        newList.parseFile(fin); 
+    }
+
     return 0;
 }
 

@@ -48,8 +48,16 @@ void CityList::parseFile(ifstream& is) {
         i++;
     }
 
+    cout << endl;
+    cout << current_line << endl;
+
     while (current_line != "EOF") {
         getline(is, current_line);
+        cout << current_line << endl;;
+
+        if (current_line.find("EOF") != std::string::npos || current_line.find_first_not_of(' ') == std::string::npos) {
+            break;
+        }
 
         unsigned int num;
         float latF;
@@ -59,6 +67,7 @@ void CityList::parseFile(ifstream& is) {
 
         if (!ss) {
             cout << "Error parsing num" << endl;
+            cout << current_line << endl;
             exit(0);
         }
 
