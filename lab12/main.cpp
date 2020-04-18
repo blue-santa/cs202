@@ -39,8 +39,11 @@ class Base {
 class Derived : public Base {
     public:
         using Base::Base;
-        ~Derived() { cout << "Derived::~Derived()" << endl; };
+        Derived() { cout << "Derived::Derived() constructor" << endl; }
+        ~Derived() { cout << "Derived::~Derived() destructor" << endl; };
         void print() override { cout << "Derived::print()" << endl; }
+        void functionA() { cout << "Derived::functionA() non-virtual" << endl; }
+        virtual void functionB() { cout << "Derived::functionB() virtual" << endl; }
 };
 
 enum class ObjectType {
@@ -89,6 +92,14 @@ int main()
         b.functionB();
     
     }
+
+    { 
+        Derived d; 
+        d.functionA();
+        d.functionB();
+    
+    }
+
     separator();
 
     { 
