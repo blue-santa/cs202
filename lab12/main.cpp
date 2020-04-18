@@ -17,8 +17,8 @@ using std::cout;
 using std::endl;
 using std::string;
 
-// [ ] Write Base class with two methods (one virtual)
-// [ ] Write Derived class with two methods (one virtual)
+// [x] Write Base class with two methods (one virtual)
+// [x] Write Derived class with two methods (one virtual)
 // [ ] Test Base class pointer to base class object
 // [ ] Test Base class pointer to derived class object
 // [ ] Test Derived class pointer to derived class object
@@ -28,9 +28,12 @@ using std::string;
 
 class Base {
     public:
-        Base() { cout << "Base::Base()" << endl; }
-        virtual ~Base() { cout << "Base::~Base()" << endl; }
+        Base() { cout << "Base::Base() constructor" << endl; }
+        virtual ~Base() { cout << "Base::~Base() destructor" << endl; }
         virtual void print() { cout << "Base::print()" << endl; }
+
+        void functionA() { cout << "Base::functionA() non-virtual" << endl; }
+        virtual void functionB() { cout << "Base::functionB() virtual" << endl; }
 };
 
 class Derived : public Base {
@@ -71,20 +74,29 @@ std::unique_ptr<Base> Factory::Create(ObjectType o) {
     }
 };
 
+void separator() {
+    cout << "==================" << endl;
+}
+
 int main()
 {
     clearConsole();
-    cout << "---------------" << endl;
+    separator();
 
-    { Base b; }
-    cout << "---------------" << endl;
+    { 
+        Base b; 
+        b.functionA();
+        b.functionB();
+    
+    }
+    separator();
 
     { 
         Base* bd = new Derived(); 
         delete bd;
     }
 
-    cout << "---------------" << endl;
+    separator();
 
     std::vector<std::unique_ptr<Base>> objects;
     objects.push_back(Factory::CreateBase());
@@ -94,7 +106,7 @@ int main()
     objects.push_back(Factory::CreateDerived());
     objects.push_back(Factory::CreateBase());
 
-    cout << "---------------" << endl;
+    separator();
 
     for (auto& o: objects) {
         o->print();
