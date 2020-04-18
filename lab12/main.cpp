@@ -19,7 +19,7 @@ using std::string;
 
 // [x] Write Base class with two methods (one virtual)
 // [x] Write Derived class with two methods (one virtual)
-// [ ] Test Base class pointer to base class object
+// [x] Test Base class pointer to base class object
 // [ ] Test Base class pointer to derived class object
 // [ ] Test Derived class pointer to derived class object
 // [ ] Test base class reference to base class object 
@@ -77,6 +77,14 @@ std::unique_ptr<Base> Factory::Create(ObjectType o) {
     }
 };
 
+void testBaseClassPointer() {
+    Base b;
+    Base* pb = &b;
+
+    pb->functionA();
+    pb->functionB();
+}
+
 void separator() {
     cout << "==================" << endl;
 }
@@ -122,6 +130,8 @@ int main()
     for (auto& o: objects) {
         o->print();
     }
+
+    testBaseClassPointer();
     
     return 0;
 }
