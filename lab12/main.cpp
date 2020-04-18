@@ -22,9 +22,9 @@ using std::string;
 // [x] Test Base class pointer to base class object
 // [x] Test Base class pointer to derived class object
 // [x] Test Derived class pointer to derived class object
-// [ ] Test base class reference to base class object 
-// [ ] Test base class reference to derived class object 
-// [ ] Test derived class reference to derived class object 
+// [x] Test base class reference to base class object 
+// [x] Test base class reference to derived class object 
+// [x] Test derived class reference to derived class object 
 
 class Base {
     public:
@@ -89,6 +89,26 @@ void separator() {
     cout << "==================" << endl;
 }
 
+void testBaseReferences() {
+    Base b;
+    {
+        Base& bb = b;
+        bb.functionA();
+        bb.functionB();
+    }
+    Derived d;
+    {
+        Base& bb = d;
+        bb.functionA();
+        bb.functionB();
+    }
+    {
+        Derived& dd = d;
+        dd.functionA();
+        dd.functionB();
+    }
+}
+
 int main()
 {
     clearConsole();
@@ -144,6 +164,7 @@ int main()
     }
 
     testBaseClassPointer();
+    testBaseReferences();
     
     return 0;
 }
