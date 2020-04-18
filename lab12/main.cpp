@@ -20,8 +20,8 @@ using std::string;
 // [x] Write Base class with two methods (one virtual)
 // [x] Write Derived class with two methods (one virtual)
 // [x] Test Base class pointer to base class object
-// [ ] Test Base class pointer to derived class object
-// [ ] Test Derived class pointer to derived class object
+// [x] Test Base class pointer to derived class object
+// [x] Test Derived class pointer to derived class object
 // [ ] Test base class reference to base class object 
 // [ ] Test base class reference to derived class object 
 // [ ] Test derived class reference to derived class object 
@@ -43,7 +43,7 @@ class Derived : public Base {
         ~Derived() { cout << "Derived::~Derived() destructor" << endl; };
         void print() override { cout << "Derived::print()" << endl; }
         void functionA() { cout << "Derived::functionA() non-virtual" << endl; }
-        virtual void functionB() { cout << "Derived::functionB() virtual" << endl; }
+        void functionB() override { cout << "Derived::functionB() virtual" << endl; }
 };
 
 enum class ObjectType {
@@ -94,18 +94,30 @@ int main()
     clearConsole();
     separator();
 
-    { 
+    {
         Base b; 
-        b.functionA();
-        b.functionB();
-    
+        { 
+            Base* pb = &b;
+            pb->functionA();
+            pb->functionB();
+        
+        }
     }
 
-    { 
+    {
         Derived d; 
-        d.functionA();
-        d.functionB();
-    
+        { 
+            Base* pb = &d;
+            pb->functionA();
+            pb->functionB();
+        
+        }
+        { 
+            Derived* pb = &d;
+            pb->functionA();
+            pb->functionB();
+        
+        }
     }
 
     separator();
