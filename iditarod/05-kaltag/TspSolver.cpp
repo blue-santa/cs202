@@ -71,7 +71,7 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
             currCityPos = rand() % (unchosen_max - 1);
         }
 
-        if (unchosenCities.getCount() % 20 == 0 && unchosenCities.getCount() < 500) {
+        if (unchosenCities.getCount() % 70 == 0 /*&& unchosenCities.getCount() < 500*/) {
             string temp;
             if ( unchosenCities.getCount() >= 100) {
                 temp = filename + to_string(unchosenCities.getCount());

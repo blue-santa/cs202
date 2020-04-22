@@ -1,9 +1,9 @@
 /*
  * main.cpp
  * CS202
- * April 14, 2020
+ * April 22, 2020
  * Bryan Beus
- * Galena station for Iditarod Challenge
+ * Kaltag station for Iditarod Challenge
  */
 
 #include <iomanip>
@@ -95,7 +95,6 @@ int main() {
     cout << "Best Distance for SolveMyWay: " << bestDistanceMyWay << endl;
 
     // SolveGreedy() 
-    // (This is too long to actually complete!)
     double bestDistanceGreedy = 1000000000000; 
     filepath = "./output_images/greedy";
     fs::create_directory(filepath);
