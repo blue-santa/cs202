@@ -44,7 +44,7 @@ int main() {
 
     vector<string> fileNames; 
     callFileNames(fileNames); 
-    vector<CityList> citylist;
+    vector<CityList> citylists;
 
     // Parse File
     // for (size_t i = 0; i < fileNames.size(); i++) {
@@ -59,29 +59,29 @@ int main() {
 
         CityList newList; 
         newList.parseFile(fin); 
-        citylist.push_back(newList);
+        citylists.push_back(newList);
     }
-
 
     // SolveRandomly() 
     double bestDistanceRandom = 1000000000000; 
-    for (size_t i = 0; i < citylist.size(); i++) {
+    for (size_t i = 0; i < citylists.size(); i++) {
     // for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
-        double randomDistance = tsp.SolveRandomly(citylist.at(i), citypath);
+        double randomDistance = tsp.SolveRandomly(citylists.at(i), citypath);
         if (bestDistanceRandom > randomDistance) bestDistanceRandom = randomDistance;
     } 
     cout << "Best Distance for SolveRandomly: " << bestDistanceRandom << endl;
 
     return 0;
+
     // SolveMyWay() 
     double bestDistanceMyWay = 1000000000000; 
-    for (size_t i = 0; i < citylist.size(); i++) {
+    for (size_t i = 0; i < citylists.size(); i++) {
     // for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
-        double MyWayDistance = tsp.SolveMyWay(citylist.at(i), citypath);
+        double MyWayDistance = tsp.SolveMyWay(citylists.at(i), citypath);
         if (bestDistanceMyWay > MyWayDistance) bestDistanceMyWay = MyWayDistance;
     } 
     cout << "Best Distance for SolveMyWay: " << bestDistanceMyWay << endl;
@@ -89,11 +89,11 @@ int main() {
     // SolveGreedy() 
     // (This is too long to actually complete!)
     double bestDistanceGreedy = 1000000000000; 
-    for (size_t i = 0; i < citylist.size(); i++) {
+    for (size_t i = 0; i < citylists.size(); i++) {
     // for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
-        double greedyDistance = tsp.SolveGreedy(citylist.at(i), citypath);
+        double greedyDistance = tsp.SolveGreedy(citylists.at(i), citypath);
         if (bestDistanceGreedy > greedyDistance) bestDistanceGreedy = greedyDistance;
     } 
     cout << "Best Distance for SolveGreedy: " << bestDistanceGreedy << endl;

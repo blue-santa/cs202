@@ -69,16 +69,38 @@ class CityList {
         double distance(const int& fir, const int& sec) const;
 
         // Set Max Lon and Lat
-        void setMaxVals(const int& node);
+        void setMaxMinVals();
+
+        // Set Max Lon and Lat
+        void setMaxLon(const double& lon);
+
+        // Set Max Lon and Lat
+        void setMaxLat(const double& lat);
 
         // Get Max Lon
         double getMaxLon() const { return max_lon_; };
+
+        // Get Max Lat
         double getMaxLat() const { return max_lat_; };
+
+        // Set Max Lon and Lat
+        void setMinLon(const double& lon);
+
+        // Set Min Lon and Lat
+        void setMinLat(const double& lat);
+
+        // Get Min Lon
+        double getMinLon() const { return min_lon_; };
+
+        // Get Min Lat
+        double getMinLat() const { return min_lat_; };
 
     private:
         vector<CityNode> list_; 
-        double max_lon_;
-        double max_lat_;
+        double max_lon_ = 0.0;
+        double max_lat_ = 0.0;
+        double min_lon_ = 0.0;
+        double min_lat_ = 0.0;
 };
 
 #endif

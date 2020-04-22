@@ -48,7 +48,7 @@ class TspSolver {
         ~TspSolver() {};
 
         // Create a random solution
-        double SolveRandomly(const CityList& citylist, CityPath& citypath);
+        double SolveRandomly(CityList& citylist, CityPath& citypath);
 
         // Create a "greedy" (highly accurate) solution
         double SolveGreedy(const CityList& citylist, CityPath& citypath);

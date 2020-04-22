@@ -40,7 +40,7 @@ using std::left;
 namespace fs = std::filesystem; 
 
 // Create a TSP solution using random city choices
-double TspSolver::SolveRandomly(const CityList& citylist, CityPath& citypath) {
+double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath) {
     // Pick a random starting city
     int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);

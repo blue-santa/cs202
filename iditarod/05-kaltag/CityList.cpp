@@ -186,20 +186,56 @@ int CityList::calcArrayNum(const unsigned int& numVal) const {
 
 }
 
-void CityList::setMaxVals(const int& node) {
+void CityList::setMaxMinVals() {
     size_t count_ = getCount();
+
     double max_lon = 0.0; 
     double max_lat = 0.0; 
+
     for (size_t i = 0; i < count_; i++) { 
         if (max_lon < list_.at(i).getLon()) {
             max_lon = list_.at(i).getLon();
-            max_lon_ = max_lon;
+            setMaxLon(max_lon);
         }
         if (max_lat < list_.at(i).getLat()) {
             max_lat = list_.at(i).getLat();
-            max_lat_ = max_lat;
+            setMaxLat(max_lat);
         }
     }
+
+    double min_lon = 1000000000.0; 
+    double min_lat = 1000000000.0; 
+    for (size_t i = 0; i < count_; i++) { 
+        if (min_lon > list_.at(i).getLon()) {
+            min_lon = list_.at(i).getLon();
+            setMinLon(min_lon);
+        }
+
+        if (min_lat > list_.at(i).getLat()) {
+            min_lat = list_.at(i).getLat();
+            setMinLat(min_lat);
+        }
+    }
+}
+
+// Set Max Lon and Lat
+void CityList::setMaxLon(const double& lon) {
+    max_lon_ = lon;
+}
+
+// Set Max Lon and Lat
+void CityList::setMaxLat(const double& lat) {
+    max_lat_ = lat;
+}
+
+// Set Max Lon and Lat
+void CityList::setMinLon(const double& lon) {
+    min_lon_ = lon;
+}
+
+// Set Max Lon and Lat
+void CityList::setMinLat(const double& lat) {
+    min_lat_ = lat;
 }
 
 // Calculate the distance between two nodes

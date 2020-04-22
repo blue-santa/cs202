@@ -44,12 +44,12 @@ namespace fs = std::filesystem;
 class SVGPrinter {
     public:
         // Default constructor
-        SVGPrinter(const string& filename, const int& file_size_x, const int& file_size_y, const CityPath& citypath, const CityList& citylist);
+        SVGPrinter(const string& filename, const int& file_size_x, const int& file_size_y, const CityPath& citypath, CityList& citylist);
 
         ~SVGPrinter();
 
         // Store an SVG for later printing
-        void addNode(ofstream& fout, const CityList& citylist, const int& fir, const int& las) const;
+        void addNode(ofstream& fout, CityList& citylist, const int& fir, const int& las);
 
         // Store an SVG for later printing
         void printSVG();

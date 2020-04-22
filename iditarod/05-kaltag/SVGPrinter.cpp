@@ -40,7 +40,7 @@ using std::to_string;
 namespace fs = std::filesystem; 
 
 // Default constructor
-SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int& file_size_y, const CityPath& citypath, const CityList& citylist) {
+SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int& file_size_y, const CityPath& citypath, CityList& citylist) {
 
     setFilename(filename, file_size_x, file_size_y);
 
@@ -81,27 +81,30 @@ void SVGPrinter::addCircle(ofstream& fout, const double& x, const double& y) con
     int x_pos = (int) x;
     int y_pos = (int) y;
 
-    fout << "<circle cx=\"" << x_pos << "\" cy=\"" << y_pos << "\" r=\"25\" fill=\"green\" />\n" << endl;
+    fout << "<circle cx=\"" << x_pos << "\" cy=\"" << y_pos << "\" r=\"2\" fill=\"green\" />\n" << endl;
     fout << "</svg>" << endl;
 
 
 }
 
 // Store an SVG for later printing
-void SVGPrinter::addNode(ofstream& fout, const CityList& citylist, const int& fir, const int& las) const {
+void SVGPrinter::addNode(ofstream& fout, CityList& citylist, const int& fir, const int& las) {
 
     // (Don't need first, 'cause we go in a circle around the list
     // const double x1 = citylist.getNodeLon(fir);
-    // const double y1 = citylist.getNodeLat(fir);
-
+    // const double y1 = citylist.getNodeLat(fir); 
     const double las_lon = citylist.getNodeLon(las);
     const double las_lat = citylist.getNodeLat(las);
 
     // TODO Add draw line
     // addCircle(fout, x1, y1);
 
-    const double x2 = (las_lon / citylist.getMaxLon()) * file_size_x_;
-    const double y2 = (las_lat / citylist.getMaxLat()) * file_size_y_;
+    if (citylist.getMaxLon() == 0) {
+        citylist.setMaxMinVals();
+    }
+
+    const double x2 = (las_lon / (citylist.getMaxLon() - citylist.getMinLon())) * file_size_x_;
+    const double y2 = (las_lat / (citylist.getMaxLat() - citylist.getMinLat())) * file_size_y_;
 
 
     addCircle(fout, x2, y2);
