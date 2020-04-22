@@ -98,11 +98,12 @@ int main() {
     // (This is too long to actually complete!)
     double bestDistanceGreedy = 1000000000000; 
     filepath = "./output_images/greedy";
+    fs::create_directory(filepath);
     for (size_t i = 0; i < citylists.size(); i++) {
     // for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
-        double greedyDistance = tsp.SolveGreedy(citylists.at(i), citypath, filepath);
+        double greedyDistance = tsp.SolveGreedy(citylists.at(i), citypath, to_string(i));
         if (bestDistanceGreedy > greedyDistance) bestDistanceGreedy = greedyDistance;
     } 
     cout << "Best Distance for SolveGreedy: " << bestDistanceGreedy << endl;

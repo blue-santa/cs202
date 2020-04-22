@@ -52,7 +52,8 @@ SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int
     ofstream fout1(filename_, std::ios::binary);
 
     if (!fout1) {
-        cout << "Error creating output SVG file";
+        cout << "Error creating output SVG file" << endl;
+        cout << filename_ << endl;
         exit(0);
     }
 
