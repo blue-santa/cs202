@@ -68,8 +68,17 @@ class CityList {
         // Calculate the distance between two nodes
         double distance(const int& fir, const int& sec) const;
 
+        // Set Max Lon and Lat
+        void setMaxVals(const int& node);
+
+        // Get Max Lon
+        double getMaxLon() const { return max_lon_; };
+        double getMaxLat() const { return max_lat_; };
+
     private:
         vector<CityNode> list_; 
+        double max_lon_;
+        double max_lat_;
 };
 
 #endif

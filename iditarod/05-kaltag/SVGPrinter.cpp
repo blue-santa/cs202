@@ -76,9 +76,12 @@ void SVGPrinter::addCircle(ofstream& fout, const double& x, const double& y) con
 
     fout.seekp(0, std::ios_base::end);
     long pos = fout.tellp();
-    fout.seekp(pos - (8 * sizeof(char)));
+    fout.seekp(pos - (8 * sizeof(char))); 
 
-    fout << "<circle cx=\"" << x1 << "\" cy=\"300\" r=\"25\" fill=\"green\" />" << endl;
+    int x_pos = (int) x;
+    int y_pos = (int) y;
+
+    fout << "<circle cx=\"" << x_pos << "\" cy=\"" << y_pos << "\" r=\"25\" fill=\"green\" />\n" << endl;
     fout << "</svg>" << endl;
 
 
@@ -91,11 +94,16 @@ void SVGPrinter::addNode(ofstream& fout, const CityList& citylist, const int& fi
     // const double x1 = citylist.getNodeLon(fir);
     // const double y1 = citylist.getNodeLat(fir);
 
-    const double x2 = citylist.getNodeLon(las);
-    const double y2 = citylist.getNodeLat(las);
+    const double las_lon = citylist.getNodeLon(las);
+    const double las_lat = citylist.getNodeLat(las);
 
     // TODO Add draw line
-    addCircle(fout, x1, y1);
+    // addCircle(fout, x1, y1);
+
+    const double x2 = (las_lon / citylist.getMaxLon()) * file_size_x_;
+    const double y2 = (las_lat / citylist.getMaxLat()) * file_size_y_;
+
+
     addCircle(fout, x2, y2);
 
     // int sum = 0;

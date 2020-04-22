@@ -186,6 +186,22 @@ int CityList::calcArrayNum(const unsigned int& numVal) const {
 
 }
 
+void CityList::setMaxVals(const int& node) {
+    size_t count_ = getCount();
+    double max_lon = 0.0; 
+    double max_lat = 0.0; 
+    for (size_t i = 0; i < count_; i++) { 
+        if (max_lon < list_.at(i).getLon()) {
+            max_lon = list_.at(i).getLon();
+            max_lon_ = max_lon;
+        }
+        if (max_lat < list_.at(i).getLat()) {
+            max_lat = list_.at(i).getLat();
+            max_lat_ = max_lat;
+        }
+    }
+}
+
 // Calculate the distance between two nodes
 double CityList::distance(const int& fir, const int& sec) const {
     const double x2 = getNodeLon(sec);
