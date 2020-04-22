@@ -65,6 +65,7 @@ SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int
 
     initiateSVG(fout1, fout2, filename, file_size_x, file_size_y);
 
+    bool is_first = true;
 
     for (int i = 0; i < (int)citypath.getCount() - 1; i++) {
         const unsigned int currCity = citypath.getNode(i);
@@ -73,8 +74,43 @@ SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int
         int currCityPos = citylist.calcArrayNum(currCity);
         int nextCityPos = citylist.calcArrayNum(nextCity);
         cout << "Printing SVG for: " << currCity << " and " << nextCity << endl;
-        addNode(fout1, fout2, citylist, currCityPos, nextCityPos);
+        addNode(fout1, fout2, citylist, currCityPos, nextCityPos, is_first);
     } 
+
+    fout2.close(); 
+    concludeSVG(fout1);
+    fout1.close();
+}
+
+// Conlude the SVG
+void SVGPrinter::concludeSVG(ofstream& fout) {
+    string temp_filename = "./temp_path.txt";
+    ifstream fin(temp_filename);
+
+    if (!fin) {
+        cout << "Error opening temp path file" << endl;
+        exit(0);
+    }
+
+    string my_path;
+    string line;
+    while (true) {
+        getline(fin, line);
+
+        if (fin.eof()) {
+            break;
+        }
+        
+        my_path += line;
+    }
+
+    fout.seekp(0, std::ios_base::end);
+    long pos = fout.tellp();
+    fout.seekp(pos - (8 * sizeof(char))); 
+
+    fout << my_path << endl;
+    fout << "</svg>" << endl;
+    fs::remove(temp_filename);
 }
 
 SVGPrinter::~SVGPrinter() { }
@@ -96,24 +132,31 @@ void SVGPrinter::addCircle(ofstream& fout, const double& x, const double& y) con
 }
 
 // Add a path point to provided ofstream
-void SVGPrinter::continuePath(ofstream& fout, const double& x, const double& y) const {
+void SVGPrinter::continuePath(ofstream& fout, const double& x, const double& y, bool& is_first) const {
 
-    string ending = "Z\" stroke=\"red\" fill=\"transparent\"/>";
+    string ending = " \nZ\" stroke=\"red\" stroke-width=\"1\" fill=\"transparent\"/>";
 
     fout.seekp(0, std::ios_base::end);
     long pos = fout.tellp();
-    fout.seekp(pos - (sizeof(ending) + 5)); 
+    fout.seekp(pos - (sizeof(ending) + 23)); 
 
     int x_pos = (int) x;
     int y_pos = (int) y;
 
-    fout << "M " << x_pos << " " << y_pos << " " << ending << endl;
+    string l = "L";
+
+    if (is_first) {
+        l = "M";
+        is_first = false;
+    }
+
+    fout << l << " " << x_pos << " " << y_pos << " \n" << ending << endl;
 
 
 }
 
 // Store an SVG for later printing
-void SVGPrinter::addNode(ofstream& fout1, ofstream& fout2, CityList& citylist, const int& fir, const int& las) {
+void SVGPrinter::addNode(ofstream& fout1, ofstream& fout2, CityList& citylist, const int& fir, const int& las, bool& is_first) {
 
     // (Don't need first, 'cause we go in a circle around the list
     // const double x1 = citylist.getNodeLon(fir);
@@ -133,7 +176,7 @@ void SVGPrinter::addNode(ofstream& fout1, ofstream& fout2, CityList& citylist, c
 
 
     addCircle(fout1, x2, y2);
-    continuePath(fout2, x2, y2);
+    continuePath(fout2, x2, y2, is_first);
 
 }
 
@@ -157,7 +200,7 @@ void SVGPrinter::initiateSVG(ofstream& fout1, ofstream& fout2, const string& fil
     fout1 << initFile << endl;
     
     fout2.seekp(0, std::ios_base::beg); 
-    initFile = "<path d=\" Z\" stroke=\"red\" fill=\"transparent\"/>";
+    initFile = "<path d=\" \nZ\" stroke=\"red\" stroke-width=\"1\" fill=\"transparent\"/>";
     fout2 << initFile << endl; 
 }
 
