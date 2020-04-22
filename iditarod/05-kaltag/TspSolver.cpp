@@ -72,7 +72,12 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
         }
 
         if (unchosenCities.getCount() % 20 == 0 && unchosenCities.getCount() < 500) {
-            string temp = filename + to_string(unchosenCities.getCount());
+            string temp;
+            if ( unchosenCities.getCount() >= 100) {
+                temp = filename + to_string(unchosenCities.getCount());
+            } else {
+                temp = filename + to_string(0) + to_string(unchosenCities.getCount());
+            }
             SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
         }
 
