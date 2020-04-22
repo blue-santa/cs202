@@ -42,6 +42,11 @@ namespace fs = std::filesystem;
 
 // Create a TSP solution using random city choices
 double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const string& filepath) {
+
+    // Declare SVG variables
+    string filename = "./output_images/randomly/" + filepath + "img.svg";
+    const int file_size_x = 500;
+    const int file_size_y = 500; 
     // Pick a random starting city
     int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
@@ -64,6 +69,11 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
             currCityPos = 0;
         } else {
             currCityPos = rand() % (unchosen_max - 1);
+        }
+
+        if (unchosenCities.getCount() % 5 == 0) {
+            string temp = filename + to_string(unchosenCities.getCount());
+            SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
         }
 
         // Add the random node to the citypath object
@@ -89,9 +99,6 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
     } 
 
     // Create SVG
-    string filename = "./output_images/randomly/" + filepath + "img.svg";
-    const int file_size_x = 500;
-    const int file_size_y = 500; 
     SVGPrinter svg(filename, file_size_x, file_size_y, citypath, citylist);
 
     return current_distance;
@@ -196,6 +203,11 @@ double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const stri
 // Solve TSP using my way
 double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const string& filepath) {
 
+    // Declare SVG variables
+    string filename = "./output_images/my_way/" + filepath + "img.svg";
+    const int file_size_x = 500;
+    const int file_size_y = 500; 
+
     // Choose random starting city
     int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
@@ -215,6 +227,11 @@ double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const strin
         int unchosen_max = (int)unchosenCities.getCount();
         int p = 0;
         if (unchosen_max != 1) { 
+            if (unchosenCities.getCount() % 5 == 0) {
+                string temp = filename + to_string(unchosenCities.getCount());
+                SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
+            }
+
             // From 5 random cities, pick the lowest distance and only add that one as the next city
             double val = 1000000000000.0;
             for (int i = 0; i < 15; i++) {
@@ -253,9 +270,6 @@ double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const strin
     }
 
     // Create SVG
-    string filename = "./output_images/my_way/" + filepath + "img.svg";
-    const int file_size_x = 500;
-    const int file_size_y = 500; 
     SVGPrinter svg(filename, file_size_x, file_size_y, citypath, citylist);
 
     return current_distance;
