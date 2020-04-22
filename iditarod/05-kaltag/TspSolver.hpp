@@ -21,6 +21,7 @@
 #include "CityList.hpp"
 #include "CityPath.hpp"
 #include "Takotna.hpp"
+#include "SVGPrinter.hpp"
 
 using std::cin;
 using std::cout;
@@ -47,7 +48,7 @@ class TspSolver {
         ~TspSolver() {};
 
         // Create a random solution
-        double SolveRandomly(const CityList& citylist, CityPath& citypath);
+        double SolveRandomly(const CityList& citylist, CityPath& citypath, SVGPrinter& svg);
 
         // Create a "greedy" (highly accurate) solution
         double SolveGreedy(const CityList& citylist, CityPath& citypath);
