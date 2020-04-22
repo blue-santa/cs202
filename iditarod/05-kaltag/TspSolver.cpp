@@ -26,6 +26,7 @@
 using std::cin;
 using std::cout;
 using std::endl;
+using std::to_string;
 using std::vector;
 using std::string;
 using std::ofstream;
@@ -58,7 +59,6 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
     // Populate the citypath object using random selections from the unchosen city list
     while (unchosenCities.getCount() > 0) {
         int unchosen_max = (int)unchosenCities.getCount();
-        cout << "Solve Randomly: Unchosen count in current list: " << unchosen_max << endl;
         int currCityPos;
         if (unchosen_max == 1) { 
             currCityPos = 0;
@@ -101,6 +101,11 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
 // Create a highly accurate solution using greedy algorithms
 double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const string& filepath) { 
 
+    // Declare variables for SVG files
+    string filename = "./output_images/greedy/" + filepath + "img.svg";
+    const int file_size_x = 500;
+    const int file_size_y = 500; 
+
     // Find a random starting city
     int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
@@ -121,8 +126,11 @@ double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const stri
 
     // Calculate each nearest city value
     while (unchosenCities.getCount() > 0) {
+        if (unchosenCities.getCount() % 5 == 0) {
+            string temp = filename + to_string(unchosenCities.getCount());
+            SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
+        }
         int unchosen_max = (int)unchosenCities.getCount();
-        cout << "Solve Greedy: Unchosen count in current list: " << unchosen_max << endl;
         if (unchosen_max != 1) { 
 
             // While there are still more than one city in the chosen cities list
@@ -139,6 +147,7 @@ double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const stri
 
                 // Get the array value of the next city to test
                 int nextCityPos = citylist.calcArrayNum(nextCity);
+                cout << "Solve Greedy: Calculating distance between nodes: " << currCity << " and " << nextCity << endl; 
 
                 // Calculate the distance between current and next city positions
                 double val = citylist.distance(currCityPos, nextCityPos);
@@ -179,9 +188,6 @@ double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const stri
     }
 
     // Create SVG
-    string filename = "./output_images/greedy/" + filepath + "img.svg";
-    const int file_size_x = 500;
-    const int file_size_y = 500; 
     SVGPrinter svg(filename, file_size_x, file_size_y, citypath, citylist);
 
     return current_distance;
@@ -207,12 +213,11 @@ double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const strin
     // Calculate somewhat optimized random chosen path list
     while (unchosenCities.getCount() > 0) {
         int unchosen_max = (int)unchosenCities.getCount();
-        cout << "Solve My Way: Unchosen count in current list: " << unchosen_max << endl;
         int p = 0;
         if (unchosen_max != 1) { 
             // From 5 random cities, pick the lowest distance and only add that one as the next city
             double val = 1000000000000.0;
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 15; i++) {
                 int nextCityPosRandom = rand() % (unchosen_max - 1);
                 unsigned int prevCity = citypath.getNode(citypath.getCount() - 1);
                 unsigned int nextCity = unchosenCities.getNode(nextCityPosRandom); 
@@ -220,7 +225,6 @@ double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const strin
                 int nextCityPos = citylist.calcArrayNum(nextCity);
                 cout << "Solve My Way: Calculating distance between nodes: " << prevCity << " and " << nextCity << endl; 
                 double curr_val = citylist.distance(prevCityPos, nextCityPos);
-                cout << "val: " << val << " curr_val: " << curr_val << endl;
                 if (val > curr_val) {
                     val = curr_val;
                     p = nextCityPos;
