@@ -71,7 +71,7 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
             currCityPos = rand() % (unchosen_max - 1);
         }
 
-        if (unchosenCities.getCount() % 5 == 0) {
+        if (unchosenCities.getCount() % 20 == 0 && unchosenCities.getCount() < 500) {
             string temp = filename + to_string(unchosenCities.getCount());
             SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
         }
@@ -133,10 +133,12 @@ double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const stri
 
     // Calculate each nearest city value
     while (unchosenCities.getCount() > 0) {
-        if (unchosenCities.getCount() % 5 == 0) {
-            string temp = filename + to_string(unchosenCities.getCount());
-            SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
-        }
+
+        // if (unchosenCities.getCount() % 5 == 0) {
+            // string temp = filename + to_string(unchosenCities.getCount());
+            // SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
+        // }
+
         int unchosen_max = (int)unchosenCities.getCount();
         if (unchosen_max != 1) { 
 
@@ -227,10 +229,10 @@ double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const strin
         int unchosen_max = (int)unchosenCities.getCount();
         int p = 0;
         if (unchosen_max != 1) { 
-            if (unchosenCities.getCount() % 5 == 0) {
-                string temp = filename + to_string(unchosenCities.getCount());
-                SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
-            }
+            // if (unchosenCities.getCount() % 5 == 0) {
+                // string temp = filename + to_string(unchosenCities.getCount());
+                // SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
+            // }
 
             // From 5 random cities, pick the lowest distance and only add that one as the next city
             double val = 1000000000000.0;
