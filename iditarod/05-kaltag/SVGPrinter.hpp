@@ -49,7 +49,10 @@ class SVGPrinter {
         ~SVGPrinter();
 
         // Store an SVG for later printing
-        void addNode(ofstream& fout, CityList& citylist, const int& fir, const int& las);
+        void addNode(ofstream& fout1, ofstream& fout2, CityList& citylist, const int& fir, const int& las);
+
+        // Continue the path
+        void continuePath(ofstream& fout, const double& x, const double& y) const;
 
         // Store an SVG for later printing
         void printSVG();
@@ -61,7 +64,7 @@ class SVGPrinter {
         void addCircle(ofstream& fout, const double& x1, const double& x2) const;
 
         // Initiate SVG
-        void initiateSVG(ofstream& fout, const string& filename, const int& file_size_x, const int& file_size_y);
+        void initiateSVG(ofstream& fout1, ofstream& fout2, const string& filename, const int& file_size_x, const int& file_size_y);
 
         // Set SVG Filename
         void setFilename(const string& filename, const int& file_size_x_, const int& file_size_y_);

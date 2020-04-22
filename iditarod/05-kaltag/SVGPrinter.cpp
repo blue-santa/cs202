@@ -49,14 +49,21 @@ SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int
         exit(0);
     }
 
-    ofstream fout(filename_, std::ios::binary);
+    ofstream fout1(filename_, std::ios::binary);
 
-    if (!fout) {
+    if (!fout1) {
         cout << "Error creating output SVG file";
         exit(0);
     }
 
-    initiateSVG(fout, filename, file_size_x, file_size_y);
+    ofstream fout2("temp_path.txt", std::ios::binary);
+
+    if (!fout2) {
+        cout << "Error creating output SVG file";
+        exit(0);
+    }
+
+    initiateSVG(fout1, fout2, filename, file_size_x, file_size_y);
 
 
     for (int i = 0; i < (int)citypath.getCount() - 1; i++) {
@@ -66,12 +73,13 @@ SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int
         int currCityPos = citylist.calcArrayNum(currCity);
         int nextCityPos = citylist.calcArrayNum(nextCity);
         cout << "Printing SVG for: " << currCity << " and " << nextCity << endl;
-        addNode(fout, citylist, currCityPos, nextCityPos);
+        addNode(fout1, fout2, citylist, currCityPos, nextCityPos);
     } 
 }
 
 SVGPrinter::~SVGPrinter() { }
 
+// Add a circle to provided ofstream
 void SVGPrinter::addCircle(ofstream& fout, const double& x, const double& y) const {
 
     fout.seekp(0, std::ios_base::end);
@@ -87,8 +95,25 @@ void SVGPrinter::addCircle(ofstream& fout, const double& x, const double& y) con
 
 }
 
+// Add a path point to provided ofstream
+void SVGPrinter::continuePath(ofstream& fout, const double& x, const double& y) const {
+
+    string ending = "Z\" stroke=\"red\" fill=\"transparent\"/>";
+
+    fout.seekp(0, std::ios_base::end);
+    long pos = fout.tellp();
+    fout.seekp(pos - (sizeof(ending) + 5)); 
+
+    int x_pos = (int) x;
+    int y_pos = (int) y;
+
+    fout << "M " << x_pos << " " << y_pos << " " << ending << endl;
+
+
+}
+
 // Store an SVG for later printing
-void SVGPrinter::addNode(ofstream& fout, CityList& citylist, const int& fir, const int& las) {
+void SVGPrinter::addNode(ofstream& fout1, ofstream& fout2, CityList& citylist, const int& fir, const int& las) {
 
     // (Don't need first, 'cause we go in a circle around the list
     // const double x1 = citylist.getNodeLon(fir);
@@ -97,7 +122,7 @@ void SVGPrinter::addNode(ofstream& fout, CityList& citylist, const int& fir, con
     const double las_lat = citylist.getNodeLat(las);
 
     // TODO Add draw line
-    // addCircle(fout, x1, y1);
+    // addCircle(fout1, x1, y1);
 
     if (citylist.getMaxLon() == 0) {
         citylist.setMaxMinVals();
@@ -107,30 +132,15 @@ void SVGPrinter::addNode(ofstream& fout, CityList& citylist, const int& fir, con
     const double y2 = (las_lat / (citylist.getMaxLat() - citylist.getMinLat())) * file_size_y_;
 
 
-    addCircle(fout, x2, y2);
-
-    // int sum = 0;
-    // int count = 0;
-    // int random = fin.tellg();
-    // count = fin.tellg()/sizeof(int);
-    // int read = 0;
-    // vector<int> holder;
-
-    // fin.seekg(0, std::ios_base::beg);
-
-    // for (int i = 0; i < count; i++) {
-        // fin.read(reinterpret_cast<char*>(&read), sizeof(read));
-        // cout << read << " ";
-        // holder.push_back(read);
-        // sum+=holder[i];
-    // }
+    addCircle(fout1, x2, y2);
+    continuePath(fout2, x2, y2);
 
 }
 
 // Store an SVG for later printing
-void SVGPrinter::initiateSVG(ofstream& fout, const string& filename, const int& file_size_x, const int& file_size_y) {
+void SVGPrinter::initiateSVG(ofstream& fout1, ofstream& fout2, const string& filename, const int& file_size_x, const int& file_size_y) {
 
-    fout.seekp(0, std::ios_base::beg);
+    fout1.seekp(0, std::ios_base::beg);
     
     string initFile = "";
     initFile += "<svg version=\"1.1\"\n";
@@ -144,34 +154,11 @@ void SVGPrinter::initiateSVG(ofstream& fout, const string& filename, const int& 
     initFile += "<rect width=\"100%\" height=\"100%\" fill=\"white\" />\n";
     initFile += "</svg>\n";
     cout << initFile;
-    fout << initFile << endl;
+    fout1 << initFile << endl;
     
-    // if (fin.eof()) {
-        // cout << "End of data file" << endl;
-        // return 0;
-    // }
-
-    // fin.seekg(0, std::ios_base::end);
-
-    // int sum = 0;
-    // int count = 0;
-    // int random = fin.tellg();
-    // count = fin.tellg()/sizeof(int);
-    // int read = 0;
-    // vector<int> holder;
-
-    // fin.seekg(0, std::ios_base::beg);
-
-    // for (int i = 0; i < count; i++) {
-        // fin.read(reinterpret_cast<char*>(&read), sizeof(read));
-        // cout << read << " ";
-        // holder.push_back(read);
-        // sum+=holder[i];
-    // }
-
-    // cout << endl;
-
-    // cout << count << " integers\nTotal: " << sum << "\nAverage: " << (float)sum/((float)count) << endl;
+    fout2.seekp(0, std::ios_base::beg); 
+    initFile = "<path d=\" Z\" stroke=\"red\" fill=\"transparent\"/>";
+    fout2 << initFile << endl; 
 }
 
 // Clear SVG
