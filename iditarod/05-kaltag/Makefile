@@ -4,8 +4,8 @@ HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
 LD = g++
 CXX = g++
-CXXFLAGS = -std=c++17 -g -Wall -Wfatal-errors -Iinclude -DGL_SILENCE_DEPRECATION -I.
-LDFLAGS = 
+CXXFLAGS = -std=c++17 -g -Wall -Wfatal-errors -Iinclude -DGL_SILENCE_DEPRECATION -I. -I/usr/local/include
+LDFLAGS = -lboost_thread -lboost_system -lboost_filesystem
 
 .PHONY: all clean
 

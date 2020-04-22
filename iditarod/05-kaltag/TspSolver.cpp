@@ -99,7 +99,7 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
 }
 
 // Create a highly accurate solution using greedy algorithms
-double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) { 
+double TspSolver::SolveGreedy(CityList& citylist, CityPath& citypath, const string& filepath) { 
 
     // Find a random starting city
     int max = (int)citylist.getCount(); 
@@ -178,11 +178,17 @@ double TspSolver::SolveGreedy(const CityList& citylist, CityPath& citypath) {
         current_distance += val;
     }
 
+    // Create SVG
+    string filename = "./output_images/greedy/" + filepath + "img.svg";
+    const int file_size_x = 500;
+    const int file_size_y = 500; 
+    SVGPrinter svg(filename, file_size_x, file_size_y, citypath, citylist);
+
     return current_distance;
 }
 
 // Solve TSP using my way
-double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
+double TspSolver::SolveMyWay(CityList& citylist, CityPath& citypath, const string& filepath) {
 
     // Choose random starting city
     int max = (int)citylist.getCount(); 
@@ -242,6 +248,11 @@ double TspSolver::SolveMyWay(const CityList& citylist, CityPath& citypath) {
         current_distance += val;
     }
 
+    // Create SVG
+    string filename = "./output_images/my_way/" + filepath + "img.svg";
+    const int file_size_x = 500;
+    const int file_size_y = 500; 
+    SVGPrinter svg(filename, file_size_x, file_size_y, citypath, citylist);
 
     return current_distance;
 

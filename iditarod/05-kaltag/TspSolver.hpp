@@ -51,10 +51,10 @@ class TspSolver {
         double SolveRandomly(CityList& citylist, CityPath& citypath, const string& filepath);
 
         // Create a "greedy" (highly accurate) solution
-        double SolveGreedy(const CityList& citylist, CityPath& citypath);
+        double SolveGreedy(CityList& citylist, CityPath& citypath, const string& filepath);
 
         // Create a customized solution
-        double SolveMyWay(const CityList& citylist, CityPath& citypath);
+        double SolveMyWay(CityList& citylist, CityPath& citypath, const string& filepath);
 
     private:
 };
