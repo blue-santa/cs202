@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <memory>
 // #define BOOST_NO_CXX11_SCOPED_ENUMS
-#include <boost/thread.hpp>
+// #include <boost/thread.hpp>
 // #undef BOOST_NO_CXX11_SCOPED_ENUMS
 
 #include "Takotna.hpp"
@@ -41,8 +41,8 @@ using std::right;
 using std::left;
 
 namespace fs = std::filesystem; 
-using namespace boost;
-using namespace boost::this_thread;
+// using namespace boost;
+// using namespace boost::this_thread;
 
 int main() {
 
