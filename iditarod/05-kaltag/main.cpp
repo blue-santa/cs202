@@ -48,8 +48,10 @@ int main() {
     SVGPrinter svg;
 
     string filename = "./test.svg";
+    const int file_size_x = 500;
+    const int file_size_y = 500;
 
-    svg.initiateSVG(filename);
+    svg.initiateSVG(filename, file_size_x, file_size_y);
 
 
     return 0;

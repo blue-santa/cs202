@@ -56,15 +56,21 @@ class SVGPrinter {
         // Clear SVG
         void flushSVG();
 
+        // Add circle
+        void addCircle(ofstream& fout, const double& x1, const double& x2) const;
+
         // Initiate SVG
-        void initiateSVG(const string& filename);
+        void initiateSVG(const string& filename, const int& file_size_x, const int& file_size_y);
 
         // Set SVG Filename
-        void setFilename(const string& filename);
+        void setFilename(const string& filename, const int& file_size_x_, const int& file_size_y_);
 
     private:
         string filename_;
         vector<CityNode> SVGlist_; 
+        int file_size_x_;
+        int file_size_y_;
+
 
 };
 
