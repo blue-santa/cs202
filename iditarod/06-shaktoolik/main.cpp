@@ -3,7 +3,7 @@
  * CS202
  * April 22, 2020
  * Bryan Beus
- * Kaltag station for Iditarod Challenge
+ * Shaktoolik station for Iditarod Challenge
  */
 
 #include <iomanip>

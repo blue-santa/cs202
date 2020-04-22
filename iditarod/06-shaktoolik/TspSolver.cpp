@@ -73,10 +73,12 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const st
 
         if (unchosenCities.getCount() % 70 == 0 /*&& unchosenCities.getCount() < 500*/) {
             string temp;
-            if ( unchosenCities.getCount() >= 100) {
-                temp = filename + to_string(unchosenCities.getCount());
+            if ( unchosenCities.getCount() >= 1000) {
+                temp = "./output_images/randomly/" + filepath + "-" + to_string(unchosenCities.getCount()) + "img.svg";
+            } else if ( unchosenCities.getCount() >= 100) {
+                temp = "./output_images/randomly/" + filepath + "-" + to_string(0) + to_string(unchosenCities.getCount()) + "img.svg";
             } else {
-                temp = filename + to_string(0) + to_string(unchosenCities.getCount());
+                temp = "./output_images/randomly/" + filepath + "-" + to_string(0) + to_string(0) + to_string(unchosenCities.getCount()) + "img.svg";
             }
             SVGPrinter svg(temp, file_size_x, file_size_y, citypath, citylist);
         }
