@@ -45,20 +45,10 @@ int main() {
     vector<string> fileNames; 
     callFileNames(fileNames); 
     vector<CityList> citylist;
-    SVGPrinter svg;
-
-    string filename = "./test.svg";
-    const int file_size_x = 500;
-    const int file_size_y = 500;
-
-    svg.initiateSVG(filename, file_size_x, file_size_y);
-
-
-    return 0;
 
     // Parse File
-    for (size_t i = 0; i < fileNames.size(); i++) {
-    // for (size_t i = 0; i < 1; i++) {
+    // for (size_t i = 0; i < fileNames.size(); i++) {
+    for (size_t i = 0; i < 1; i++) {
         cout << "Parsing file: " << fileNames.at(i) << endl;
         string file = "./big/" + fileNames.at(i);
         ifstream fin(file); 
@@ -72,17 +62,19 @@ int main() {
         citylist.push_back(newList);
     }
 
+
     // SolveRandomly() 
     double bestDistanceRandom = 1000000000000; 
     for (size_t i = 0; i < citylist.size(); i++) {
     // for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
-        double randomDistance = tsp.SolveRandomly(citylist.at(i), citypath, svg);
+        double randomDistance = tsp.SolveRandomly(citylist.at(i), citypath);
         if (bestDistanceRandom > randomDistance) bestDistanceRandom = randomDistance;
     } 
     cout << "Best Distance for SolveRandomly: " << bestDistanceRandom << endl;
 
+    return 0;
     // SolveMyWay() 
     double bestDistanceMyWay = 1000000000000; 
     for (size_t i = 0; i < citylist.size(); i++) {

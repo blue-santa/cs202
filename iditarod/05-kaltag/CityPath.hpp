@@ -53,10 +53,10 @@ class CityPath {
         void removeCity(const unsigned int& removeCity);
 
         // Get the size of the connections_ object
-        size_t getCount();
+        const size_t getCount() const;
 
         // Get the value at a particular array index
-        unsigned int getNode(const int& index);
+        unsigned int getNode(const int& index) const;
 
     private:
         vector<unsigned int> connections_;

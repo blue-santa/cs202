@@ -66,11 +66,12 @@ void CityPath::removeCity(const unsigned int& nextCity) {
 }
 
 // Get the size of the connections_ object
-size_t CityPath::getCount() {
-    return connections_.size();
+const size_t CityPath::getCount() const {
+    const size_t size = connections_.size();
+    return size;
 }
 
 // Get the value at a particular array index
-unsigned int CityPath::getNode(const int& index) {
+unsigned int CityPath::getNode(const int& index) const {
     return connections_.at(index);
 }

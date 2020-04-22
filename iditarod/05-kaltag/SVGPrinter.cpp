@@ -40,21 +40,14 @@ using std::to_string;
 namespace fs = std::filesystem; 
 
 // Default constructor
-SVGPrinter::SVGPrinter() { }
-SVGPrinter::~SVGPrinter() { }
+SVGPrinter::SVGPrinter(const string& filename, const int& file_size_x, const int& file_size_y, const CityPath& citypath, const CityList& citylist) {
 
-void SVGPrinter::addCircle(ofstream& fout, const double& x1, const double& x2) const {
+    setFilename(filename, file_size_x, file_size_y);
 
-    fout.seekp(0, std::ios_base::end);
-    long pos = fout.tellp();
-    fout.seekp(pos - (5 * sizeof(char)));
-
-    fout << "<circle cx=\"300\" cy=\"300\" r=\"25\" fill=\"green\" />\n";
-
-}
-
-// Store an SVG for later printing
-void SVGPrinter::addNode(const CityList& citylist, const int& fir, const int& las) const {
+    if (filename_ == "") {
+        cout << "filename_ not set" << endl;
+        exit(0);
+    }
 
     ofstream fout(filename_, std::ios::binary);
 
@@ -63,12 +56,47 @@ void SVGPrinter::addNode(const CityList& citylist, const int& fir, const int& la
         exit(0);
     }
 
-    const double x1 = citylist.getNodeLon(fir);
+    initiateSVG(fout, filename, file_size_x, file_size_y);
+
+
+    for (int i = 0; i < (int)citypath.getCount() - 1; i++) {
+        const unsigned int currCity = citypath.getNode(i);
+        const unsigned int nextCity = citypath.getNode(i + 1);
+
+        int currCityPos = citylist.calcArrayNum(currCity);
+        int nextCityPos = citylist.calcArrayNum(nextCity);
+        cout << "Printing SVG for: " << currCity << " and " << nextCity << endl;
+        addNode(fout, citylist, currCityPos, nextCityPos);
+    } 
+}
+
+SVGPrinter::~SVGPrinter() { }
+
+void SVGPrinter::addCircle(ofstream& fout, const double& x, const double& y) const {
+
+    fout.seekp(0, std::ios_base::end);
+    long pos = fout.tellp();
+    fout.seekp(pos - (8 * sizeof(char)));
+
+    fout << "<circle cx=\"" << x1 << "\" cy=\"300\" r=\"25\" fill=\"green\" />" << endl;
+    fout << "</svg>" << endl;
+
+
+}
+
+// Store an SVG for later printing
+void SVGPrinter::addNode(ofstream& fout, const CityList& citylist, const int& fir, const int& las) const {
+
+    // (Don't need first, 'cause we go in a circle around the list
+    // const double x1 = citylist.getNodeLon(fir);
+    // const double y1 = citylist.getNodeLat(fir);
+
     const double x2 = citylist.getNodeLon(las);
+    const double y2 = citylist.getNodeLat(las);
 
-    addCircle(fout, x1, x2);
-
-    fout.close();
+    // TODO Add draw line
+    addCircle(fout, x1, y1);
+    addCircle(fout, x2, y2);
 
     // int sum = 0;
     // int count = 0;
@@ -89,21 +117,8 @@ void SVGPrinter::addNode(const CityList& citylist, const int& fir, const int& la
 }
 
 // Store an SVG for later printing
-void SVGPrinter::initiateSVG(const string& filename, const int& file_size_x, const int& file_size_y) {
+void SVGPrinter::initiateSVG(ofstream& fout, const string& filename, const int& file_size_x, const int& file_size_y) {
 
-    this->setFilename(filename, file_size_x, file_size_y);
-
-    if (filename_ == "") {
-        cout << "filename_ not set" << endl;
-        exit(0);
-    }
-
-    ofstream fout(filename_, std::ios::binary);
-
-    if (!fout) {
-        cout << "Error creating output SVG file";
-        exit(0);
-    }
     fout.seekp(0, std::ios_base::beg);
     
     string initFile = "";
@@ -120,9 +135,6 @@ void SVGPrinter::initiateSVG(const string& filename, const int& file_size_x, con
     cout << initFile;
     fout << initFile << endl;
     
-    fout.close();
-
-
     // if (fin.eof()) {
         // cout << "End of data file" << endl;
         // return 0;
