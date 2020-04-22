@@ -40,7 +40,7 @@ using std::left;
 namespace fs = std::filesystem; 
 
 // Create a TSP solution using random city choices
-double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath) {
+double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath, const string& filepath) {
     // Pick a random starting city
     int max = (int)citylist.getCount(); 
     int startingCityPos = rand() % (max - 1);
@@ -89,7 +89,7 @@ double TspSolver::SolveRandomly(CityList& citylist, CityPath& citypath) {
     } 
 
     // Create SVG
-    string filename = "./test.svg";
+    string filename = "./output_images/randomly/" + filepath + "img.svg";
     const int file_size_x = 500;
     const int file_size_y = 500; 
     SVGPrinter svg(filename, file_size_x, file_size_y, citypath, citylist);

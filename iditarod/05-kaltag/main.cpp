@@ -24,6 +24,7 @@
 
 using std::cin;
 using std::cout;
+using std::to_string;
 using std::endl;
 using std::vector;
 using std::string;
@@ -64,11 +65,13 @@ int main() {
 
     // SolveRandomly() 
     double bestDistanceRandom = 1000000000000; 
+    string filepath = "./output_images/randomly";
+    fs::create_directory(filepath);
     for (size_t i = 0; i < citylists.size(); i++) {
     // for (size_t i = 0; i < 1; i++) {
         CityPath citypath; 
         TspSolver tsp;
-        double randomDistance = tsp.SolveRandomly(citylists.at(i), citypath);
+        double randomDistance = tsp.SolveRandomly(citylists.at(i), citypath, to_string(i));
         if (bestDistanceRandom > randomDistance) bestDistanceRandom = randomDistance;
     } 
     cout << "Best Distance for SolveRandomly: " << bestDistanceRandom << endl;
